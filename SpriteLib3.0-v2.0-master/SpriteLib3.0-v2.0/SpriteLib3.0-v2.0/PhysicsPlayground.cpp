@@ -24,8 +24,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	//Sets up aspect ratio for the camera
 	float aspectRatio = windowWidth / windowHeight;
 
-	EffectManager::CreateEffect(EffectType::Vignette, windowWidth, windowHeight);
-	EffectManager::CreateEffect(EffectType::Sepia, windowWidth, windowHeight);
+	//EffectManager::CreateEffect(EffectType::Vignette, windowWidth, windowHeight);
+	//EffectManager::CreateEffect(EffectType::Sepia, windowWidth, windowHeight);
 	
 
 	//Setup MainCamera Entity
@@ -326,6 +326,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(45.f, -8.f, 3.f));
 		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 20, 20, &ECS::GetComponent<Sprite>(entity),
 			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
+		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
 
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -346,6 +347,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody.SetRotationAngleDeg(0.f);
 		tempPhsBody.SetFixedRotation(true);
+		tempPhsBody.SetGravityScale(3.f);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 
 		this->EnemyEnts.push_back(entity);
@@ -565,7 +567,7 @@ void PhysicsPlayground::GUIWindowOne()
 
 		ImGui::TreePop();
 	}
-
+	
 	ImGui::Separator();
 	
 	ImGui::Text("Editing World Variables!");

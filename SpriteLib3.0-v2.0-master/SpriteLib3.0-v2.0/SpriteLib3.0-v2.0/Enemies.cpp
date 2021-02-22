@@ -20,9 +20,18 @@ float Enemy::getMovementSpeed()
 	return movementSpeed;
 }
 
+void Enemy::setMovementSpeed(float newSpeed)
+{
+	movementSpeed = newSpeed;
+}
+
 float Enemy::getEnemyHealth()
 {
 	return health;
+}
+void Enemy::setEnemyHealth(float newHealth)
+{
+	health = newHealth;
 }
 
 void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity)
