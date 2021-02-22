@@ -32,7 +32,11 @@ protected:
 	std::string m_fileInput;
 
 	PhysicsPlaygroundListener listener;
+	// Part of enemy code
+	unsigned enemyEntity;
+	std::vector <unsigned int> EnemyEnts = {};
 
+	int enemy;
 	int puzzleWall1;
 	int puzzleWall2;
 };
