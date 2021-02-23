@@ -347,7 +347,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody.SetRotationAngleDeg(0.f);
 		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(3.f);
+		tempPhsBody.SetGravityScale(8.f);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 
 		this->EnemyEnts.push_back(entity);

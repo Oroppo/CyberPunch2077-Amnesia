@@ -34,6 +34,56 @@ void Enemy::setEnemyHealth(float newHealth)
 	health = newHealth;
 }
 
+// Enemy idle state
+void Enemy::idle(float distanceX, float distanceY)
+{
+	if (distanceX < 0)
+	{
+		// if player is past than a certain point then chase
+		if (distanceX > (detection * -1))
+		{
+			LorR = 1;
+			chase(distanceX, distanceY);
+		}
+	}
+	// if player is right of enemy then
+	else
+	{
+		// if player is greater than a certain point then chase
+		if (distanceX < detection)
+		{
+			LorR = 2;
+			chase(distanceX, distanceY);
+		}
+	}
+}
+// enemy chase state
+void Enemy::chase(float distanceX, float distanceY)
+{
+	move = vec3(distanceX / 4, 0, 0);
+	m_physBody->SetVelocity(move);
+
+	if (LorR == 1)
+	{
+		if (distanceX >= -30)
+		{
+			fight();
+		}
+	}
+	else
+	{
+		if (distanceX >= 30)
+		{
+			fight();
+		}
+	}
+}
+// enemy fight state - not implemented yet
+void Enemy::fight()
+{
+	//std::cout << "Fight mode activated" << std::endl;
+}
+
 void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity)
 {
 	// movement vector
@@ -43,14 +93,37 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	// finding distance between player and enemy physics body
 	movement = vec2(ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().x - EnemyPhysicsBody->GetPosition().x,
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y - EnemyPhysicsBody->GetPosition().y);
-	std::cout << "X Distance is " << movement.x << std::endl;
-	std::cout << "Y Distance is " << movement.y << std::endl;
+	//std::cout << "X Distance is " << movement.x << std::endl;
+	//std::cout << "Y Distance is " << movement.y << std::endl;
 
 	float distanceX = movement.x;
 	float distanceY = movement.y;
 
-	move = vec3(distanceX / 8, 0, 0);
-	m_physBody->SetVelocity(move);
+	idle(distanceX, distanceY);
+
+	// Chase the player if their past a certain point on vector
+
+	// check if player is on the left or right side of player
+	// if player is on left of enemy then
+	/*if (distanceX < 0)
+	{
+		// if player is past than a certain point then chase
+		if (distanceX > -50)
+		{
+			move = vec3(distanceX / 4, 0, 0);
+			m_physBody->SetVelocity(move);
+		}
+	}
+	// if player is right of enemy then
+	else
+	{
+		// if player is greater than a certain point then chase
+		if (distanceX < 50)
+		{
+			move = vec3(distanceX / 4, 0, 0);
+			m_physBody->SetVelocity(move);
+		}
+	}*/
 }
 
 void Enemy::AttachBody(PhysicsBody* body)
