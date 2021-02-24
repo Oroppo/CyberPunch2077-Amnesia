@@ -12,7 +12,7 @@ class Enemy
 private:
 	float health = 10.f; // Enemy Health
 	float movementSpeed = -20.f; // Enemy movementspeed
-	int detection = 80; // Enemy detection legnth
+	int detection = 150; // Enemy detection legnth
 	//int state; // 1-3 1 = idle, 2 = chase 3 = fight
 	vec3 move = vec3(0, 0, 0); // Movement vectors
 	vec2 movement = vec2(0, 0);
