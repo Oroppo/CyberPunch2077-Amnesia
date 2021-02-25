@@ -100,30 +100,6 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	float distanceY = movement.y;
 
 	idle(distanceX, distanceY);
-
-	// Chase the player if their past a certain point on vector
-
-	// check if player is on the left or right side of player
-	// if player is on left of enemy then
-	/*if (distanceX < 0)
-	{
-		// if player is past than a certain point then chase
-		if (distanceX > -50)
-		{
-			move = vec3(distanceX / 4, 0, 0);
-			m_physBody->SetVelocity(move);
-		}
-	}
-	// if player is right of enemy then
-	else
-	{
-		// if player is greater than a certain point then chase
-		if (distanceX < 50)
-		{
-			move = vec3(distanceX / 4, 0, 0);
-			m_physBody->SetVelocity(move);
-		}
-	}*/
 }
 
 void Enemy::AttachBody(PhysicsBody* body)
