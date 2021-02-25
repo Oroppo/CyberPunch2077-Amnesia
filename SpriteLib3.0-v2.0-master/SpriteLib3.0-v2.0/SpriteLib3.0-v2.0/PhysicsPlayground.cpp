@@ -548,8 +548,8 @@ void PhysicsPlayground::GUIWindowTwo()
 }
 
 
-
-static float speed = 3.f;
+static boolean jump = false;
+static float speed = 0.f;
 void PhysicsPlayground::KeyboardHold()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
@@ -560,14 +560,17 @@ void PhysicsPlayground::KeyboardHold()
 	if (Input::GetKey(Key::A))
 	{
 		if (speed>-4.0){ speed -= 0.25; }
-	
-		player.GetBody()->ApplyForceToCenter(b2Vec2(100000.f * speed, 1.f), true);
-		std::cout << speed;
+		vel = b2Vec2(100000.f * speed, 1.f);
+		std::cout << vel.x<<std::endl;
+		player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
+		player.GetBody()->GetLinearVelocity();
 	}
 	if (Input::GetKey(Key::D))
 	{
 		if (speed <4.0) { speed += 0.25; }
-		player.GetBody()->ApplyForceToCenter(b2Vec2(100000.f * speed, 1.f), true);
+		vel = b2Vec2(100000.f * speed, 1.f);
+		player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
+
 	}
 	if (Input::GetKey(Key::Shift))
 	{
@@ -597,7 +600,7 @@ void PhysicsPlayground::KeyboardDown()
 	{
 		if (Input::GetKeyDown(Key::Space))
 		{
-			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 160000.f), true);
+			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 500000.f), true);
 			canJump.m_canJump = false;
 		}
 	}

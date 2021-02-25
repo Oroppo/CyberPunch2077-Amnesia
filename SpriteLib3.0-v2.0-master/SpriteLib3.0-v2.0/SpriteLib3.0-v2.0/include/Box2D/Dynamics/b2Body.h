@@ -519,6 +519,7 @@ inline void b2Body::SetLinearVelocity(const b2Vec2& v)
 
 inline const b2Vec2& b2Body::GetLinearVelocity() const
 {
+
 	return m_linearVelocity;
 }
 
