@@ -701,3 +701,22 @@ void PhysicsPlayground::KeyboardUp()
 	
 
 }
+void PhysicsPlayground::MouseClick(SDL_MouseButtonEvent evnt) {
+	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
+	int windowWidth = BackEnd::GetWindowWidth();
+	int windowHeight = BackEnd::GetWindowHeight();
+	int mainCam = MainEntities::MainCamera();
+	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+			vec4 ortho = m_sceneReg->get<Camera>(mainCam).GetOrthoSize();
+			vec2 pos = vec2(
+				((evnt.x / static_cast<float>(windowHeight) * 2.f * ortho.w) - (ortho.w * static_cast<float>(windowWidth) / static_cast<float>(windowHeight))),
+				((-evnt.y / static_cast<float>(windowHeight) * 2.f * ortho.w) + ortho.w));
+			pos = pos + vec2(m_sceneReg->get<Camera>(mainCam).GetPositionX(), m_sceneReg->get<Camera>(mainCam).GetPositionY());
+			std::cout <<"position relative to player "<< pos.x<< " "<< pos.y<<"\n";
+			std::cout << "position relative to frame " << evnt.x << " " << evnt.y<<"\n";
+		}
+	
+	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)) {
+
+	}
+}

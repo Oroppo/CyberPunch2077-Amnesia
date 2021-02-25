@@ -24,7 +24,7 @@ public:
 	void KeyboardHold() override;
 	void KeyboardDown() override;
 	void KeyboardUp() override;
-
+	void MouseClick(SDL_MouseButtonEvent evnt) override;
 protected:
 	bool m_firstWindow = false;
 	bool m_secondWindow = false;
