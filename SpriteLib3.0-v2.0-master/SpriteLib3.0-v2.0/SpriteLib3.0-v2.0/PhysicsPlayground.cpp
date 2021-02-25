@@ -102,7 +102,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
 		// square phys body
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | OBJECTS | PICKUP | TRIGGER, 0.5f, 3.f);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PLAYER,  GROUND| OBJECTS | PICKUP | TRIGGER, 0.5f, 3.f);
 		// Circle phys body
 		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY)/2.f), vec2(0.f, 0.f), false, PLAYER, ENVIRONMENT | ENEMY | OBJECTS | PICKUP | TRIGGER | HEXAGON, 0.5f, 3.f);
 		//std::vector<b2Vec2> points = {b2Vec2(-tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(0.f, tempSpr.GetHeight()/2.f)};
@@ -214,7 +214,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 	}*/
 
-	{
+	/*//{
 		auto entity = ECS::CreateEntity();
 		enemy = entity;
 		//Add components
@@ -247,7 +247,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
 		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, GROUND | ENVIRONMENT | PLAYER | OBJECTS | TRIGGER, 0.3f);
+		tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetWidth() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, GROUND | ENVIRONMENT  | OBJECTS | TRIGGER);
 
 		tempPhsBody.SetRotationAngleDeg(0.f);
 		tempPhsBody.SetFixedRotation(true);
@@ -255,8 +255,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 
 		this->EnemyEnts.push_back(entity);
-	}
-
+	}*/
+	
 	/*
 	//Setup trigger
 	{
@@ -549,28 +549,30 @@ void PhysicsPlayground::GUIWindowTwo()
 
 
 
-
+static float speed = 3.f;
 void PhysicsPlayground::KeyboardHold()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 
-	float speed = 5.f;
+
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
 
+	if (Input::GetKey(Key::A))
+	{
+		if (speed>-4.0){ speed -= 0.25; }
+	
+		player.GetBody()->ApplyForceToCenter(b2Vec2(100000.f * speed, 1.f), true);
+		std::cout << speed;
+	}
+	if (Input::GetKey(Key::D))
+	{
+		if (speed <4.0) { speed += 0.25; }
+		player.GetBody()->ApplyForceToCenter(b2Vec2(100000.f * speed, 1.f), true);
+	}
 	if (Input::GetKey(Key::Shift))
 	{
 		speed *= 5.f;
 	}
-
-	if (Input::GetKey(Key::A))
-	{
-		player.GetBody()->ApplyForceToCenter(b2Vec2(-400000.f * speed, 0.f), true);
-	}
-	if (Input::GetKey(Key::D))
-	{
-		player.GetBody()->ApplyForceToCenter(b2Vec2(400000.f * speed, 0.f), true);
-	}
-
 	//Change physics body size for circle
 	if (Input::GetKey(Key::O))
 	{
