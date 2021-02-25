@@ -224,11 +224,11 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Enemy>(entity);
 
 		//Sets up the components
-		std::string fileName = "BeachBall.png";
+		std::string fileName = "EnemySprite.png";
 		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(45.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 20, 20, &ECS::GetComponent<Sprite>(entity),
+		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
 			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
 		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
 
