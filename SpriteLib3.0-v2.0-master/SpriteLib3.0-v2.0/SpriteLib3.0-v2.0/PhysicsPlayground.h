@@ -35,8 +35,10 @@ protected:
 	// Part of enemy code
 	unsigned enemyEntity;
 	std::vector <unsigned int> EnemyEnts = {};
+	void spawnBasicRobot();
 
 	int enemy;
+	int enemy2;
 	int puzzleWall1;
 	int puzzleWall2;
 };

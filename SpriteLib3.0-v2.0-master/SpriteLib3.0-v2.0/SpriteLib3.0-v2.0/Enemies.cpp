@@ -60,7 +60,7 @@ void Enemy::idle(float distanceX, float distanceY)
 // enemy chase state
 void Enemy::chase(float distanceX, float distanceY)
 {
-	move = vec3(distanceX / 4, 0, 0);
+	move = vec3(distanceX / 3, 0, 0);
 	m_physBody->SetVelocity(move);
 
 	if (LorR == 1)
