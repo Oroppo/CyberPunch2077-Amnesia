@@ -1,5 +1,6 @@
 #include "Enemies.h"
 #include "Utilities.h"
+#include "PhysicsBody.h"
 Enemy::Enemy()
 {
 }
@@ -35,7 +36,7 @@ void Enemy::setEnemyHealth(float newHealth)
 }
 
 // Enemy idle state
-void Enemy::idle(float distanceX, float distanceY)
+void Enemy::idle(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody)
 {
 	if (distanceX < 0)
 	{
@@ -43,7 +44,7 @@ void Enemy::idle(float distanceX, float distanceY)
 		if (distanceX > (detection * -1))
 		{
 			LorR = 1;
-			chase(distanceX, distanceY);
+			chase(distanceX, distanceY, EnemyPhysicsBody);
 		}
 	}
 	// if player is right of enemy then
@@ -53,15 +54,17 @@ void Enemy::idle(float distanceX, float distanceY)
 		if (distanceX < detection)
 		{
 			LorR = 2;
-			chase(distanceX, distanceY);
+			chase(distanceX, distanceY, EnemyPhysicsBody);
 		}
 	}
 }
 // enemy chase state
-void Enemy::chase(float distanceX, float distanceY)
+void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody)
 {
 	move = vec3(distanceX / 3, 0, 0);
-	m_physBody->SetVelocity(move);
+	EnemyPhysicsBody->SetVelocity(move);
+
+	//SetPosition
 
 	if (LorR == 1)
 	{
@@ -99,7 +102,7 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	float distanceX = movement.x;
 	float distanceY = movement.y;
 
-	idle(distanceX, distanceY);
+	idle(distanceX, distanceY, EnemyPhysicsBody);
 }
 
 void Enemy::AttachBody(PhysicsBody* body)

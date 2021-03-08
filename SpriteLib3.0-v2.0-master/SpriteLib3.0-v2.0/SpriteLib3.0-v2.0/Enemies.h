@@ -34,8 +34,8 @@ public:
 	void setEnemyHealth(float);
 
 	//Enemy State Functions
-	void idle(float distanceX, float distanceY);
-	void chase(float distanceX, float distanceY);
+	void idle(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody);
+	void chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody);
 	void fight();
 
 
