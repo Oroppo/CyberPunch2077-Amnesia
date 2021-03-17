@@ -615,7 +615,7 @@ void PhysicsPlayground::KeyboardHold()
 	{
 		if (speed>-4.0){ speed -= 0.25; }
 		vel = b2Vec2(100000.f * speed, 1.f);
-		std::cout << vel.x<<std::endl;
+		//std::cout << vel.x<<std::endl;
 		player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 		player.GetBody()->GetLinearVelocity();
 	}
