@@ -68,14 +68,14 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 
 	if (LorR == 1)
 	{
-		if (distanceX >= -30)
+		if (distanceX >= -50)
 		{
 			fight();
 		}
 	}
-	else
+	if (LorR == 2)
 	{
-		if (distanceX >= 30)
+		if (distanceX <= 50)
 		{
 			fight();
 		}
@@ -84,7 +84,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 // enemy fight state - not implemented yet
 void Enemy::fight()
 {
-	//std::cout << "Fight mode activated" << std::endl;
+	std::cout << "Fight mode activated" << std::endl;
 }
 
 void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity)
