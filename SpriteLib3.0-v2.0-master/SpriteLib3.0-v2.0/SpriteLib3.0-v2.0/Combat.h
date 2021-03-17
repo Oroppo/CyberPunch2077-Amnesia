@@ -1,5 +1,5 @@
 #pragma once
-class shared {
+class Shared {
 protected:
 	float Ehealth, Phealth, Pdamage, Edamage;
 public:

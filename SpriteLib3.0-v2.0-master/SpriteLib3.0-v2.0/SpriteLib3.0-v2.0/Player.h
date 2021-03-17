@@ -2,7 +2,7 @@
 #define __PLAYER_H__
 
 #include "BackEnd.h"
-
+#include"Combat.h"
 #define TOPDOWN
 
 enum AnimEnums
@@ -60,7 +60,7 @@ enum AnimDir
 #endif
 };
 
-class Player
+class Player : public Shared
 {
 public:
 	Player();
@@ -73,6 +73,7 @@ public:
 	void Update();
 	void MovementUpdate();
 	void AnimationUpdate();
+	void AttachBody(PhysicsBody* body);
 
 private:
 	void SetActiveAnimation(int anim);

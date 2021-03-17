@@ -81,7 +81,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<CanJump>(entity);
-
+		ECS::AttachComponent<Player>(entity);
 		//Sets up the components
 		std::string fileName = "MainPlayer.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 50);
@@ -391,8 +391,9 @@ void PhysicsPlayground::Update()
 {
 
 	// Part of Enemy Code
-	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
-
+	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
+	player.Update();
+	ECS::GetComponent<Player>(MainEntities::MainPlayer()).AttachBody(&ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()));
 	Enemy call;
 
 	for (int x = 0; x < this->EnemyEnts.size(); x++) {
@@ -609,7 +610,7 @@ static boolean jump = false;
 static float speed = 0.f;
 void PhysicsPlayground::KeyboardHold()
 {
-	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
+	/*auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 
 
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
@@ -634,7 +635,7 @@ void PhysicsPlayground::KeyboardHold()
 	/*if (Input::GetKey(Key::Shift))
 	{
 		speed *= 5.f;
-	}*/
+	}
 
 	//Change physics body size for circle
 	if (Input::GetKey(Key::N))
@@ -644,7 +645,9 @@ void PhysicsPlayground::KeyboardHold()
 	else if (Input::GetKey(Key::M))
 	{
 		player.ScaleBody(-1.3 * Timer::deltaTime, 0);
-	}
+	
+}
+*/
 }
 
 void PhysicsPlayground::KeyboardDown()

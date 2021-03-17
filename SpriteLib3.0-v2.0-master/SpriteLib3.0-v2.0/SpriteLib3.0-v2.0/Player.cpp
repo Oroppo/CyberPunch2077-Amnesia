@@ -86,11 +86,51 @@ void Player::Update()
 		MovementUpdate();
 	}
 
-	AnimationUpdate();
+	//AnimationUpdate();
 }
-
+static boolean jump = false;
+static float speed = 0.f;
 void Player::MovementUpdate()
 {
+	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
+
+
+	b2Vec2 vel = b2Vec2(0.f, 0.f);
+	if (jump == false) {
+		if (Input::GetKey(Key::A))
+		{
+			if (speed > -4.0) { speed -= 0.25; }
+			vel = b2Vec2(100000.f * speed, 1.f);
+			//std::cout << vel.x<<std::endl;
+			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
+			player.GetBody()->GetLinearVelocity();
+		}
+		if (Input::GetKey(Key::D))
+		{
+			if (speed < 4.0) { speed += 0.25; }
+			vel = b2Vec2(100000.f * speed, 1.f);
+			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
+
+		}
+	}
+	// Sprinting commented out since it crashes game when pressed
+	/*if (Input::GetKey(Key::Shift))
+	{
+		speed *= 5.f;
+	}
+
+	//Change physics body size for circle
+	if (Input::GetKey(Key::N))
+	{
+		player.ScaleBody(1.3 * Timer::deltaTime, 0);
+	}
+	else if (Input::GetKey(Key::M))
+	{
+		player.ScaleBody(-1.3 * Timer::deltaTime, 0);
+
+}
+	/*
+	
 	m_moving = false;
 
 	if (m_hasPhysics)
@@ -102,10 +142,11 @@ void Player::MovementUpdate()
 		{
 			speed *= 7.f;
 		}
-
+		
 #ifdef TOPDOWN
 		if (Input::GetKey(Key::W))
 		{
+			std::cout << "its working";
 			vel = vel + vec3(0.f, 1.f, 0.f);
 			m_facing = UP;
 			m_moving = true;
@@ -133,6 +174,7 @@ void Player::MovementUpdate()
 
 		m_physBody->SetVelocity(vel * speed);
 	}
+	/*
 	else
 	{
 		//Regular Movement
@@ -141,6 +183,7 @@ void Player::MovementUpdate()
 #ifdef TOPDOWN
 		if (Input::GetKey(Key::W))
 		{
+		
 			m_transform->SetPositionY(m_transform->GetPositionY() + (speed * Timer::deltaTime));
 			m_facing = UP;
 			m_moving = true;
@@ -179,6 +222,7 @@ void Player::MovementUpdate()
 		m_attacking = true;
 		m_locked = true;
 	}
+	*/
 }
 
 void Player::AnimationUpdate()
@@ -217,4 +261,7 @@ void Player::AnimationUpdate()
 void Player::SetActiveAnimation(int anim)
 {
 	m_animController->SetActiveAnim(anim);
+}
+void Player::AttachBody(PhysicsBody* body) {
+	m_physBody = body;
 }
