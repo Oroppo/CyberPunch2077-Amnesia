@@ -1,7 +1,10 @@
 #pragma once
 class Shared {
 protected:
-	float Ehealth, Phealth, Pdamage, Edamage;
+	float Ehealth = 30;
+	float Edamage = 10;
+	float Phealth = 80;
+	float Pdamage = 10;
 public:
 	void setEhealth();
 	void setPhealth();

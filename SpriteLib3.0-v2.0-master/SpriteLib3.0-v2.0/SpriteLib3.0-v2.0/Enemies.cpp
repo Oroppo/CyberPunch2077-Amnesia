@@ -29,12 +29,12 @@ void Enemy::setMovementSpeed(float newSpeed)
 // returns enemy's health
 float Enemy::getEnemyHealth()
 {
-	return health;
+	return Ehealth;
 }
 // sets health of enemies
 void Enemy::setEnemyHealth(float newHealth)
 {
-	health = newHealth;
+	Ehealth = newHealth;
 }
 
 void Enemy::resetTimer()
@@ -46,8 +46,9 @@ void Enemy::internalTime()
 {
 	//When attacked set internalTime to 1
 	//change constant to however much damage the player deals to enemies
-	if (health < (health + 5))
+	if (Ehealth < (Ehealth + Pdamage))
 	{
+
 		internalTimer = 1;
 	}
 	// if the internal timer is great than 0 it will count it down till it reaches 0
@@ -134,7 +135,7 @@ void Enemy::fight()
 			{
 				// decrease player's health here and play enemy attack animation and player taking damage animation
 				std::cout << "Timer hit 0 attack here" << std::endl;
-				// player::health = player::health - 5
+				Phealth = Phealth - Edamage;
 				timer = 5;
 			}
 		}
@@ -155,7 +156,8 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 
 	float distanceX = movement.x;
 	float distanceY = movement.y;
-
+	
+	internalTime(); 
 	idle(distanceX, distanceY, EnemyPhysicsBody);
 }
 

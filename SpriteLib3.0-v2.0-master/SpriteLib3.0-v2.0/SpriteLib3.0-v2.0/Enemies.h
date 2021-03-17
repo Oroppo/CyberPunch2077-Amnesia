@@ -2,16 +2,17 @@
 #include "PhysicsBody.h"
 #include "Sprite.h"
 #include "Timer.h"
+#include "Combat.h"
 
 /*enum class ZombAnimEnums
 {
 	Standing = 0,
 	Moving = 1,
 };*/
-class Enemy
+class Enemy : public Shared
 {
 private:
-	float health = 10.f; // Enemy Health
+	//float health = 10.f; // Enemy Health
 	float movementSpeed = -20.f; // Enemy movementspeed
 	int detection = 150; // Enemy detection legnth
 	//int state; // 1-3 1 = idle, 2 = chase 3 = fight
