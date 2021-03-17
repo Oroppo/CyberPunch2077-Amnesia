@@ -88,18 +88,18 @@ void Player::Update()
 
 	//AnimationUpdate();
 }
-static boolean jump = false;
+
 static float speed = 0.f;
 void Player::MovementUpdate()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
-
+	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
 
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
-	if (jump == false) {
+	//if (canJump.m_canJump == true) {
 		if (Input::GetKey(Key::A))
 		{
-			if (speed > -4.0) { speed -= 0.25; }
+			if (speed > -4.0) { speed -= 0.5; }
 			vel = b2Vec2(100000.f * speed, 1.f);
 			//std::cout << vel.x<<std::endl;
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
@@ -107,122 +107,26 @@ void Player::MovementUpdate()
 		}
 		if (Input::GetKey(Key::D))
 		{
-			if (speed < 4.0) { speed += 0.25; }
+			if (speed < 4.0) { speed += 0.5; }
 			vel = b2Vec2(100000.f * speed, 1.f);
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 
 		}
-	}
-	// Sprinting commented out since it crashes game when pressed
-	/*if (Input::GetKey(Key::Shift))
-	{
-		speed *= 5.f;
-	}
-
-	//Change physics body size for circle
-	if (Input::GetKey(Key::N))
-	{
-		player.ScaleBody(1.3 * Timer::deltaTime, 0);
-	}
-	else if (Input::GetKey(Key::M))
-	{
-		player.ScaleBody(-1.3 * Timer::deltaTime, 0);
-
-}
-	/*
+//	}
 	
-	m_moving = false;
 
-	if (m_hasPhysics)
+	if (Input::GetKeyDown(Key::T))
 	{
-		float speed = 10.f;
-		vec3 vel = vec3(0.f, 0.f, 0.f);
-
-		if (Input::GetKey(Key::Shift))
-		{
-			speed *= 7.f;
-		}
-		
-#ifdef TOPDOWN
-		if (Input::GetKey(Key::W))
-		{
-			std::cout << "its working";
-			vel = vel + vec3(0.f, 1.f, 0.f);
-			m_facing = UP;
-			m_moving = true;
-		}
-		if (Input::GetKey(Key::S))
-		{
-			vel = vel + vec3(0.f, -1.f, 0.f);
-			m_facing = DOWN;
-			m_moving = true;
-		}
-#endif
-
-		if (Input::GetKey(Key::A))
-		{
-			vel = vel + vec3(-1.f, 0.f, 0.f);
-			m_facing = LEFT;
-			m_moving = true;
-		}
-		if (Input::GetKey(Key::D))
-		{
-			vel = vel + vec3(1.f, 0.f, 0.f);
-			m_facing = RIGHT;
-			m_moving = true;
-		}
-
-		m_physBody->SetVelocity(vel * speed);
+		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
-	/*
-	else
+	if (canJump.m_canJump)
 	{
-		//Regular Movement
-		float speed = 15.f;
-
-#ifdef TOPDOWN
-		if (Input::GetKey(Key::W))
+		if (Input::GetKeyDown(Key::Space))
 		{
-		
-			m_transform->SetPositionY(m_transform->GetPositionY() + (speed * Timer::deltaTime));
-			m_facing = UP;
-			m_moving = true;
-		}
-		if (Input::GetKey(Key::S))
-		{
-			m_transform->SetPositionY(m_transform->GetPositionY() - (speed * Timer::deltaTime));
-			m_facing = DOWN;
-			m_moving = true;
-		}
-#endif
-
-		if (Input::GetKey(Key::A))
-		{
-			m_transform->SetPositionX(m_transform->GetPositionX() - (speed * Timer::deltaTime));
-			m_facing = LEFT;
-			m_moving = true;
-		}
-		if (Input::GetKey(Key::D))
-		{
-			m_transform->SetPositionX(m_transform->GetPositionX() + (speed * Timer::deltaTime));
-			m_facing = RIGHT;
-			m_moving = true;
+			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 700000.f), true);
+			canJump.m_canJump = false;
 		}
 	}
-
-	if (Input::GetKeyDown(Key::Space))
-	{
-		m_moving = false;
-
-		if (m_hasPhysics)
-		{
-			m_physBody->SetVelocity(vec3());
-		}
-
-		m_attacking = true;
-		m_locked = true;
-	}
-	*/
 }
 
 void Player::AnimationUpdate()

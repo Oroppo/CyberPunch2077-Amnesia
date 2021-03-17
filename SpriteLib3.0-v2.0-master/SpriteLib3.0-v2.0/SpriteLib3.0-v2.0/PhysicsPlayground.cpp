@@ -610,63 +610,12 @@ static boolean jump = false;
 static float speed = 0.f;
 void PhysicsPlayground::KeyboardHold()
 {
-	/*auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
-
-
-	b2Vec2 vel = b2Vec2(0.f, 0.f);
-	if (jump == false) {
-		if (Input::GetKey(Key::A))
-		{
-			if (speed > -4.0) { speed -= 0.25; }
-			vel = b2Vec2(100000.f * speed, 1.f);
-			//std::cout << vel.x<<std::endl;
-			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
-			player.GetBody()->GetLinearVelocity();
-		}
-		if (Input::GetKey(Key::D))
-		{
-			if (speed < 4.0) { speed += 0.25; }
-			vel = b2Vec2(100000.f * speed, 1.f);
-			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
-
-		}
-	}
-	// Sprinting commented out since it crashes game when pressed
-	/*if (Input::GetKey(Key::Shift))
-	{
-		speed *= 5.f;
-	}
-
-	//Change physics body size for circle
-	if (Input::GetKey(Key::N))
-	{
-		player.ScaleBody(1.3 * Timer::deltaTime, 0);
-	}
-	else if (Input::GetKey(Key::M))
-	{
-		player.ScaleBody(-1.3 * Timer::deltaTime, 0);
 	
-}
-*/
 }
 
 void PhysicsPlayground::KeyboardDown()
 {
-	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
-	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
-
-	if (Input::GetKeyDown(Key::T))
-	{
-		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
-	}
-	if (canJump.m_canJump)
-	{
-		if (Input::GetKeyDown(Key::Space))
-		{
-			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 700000.f), true);
-			canJump.m_canJump = false;
-		}
-	}
+	
 }
 
 void PhysicsPlayground::KeyboardUp()
