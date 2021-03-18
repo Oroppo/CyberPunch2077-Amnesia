@@ -156,6 +156,9 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 
 	float distanceX = movement.x;
 	float distanceY = movement.y;
+
+	float EtoPXcord = movement.x;
+	float EtoPYcord = movement.y;
 	
 	internalTime(); 
 	idle(distanceX, distanceY, EnemyPhysicsBody);

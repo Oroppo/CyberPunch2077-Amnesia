@@ -5,6 +5,8 @@ protected:
 	float Edamage = 10;
 	float Phealth = 80;
 	float Pdamage = 10;
+	float EtoPXcord;
+	float EtoPYcord;
 public:
 	void setEhealth();
 	void setPhealth();
