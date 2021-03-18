@@ -42,13 +42,18 @@ void Enemy::resetTimer()
 		timer = 5;
 }
 
-void Enemy::internalTime()
+void Enemy::internalTime(PhysicsBody* EnemyPhysicsBody)
 {
+	// vector 3 for knockback on enemies
+	vec3 knockback(800000000, 500000000, 0);
 	//When attacked set internalTime to 1
 	//change constant to however much damage the player deals to enemies
-	if (Ehealth < (Ehealth + Pdamage))
+	//std::cout << "Ehealth is " << Ehealth << std::endl;
+	if (initialEHealth > Ehealth)
 	{
-
+		
+		EnemyPhysicsBody->ApplyForce(knockback);
+		initialEHealth = Ehealth;
 		internalTimer = 1;
 	}
 	// if the internal timer is great than 0 it will count it down till it reaches 0
@@ -95,7 +100,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 	{
 		if (distanceX >= -50)
 		{
-			fight();
+			fight(EnemyPhysicsBody);
 		}
 		else
 		{
@@ -107,7 +112,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 	{
 		if (distanceX <= 50)
 		{
-			fight();
+			fight(EnemyPhysicsBody);
 		}
 		else
 		{
@@ -116,12 +121,12 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 	}
 }
 // enemy fight state - not implemented yet
-void Enemy::fight()
+void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 {
 	// create something here for enemy taking damage. Maybe a class player and enemy inherit from?
 
-	//std::cout << "Fight mode activated" << std::endl;
 	std::cout << "Timer is " << timer << std::endl;
+	//std::cout << "internal Timer is " << internalTimer << std::endl;
 	// will control enemys attacking when not currently being attacked
 	if (internalTimer <= 0)
 	{
@@ -159,7 +164,7 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	float EtoPXcord = movement.x;
 	float EtoPYcord = movement.y;
 	
-	internalTime(); 
+	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);
 }
 
