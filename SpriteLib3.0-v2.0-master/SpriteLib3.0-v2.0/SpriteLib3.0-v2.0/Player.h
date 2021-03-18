@@ -74,8 +74,11 @@ public:
 	void MovementUpdate();
 	void AnimationUpdate();
 	void AttachBody(PhysicsBody* body);
-
+	float PlayerAttack(COORD);
 private:
+	float AtkDistance;
+	int HP = 3, attackPower =1; 
+	COORD PlayerPosition; 
 	void SetActiveAnimation(int anim);
 
 	//Basically, any animation OTHER than moving will not have a cancel, and we'll be checking whether or not that animation is done

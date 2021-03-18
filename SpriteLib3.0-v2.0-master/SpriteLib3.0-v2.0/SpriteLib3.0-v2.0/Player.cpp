@@ -1,5 +1,5 @@
 #include "Player.h"
-
+#include "Utilities.h"
 Player::Player()
 {
 }
@@ -113,7 +113,13 @@ void Player::MovementUpdate()
 
 		}
 //	}
-	
+		if (Input::GetKey(Key::O))
+		{
+
+		}
+		if (Input::GetKey(Key::I))
+		{
+		}
 
 	if (Input::GetKeyDown(Key::T))
 	{
@@ -128,7 +134,18 @@ void Player::MovementUpdate()
 		}
 	}
 }
-
+float Player::PlayerAttack(COORD Position) {
+	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
+vec2 distance = vec2(ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().x - Position.X,
+	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y - Position.Y);
+AtkDistance = sqrt(pow(distance.y, 2) + pow(distance.y, 2));
+if (AtkDistance < 30.0) {
+	return 1;
+}
+else if (AtkDistance > 30.0) {
+	return 0;
+}
+}
 void Player::AnimationUpdate()
 {
 	int activeAnimation = 0;

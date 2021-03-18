@@ -606,8 +606,6 @@ void PhysicsPlayground::GUIWindowTwo()
 }
 
 
-static boolean jump = false;
-static float speed = 0.f;
 void PhysicsPlayground::KeyboardHold()
 {
 	

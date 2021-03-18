@@ -147,7 +147,6 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	// movement vector
 	vec3 move = vec3(0, 0, 0);
 	vec2 movement = vec2(0, 0);
-
 	// finding distance between player and enemy physics body
 	movement = vec2(ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().x - EnemyPhysicsBody->GetPosition().x,
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y - EnemyPhysicsBody->GetPosition().y);
