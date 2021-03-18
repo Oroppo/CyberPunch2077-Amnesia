@@ -26,6 +26,7 @@ private:
 	PhysicsBody* m_physBody = nullptr;
 
 public:
+
 	Enemy();
 	void InitEnemy(std::string& fileName, int width, int height, Sprite* sprite, Transform* transform, PhysicsBody* body = nullptr);
 	void AttachBody(PhysicsBody* body);

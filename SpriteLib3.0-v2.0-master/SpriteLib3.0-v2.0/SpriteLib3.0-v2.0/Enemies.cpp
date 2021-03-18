@@ -1,6 +1,7 @@
 #include "Enemies.h"
 #include "Utilities.h"
 #include "PhysicsBody.h"
+#include"Player.h"
 // enemy constructor
 Enemy::Enemy()
 {
@@ -90,12 +91,12 @@ void Enemy::idle(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody
 		}
 	}
 }
+
 // enemy chase state
 void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody)
 {
 	move = vec3(distanceX / 3, 0, 0);
 	EnemyPhysicsBody->SetVelocity(move);
-
 	if (LorR == 1)
 	{
 		if (distanceX >= -50)
@@ -123,9 +124,10 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 // enemy fight state - not implemented yet
 void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 {
+
 	// create something here for enemy taking damage. Maybe a class player and enemy inherit from?
 
-	std::cout << "Timer is " << timer << std::endl;
+	//std::cout << "Timer is " << timer << std::endl;
 	//std::cout << "internal Timer is " << internalTimer << std::endl;
 	// will control enemys attacking when not currently being attacked
 	if (internalTimer <= 0)
@@ -161,9 +163,14 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	float distanceX = movement.x;
 	float distanceY = movement.y;
 
-	float EtoPXcord = movement.x;
-	float EtoPYcord = movement.y;
-	
+	 EtoPXcord = movement.x;
+	 EtoPYcord = movement.y;
+	 COORD pos;
+	 pos.X = movement.x;
+	 pos.Y = movement.y;
+	 Player temp;
+
+	 Ehealth-= temp.PlayerAttack(pos) ;
 	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);
 }
