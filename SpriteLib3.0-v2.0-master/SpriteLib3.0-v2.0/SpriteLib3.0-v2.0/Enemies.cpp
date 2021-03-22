@@ -180,10 +180,6 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	 pos.Y = movement.y;
 	 Player temp;
 
-	 if (Ehealth == 0) {
-		 destroyEnemy(eEnts,Eentity);
-	 }
-
 	 Ehealth -= temp.PlayerAttack(pos) ;
 	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);

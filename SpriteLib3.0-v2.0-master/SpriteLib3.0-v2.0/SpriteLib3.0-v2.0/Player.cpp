@@ -138,9 +138,9 @@ float Player::PlayerAttack(COORD Position) {
 	if (Input::GetKey(Key::O))
 	{
 		
-		if (AttackTimer > 0) {
+	//	if (AttackTimer > 0) {
 
-			if (AttackTimer <= 0) {
+		//	if (AttackTimer <= 0) {
 			/*	std::cout << "Before" << AttackTimer << std::endl;
 				AttackTimer -= Timer::deltaTime;
 				std::cout << "After" << AttackTimer << std::endl;*/
@@ -175,8 +175,8 @@ float Player::PlayerAttack(COORD Position) {
 				}
 				
 				
-			}
-		}
+			//}
+		//}
 	}
 }
 void Player::AnimationUpdate()
