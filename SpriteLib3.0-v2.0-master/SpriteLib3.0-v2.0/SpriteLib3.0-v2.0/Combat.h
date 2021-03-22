@@ -19,4 +19,5 @@ public:
 	void setPhealth();
 	void getEhealth();
 	void getPhealth();
+	
 };

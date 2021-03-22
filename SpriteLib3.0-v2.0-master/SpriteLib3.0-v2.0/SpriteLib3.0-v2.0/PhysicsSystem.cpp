@@ -161,6 +161,7 @@ void PhysicsSystem::CleanupBodies()
 {
 	for (int i = 0; i < PhysicsBody::m_bodiesToDelete.size(); i++)
 	{
+
 		//Bodies to delete
 		ECS::GetComponent<PhysicsBody>(PhysicsBody::m_bodiesToDelete[i]).DeleteBody();
 

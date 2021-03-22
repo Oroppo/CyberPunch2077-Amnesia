@@ -80,6 +80,7 @@ private:
 	int HP = 3, attackPower =1; 
 	COORD PlayerPosition; 
 	void SetActiveAnimation(int anim);
+	float AttackTimer=1.f;
 
 	//Basically, any animation OTHER than moving will not have a cancel, and we'll be checking whether or not that animation is done
 	bool m_moving = false;

@@ -137,17 +137,45 @@ void Player::MovementUpdate()
 float Player::PlayerAttack(COORD Position) {
 	if (Input::GetKey(Key::O))
 	{
-		if ((Position.X < 50.0) && (Position.X > 0.0)) {
-			return 10;
-		}
-		else if (Position.X > 50.0) {
-			return 0;
-		}
-		if ((Position.X > -50.0) && (Position.X < 0.0)) {
-			return 10;
-		}
-		else if (Position.X < -50.0) {
-			return 0;
+		
+		if (AttackTimer > 0) {
+
+			if (AttackTimer <= 0) {
+			/*	std::cout << "Before" << AttackTimer << std::endl;
+				AttackTimer -= Timer::deltaTime;
+				std::cout << "After" << AttackTimer << std::endl;*/
+
+				if ((Position.X < 50.0) && (Position.X > 0.0)) {
+
+					//AttackTimer = 1;
+					//std::cout << "Reset" << AttackTimer << std::endl;
+					return 10;
+
+				}
+				else if (Position.X > 50.0) {
+					//AttackTimer = 1;
+					//std::cout << "Reset" << AttackTimer << std::endl;
+					return 0;
+
+					
+				}
+				if ((Position.X > -50.0) && (Position.X < 0.0)) {
+					//AttackTimer = 1;
+					//std::cout << "Reset" << AttackTimer << std::endl;
+					return 10;
+
+					
+				}
+				else if (Position.X < -50.0) {
+					//AttackTimer = 1;
+					//std::cout << "Reset" << AttackTimer << std::endl;
+					return 0;
+
+
+				}
+				
+				
+			}
 		}
 	}
 }

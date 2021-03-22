@@ -2,6 +2,7 @@
 #include "Utilities.h"
 #include "PhysicsBody.h"
 #include"Player.h"
+#include <Vector>
 // enemy constructor
 Enemy::Enemy()
 {
@@ -46,17 +47,26 @@ void Enemy::resetTimer()
 void Enemy::internalTime(PhysicsBody* EnemyPhysicsBody)
 {
 	// vector 3 for knockback on enemies
-	vec3 knockback(800000000, 500000000, 0);
+	vec3 knockbackRight(800000000, 5000000000, 0);
+	vec3 knockbackLeft(-800000000, -500000000, 0);
 	//When attacked set internalTime to 1
 	//change constant to however much damage the player deals to enemies
 	//std::cout << "Ehealth is " << Ehealth << std::endl;
-	if (initialEHealth > Ehealth)
+	if (initialEHealth > Ehealth && LorR == 2)
 	{
-		
-		EnemyPhysicsBody->ApplyForce(knockback);
+
+		EnemyPhysicsBody->ApplyForce(knockbackLeft);
 		initialEHealth = Ehealth;
 		internalTimer = 1;
 	}
+	else if (initialEHealth > Ehealth && LorR == 1)
+	{
+
+		EnemyPhysicsBody->ApplyForce(knockbackRight);
+		initialEHealth = Ehealth;
+		internalTimer = 1;
+	}
+
 	// if the internal timer is great than 0 it will count it down till it reaches 0
 	if (internalTimer > 0)
 	{
@@ -170,7 +180,11 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	 pos.Y = movement.y;
 	 Player temp;
 
-	 Ehealth-= temp.PlayerAttack(pos) ;
+	 if (Ehealth == 0) {
+		 destroyEnemy(eEnts,Eentity);
+	 }
+
+	 Ehealth -= temp.PlayerAttack(pos) ;
 	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);
 }
@@ -179,3 +193,8 @@ void Enemy::AttachBody(PhysicsBody* body)
 {
 	m_physBody = body;
 }
+
+
+
+	
+
