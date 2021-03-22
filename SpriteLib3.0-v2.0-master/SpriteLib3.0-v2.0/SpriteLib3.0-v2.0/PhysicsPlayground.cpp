@@ -1105,8 +1105,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		this->EnemyEnts.push_back(entity);
 	}
+	*/
 
-<<<<<<< HEAD
 	//HUD
 	{
 
@@ -1123,9 +1123,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	}
 
-=======
-	*/
->>>>>>> main
+
+
 
 	/*//Ball
 	{
