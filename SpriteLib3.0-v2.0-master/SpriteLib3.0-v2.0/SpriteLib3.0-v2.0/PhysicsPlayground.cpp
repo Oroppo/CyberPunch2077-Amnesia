@@ -53,6 +53,21 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<HorizontalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
 		ECS::GetComponent<VerticalScroll>(entity).SetCam(&ECS::GetComponent<Camera>(entity));
 	}
+	//HUD
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+	}
 
 	//Background for Level 1 
 	{
@@ -1107,21 +1122,6 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	}
 	*/
 
-	//HUD
-	{
-
-		auto entity = ECS::CreateEntity();
-
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-
-		//Sets up the components
-		std::string fileName = "Overlay.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
-	}
 
 
 
@@ -1253,7 +1253,7 @@ void PhysicsPlayground::Update()
 
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
-	ECS::GetComponent<Transform>(7).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+19, ECS::GetComponent<Camera>(0).GetPositionY()-12, 100.f ));
+	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+19, ECS::GetComponent<Camera>(0).GetPositionY()-12, 100.f ));
 }
 
 void PhysicsPlayground::GUI()
