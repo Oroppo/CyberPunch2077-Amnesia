@@ -92,7 +92,7 @@ void Player::Update()
 	//AnimationUpdate();
 }
 
-static float speed = 0.f;
+static float speed = -6.f;
 void Player::MovementUpdate()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
