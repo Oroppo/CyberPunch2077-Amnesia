@@ -287,8 +287,6 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::cout << "AAAAAAAAAAAAAAAA " << ECS::GetComponent<Camera>(0).GetAspect();
-
 		//Sets up the components
 		std::string fileName = "Overlay.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
