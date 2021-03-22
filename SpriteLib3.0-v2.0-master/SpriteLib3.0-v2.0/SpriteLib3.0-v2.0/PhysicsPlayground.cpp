@@ -1048,7 +1048,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 	}
-	/*
+	
 	// Basic Enemy
 	{
 		auto entity = ECS::CreateEntity();
@@ -1142,7 +1142,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		this->EnemyEnts.push_back(entity);
 	}
-	*/
+	
 
 
 
