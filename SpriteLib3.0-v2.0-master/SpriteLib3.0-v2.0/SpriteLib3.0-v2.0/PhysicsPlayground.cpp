@@ -3,6 +3,8 @@
 #include "Player.h"
 #include <random>
 
+
+
 PhysicsPlayground::PhysicsPlayground(std::string name)
 	: Scene(name)
 {
@@ -11,7 +13,9 @@ PhysicsPlayground::PhysicsPlayground(std::string name)
 	m_physicsWorld->SetGravity(m_gravity);
 
 	m_physicsWorld->SetContactListener(&listener);
+
 }
+
 
 void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 {
@@ -26,7 +30,6 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 	//EffectManager::CreateEffect(EffectType::Vignette, windowWidth, windowHeight);
 	//EffectManager::CreateEffect(EffectType::Sepia, windowWidth, windowHeight);
-	
 
 	//Setup MainCamera Entity
 	{
@@ -275,6 +278,24 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		this->EnemyEnts.push_back(entity);
 	}
 
+	//HUD
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::cout << "AAAAAAAAAAAAAAAA " << ECS::GetComponent<Camera>(0).GetAspect();
+
+		//Sets up the components
+		std::string fileName = "Overlay.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+	}
+
 
 	/*//Ball
 	{
@@ -390,6 +411,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 void PhysicsPlayground::Update()
 {
 
+
 	// Part of Enemy Code
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();
@@ -399,6 +421,10 @@ void PhysicsPlayground::Update()
 	for (int x = 0; x < this->EnemyEnts.size(); x++) {
 		ECS::GetComponent<Enemy>(this->EnemyEnts.at(x)).enemyUpdate(&ECS::GetComponent<PhysicsBody>(this->EnemyEnts.at(x)), &this->EnemyEnts, this->EnemyEnts.at(x));
 	}
+
+	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
+
+	ECS::GetComponent<Transform>(7).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+19, ECS::GetComponent<Camera>(0).GetPositionY()-12, 100.f ));
 }
 
 void PhysicsPlayground::GUI()

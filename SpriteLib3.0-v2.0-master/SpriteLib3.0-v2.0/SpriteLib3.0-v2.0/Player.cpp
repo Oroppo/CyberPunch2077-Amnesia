@@ -9,6 +9,7 @@ Player::Player()
 Player::Player(std::string& fileName, std::string& animationJSON, int width, int height, Sprite* sprite, 
 					AnimationController* controller, Transform* transform, bool hasPhys, PhysicsBody* body)
 {
+	
 	InitPlayer(fileName, animationJSON, width, height, sprite, controller, transform, hasPhys, body);
 }
 
@@ -190,3 +191,5 @@ void Player::SetActiveAnimation(int anim)
 void Player::AttachBody(PhysicsBody* body) {
 	m_physBody = body;
 }
+
+
