@@ -187,6 +187,10 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	 Ehealth -= temp.PlayerAttack(pos) ;
 	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);
+	if (Ehealth <= 0)
+	{
+		destroyEnemy(eEnts, Eentity);
+	}
 }
 
 void Enemy::AttachBody(PhysicsBody* body)

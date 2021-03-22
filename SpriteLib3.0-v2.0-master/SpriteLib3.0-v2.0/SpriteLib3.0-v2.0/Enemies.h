@@ -43,6 +43,15 @@ public:
 	void fight(PhysicsBody* EnemyPhysicsBody);
 	void resetTimer();
 	void internalTime(PhysicsBody* EnemyPhysicsBody);
+	void destroyEnemy(std::vector <unsigned int>* eEnts, int Eentity)
+	{
+		for (int x = 0; x < eEnts->size(); x++) {
+			if (eEnts->at(x) == Eentity) {
+				eEnts->erase(eEnts->begin() + x);
+			}
+		}
+		PhysicsBody::m_bodiesToDelete.push_back(Eentity);
+	}
 
 
 	void enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity);
