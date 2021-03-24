@@ -80,6 +80,7 @@ public:
 	float PlayerAttack(COORD);
 private:
 	float jumpGrav = 10;
+	float xdiff = 0;
 	float AtkDistance;
 	int HP = 5, attackPower =1; 
 	COORD PlayerPosition; 
