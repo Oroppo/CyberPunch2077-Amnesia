@@ -79,7 +79,7 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 	//Set Default Animation
 	m_animController->SetActiveAnim(IDLELEFT);
 
-
+	
 }
 
 void Player::Update()
@@ -92,46 +92,57 @@ void Player::Update()
 	//AnimationUpdate();
 }
 
-static float speed = -6.f;
+ float speed = 0.f;
 void Player::MovementUpdate()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
-
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
-	//if (canJump.m_canJump == true) {
+	//std::cout << player.GetBody()->GetLinearVelocity().y<<"\n";
+	std::cout << player.GetPosition().y << "\n";
 		if (Input::GetKey(Key::A))
 		{
 			if (speed > -4.0) { speed -= 0.5; }
-			vel = b2Vec2(100000.f * speed, 1.f);
+			vel = b2Vec2(500000.f * speed, 1.f);
 			//std::cout << vel.x<<std::endl;
+	
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 			player.GetBody()->GetLinearVelocity();
 		}
 		if (Input::GetKey(Key::D))
 		{
 			if (speed < 4.0) { speed += 0.5; }
-			vel = b2Vec2(100000.f * speed, 1.f);
+			vel = b2Vec2(500000.f * speed, 1.f);
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 
 		}
-//	}
+
 
 		if (Input::GetKey(Key::I))
 		{
+		
 		}
 
 	if (Input::GetKeyDown(Key::T))
 	{
 		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
-	if (canJump.m_canJump)
+
+	
+
+	if (canJump.m_canJump==true)
 	{
 		if (Input::GetKeyDown(Key::Space))
 		{
-			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 700000.f), true);
+			jumpGrav = 10;
 			canJump.m_canJump = false;
 		}
+	}
+	else if (canJump.m_canJump == false) {
+		jumpGrav-=0.5f;
+		player.SetPosition(b2Vec2(player.GetPosition().x, player.GetPosition().y+jumpGrav), true);
+		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
+
 	}
 }
 float Player::PlayerAttack(COORD Position) {

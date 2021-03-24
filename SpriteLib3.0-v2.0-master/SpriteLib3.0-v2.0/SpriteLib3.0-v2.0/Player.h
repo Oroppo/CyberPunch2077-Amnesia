@@ -4,7 +4,10 @@
 #include "BackEnd.h"
 #include"Combat.h"
 #define TOPDOWN
+class jump {
 
+
+};
 enum AnimEnums
 {
 	IDLELEFT,
@@ -76,6 +79,7 @@ public:
 	void AttachBody(PhysicsBody* body);
 	float PlayerAttack(COORD);
 private:
+	float jumpGrav = 10;
 	float AtkDistance;
 	int HP = 5, attackPower =1; 
 	COORD PlayerPosition; 
