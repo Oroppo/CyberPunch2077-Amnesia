@@ -1275,8 +1275,12 @@ void PhysicsPlayground::Update()
 
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
-	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+19, ECS::GetComponent<Camera>(0).GetPositionY()-12, 100.f ));
+	//HUD
+	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY()-10, 100.f ));
+
+	//Background
 	ECS::GetComponent<Transform>(2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX(), ECS::GetComponent<Camera>(0).GetPositionY() , -1.f));
+
 }
 
 void PhysicsPlayground::GUI()

@@ -77,7 +77,7 @@ public:
 	float PlayerAttack(COORD);
 private:
 	float AtkDistance;
-	int HP = 3, attackPower =1; 
+	int HP = 5, attackPower =1; 
 	COORD PlayerPosition; 
 	void SetActiveAnimation(int anim);
 	float AttackTimer=1.f;
