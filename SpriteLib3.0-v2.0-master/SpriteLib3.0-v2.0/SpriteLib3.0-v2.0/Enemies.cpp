@@ -86,8 +86,11 @@ void Enemy::idle(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody
 		// if player is past than a certain point then chase
 		if (distanceX > (detection * -1))
 		{
-			LorR = 1;
-			chase(distanceX, distanceY, EnemyPhysicsBody);
+			if (internalTimer <= 0)
+			{
+				LorR = 1;
+				chase(distanceX, distanceY, EnemyPhysicsBody);
+			}
 		}
 	}
 	// if player is right of enemy then
@@ -96,8 +99,11 @@ void Enemy::idle(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBody
 		// if player is greater than a certain point then chase
 		if (distanceX < detection)
 		{
-			LorR = 2;
-			chase(distanceX, distanceY, EnemyPhysicsBody);
+			if (internalTimer <= 0)
+			{
+				LorR = 2;
+				chase(distanceX, distanceY, EnemyPhysicsBody);
+			}
 		}
 	}
 }
@@ -107,35 +113,33 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 {
 	move = vec3(distanceX / 3, 0, 0);
 	EnemyPhysicsBody->SetVelocity(move);
-	if (LorR == 1)
-	{
-		if (distanceX >= -50)
+		if (LorR == 1)
 		{
-			fight(EnemyPhysicsBody);
+			if (distanceX >= -50)
+			{
+				fight(EnemyPhysicsBody);
+			}
+			else
+			{
+				resetTimer();
+			}
 		}
-		else
-		{
-			resetTimer();
-		}
-	}
 
-	if (LorR == 2)
-	{
-		if (distanceX <= 50)
+		if (LorR == 2)
 		{
-			fight(EnemyPhysicsBody);
+			if (distanceX <= 50)
+			{
+				fight(EnemyPhysicsBody);
+			}
+			else
+			{
+				resetTimer();
+			}
 		}
-		else
-		{
-			resetTimer();
-		}
-	}
 }
 // enemy fight state - not implemented yet
 void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 {
-
-	// create something here for enemy taking damage. Maybe a class player and enemy inherit from?
 
 	//std::cout << "Timer is " << timer << std::endl;
 	//std::cout << "internal Timer is " << internalTimer << std::endl;

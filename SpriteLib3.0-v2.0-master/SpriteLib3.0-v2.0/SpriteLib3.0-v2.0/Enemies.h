@@ -45,9 +45,9 @@ public:
 	void internalTime(PhysicsBody* EnemyPhysicsBody);
 	void destroyEnemy(std::vector <unsigned int>* eEnts, int Eentity)
 	{
-		for (int x = 0; x < eEnts->size(); x++) {
-			if (eEnts->at(x) == Eentity) {
-				eEnts->erase(eEnts->begin() + x);
+		for (int i = 0; i < eEnts->size(); i++) {
+			if (eEnts->at(i) == Eentity) {
+				eEnts->erase(eEnts->begin() + i);
 			}
 		}
 		PhysicsBody::m_bodiesToDelete.push_back(Eentity);

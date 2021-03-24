@@ -148,7 +148,7 @@ void Player::MovementUpdate()
 float Player::PlayerAttack(COORD Position) {
 	if (Input::GetKey(Key::O))
 	{
-		
+		//std::cout << "player pressed attack key" << std::endl;
 	//	if (AttackTimer > 0) {
 
 		//	if (AttackTimer <= 0) {
