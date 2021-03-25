@@ -12,7 +12,15 @@ enum AnimEnums
 {
 	IDLELEFT,
 	IDLERIGHT,
-	
+
+	//Create an Enumerator of the animations in the JSON to be used in player.cpp
+	SLICERIGHT,
+	KICKRIGHT,
+	JUMPRIGHT,
+	LANDRIGHT,
+	RUNRIGHT,
+	TURNRIGHT,
+
 	//Only in Top down
 #ifdef TOPDOWN
 	IDLEUP,
@@ -108,7 +116,7 @@ private:
 	bool m_hasPhysics = false;
 
 	//Default animation direction (feel free to change this to suit your game. If you're making a side-scroller, left or right would be better
-	AnimDir m_facing = LEFT;
+	AnimDir m_facing = RIGHT;
 };
 
 #endif // !__PLAYER_H__

@@ -113,6 +113,10 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		/*Scene::CreatePhysicsSprite(m_sceneReg, "LinkStandby", 80, 60, 1.f, vec3(0.f, 30.f, 2.f), b2_dynamicBody, 0.f, 0.f, true, true)*/
 
+		//loading File...
+		auto animRight = File::LoadJSON("MC_Right.json");
+		std::string animations = "MC_Right.json";
+
 		auto entity = ECS::CreateEntity();
 		ECS::SetIsMainPlayer(entity, true);
 
@@ -122,11 +126,48 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<CanJump>(entity);
 		ECS::AttachComponent<Player>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+
 		//Sets up the components
-		std::string fileName = "MainPlayer.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 50);
+		std::string fileName = "spritesheets/MC_Right.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+
+		//Initializes Player
+		//ECS::GetComponent<Player>(entity).InitPlayer(fileName, animations, 30, 50, &ECS::GetComponent<Sprite>(entity), &ECS::GetComponent<AnimationController>(entity), &ECS::GetComponent<Transform>(entity));
+
+		//Pulls UV's from the JSON
+		animController.InitUVs(fileName);
+
+		//Adding currently implemented animations and assigning Registrars as unsigned ints
+		animController.AddAnimation(animRight["Idle"]); //0
+		animController.AddAnimation(animRight["RunRight"]);//1
+		animController.AddAnimation(animRight["SliceRight"]);//2
+		animController.AddAnimation(animRight["KickRight"]);//3
+		animController.AddAnimation(animRight["JumpRight"]);//4
+		animController.AddAnimation(animRight["LandRight"]);//5
+		animController.AddAnimation(animRight["TurnRight"]);//6
+
+		animController.SetActiveAnim(0);
+
+		//Use this to change Animations
+		//auto& anim = animController.GetAnimation(0);
+
+		//use this to make an animation repeat again if it doesn't already
+		//anim.SetRepeating(true);
+
+		//Use this to set the speed of the animation
+		//anim.SetSecPerFrame(0.1667f);
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 50,true, &animController);
 		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 30.f, 5.f));
+
+		//Entity Registry or something, ENtityIDentifier doesn't seem to be in this version of the code so I assume it's not needed, will keep here just in case though.
+
+		//unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TranformBit() | EntityIdentifier::AnimationBit();
+		//ECS::SetUpIdentifier(entity, bitHolder, )
+
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);

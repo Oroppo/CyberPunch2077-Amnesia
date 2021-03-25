@@ -37,6 +37,17 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 	//Loads in the animations json file
 	nlohmann::json animations = File::LoadJSON(animationJSON);
 
+
+	//NEW ANIMATIONS\\
+
+	m_animController->AddAnimation(animations["RunRight"].get<Animation>());
+	m_animController->AddAnimation(animations["JumpRight"].get<Animation>());
+	m_animController->AddAnimation(animations["SliceRight"].get<Animation>());
+	m_animController->AddAnimation(animations["KickRight"].get<Animation>());
+	m_animController->AddAnimation(animations["LandRight"].get<Animation>());
+	m_animController->AddAnimation(animations["TurnRight"].get<Animation>());
+
+
 	//IDLE ANIMATIONS\\
 	
 	//Idle Left
@@ -77,7 +88,7 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 #endif
 
 	//Set Default Animation
-	m_animController->SetActiveAnim(IDLELEFT);
+	m_animController->SetActiveAnim(IDLERIGHT);
 
 	
 }
@@ -153,49 +164,40 @@ void Player::MovementUpdate()
 	}
 }
 float Player::PlayerAttack(COORD Position) {
+
 	if (Input::GetKey(Key::O))
 	{
-		//std::cout << "player pressed attack key" << std::endl;
-	//	if (AttackTimer > 0) {
-
-		//	if (AttackTimer <= 0) {
-			/*	std::cout << "Before" << AttackTimer << std::endl;
-				AttackTimer -= Timer::deltaTime;
-				std::cout << "After" << AttackTimer << std::endl;*/
-
-				if ((Position.X < 50.0) && (Position.X > 0.0)) {
-
-					//AttackTimer = 1;
-					//std::cout << "Reset" << AttackTimer << std::endl;
-					return 10;
-
-				}
-				else if (Position.X > 50.0) {
-					//AttackTimer = 1;
-					//std::cout << "Reset" << AttackTimer << std::endl;
-					return 0;
-
-					
-				}
-				if ((Position.X > -50.0) && (Position.X < 0.0)) {
-					//AttackTimer = 1;
-					//std::cout << "Reset" << AttackTimer << std::endl;
-					return 10;
-
-					
-				}
-				else if (Position.X < -50.0) {
-					//AttackTimer = 1;
-					//std::cout << "Reset" << AttackTimer << std::endl;
-					return 0;
+		//Animation Controller for Player
+		auto& animController = ECS::GetComponent<AnimationController>(3);
 
 
-				}
-				
-				
-			//}
-		//}
+
+		//Could wrap this into a function because god is this a pain in the ass to write but nah
+		do {
+			animController.SetActiveAnim(3);
+
+			//std::cout << "player pressed attack key" << std::endl;
+
+
+			if ((Position.X < 50.0) && (Position.X > 0.0)) {
+				return 10;
+			}
+			else if (Position.X > 50.0) {
+				return 0;
+			}
+			if ((Position.X > -50.0) && (Position.X < 0.0)) {
+				return 10;
+			}
+			else if (Position.X < -50.0) {
+				return 0;
+			}
+
+			animController.SetActiveAnim(0);
+		} while (m_animController->GetAnimation(m_animController->GetActiveAnim()).GetAnimationDone());
+
 	}
+
+	
 }
 void Player::AnimationUpdate()
 {
@@ -204,11 +206,11 @@ void Player::AnimationUpdate()
 	if (m_moving)
 	{
 		//Puts it into the WALK category
-		activeAnimation = WALK;
+		activeAnimation = RUNRIGHT;
 	}
 	else if (m_attacking)
 	{
-		activeAnimation = ATTACK;
+		activeAnimation = SLICERIGHT;
 
 		//Check if the attack animation is done
 		if (m_animController->GetAnimation(m_animController->GetActiveAnim()).GetAnimationDone())
