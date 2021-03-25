@@ -15,6 +15,7 @@
 #include "HorizontalScroll.h"
 #include "CanJump.h"
 #include "Enemies.h"
+#include "BossEnemy.h"
 
 
 class ECS abstract

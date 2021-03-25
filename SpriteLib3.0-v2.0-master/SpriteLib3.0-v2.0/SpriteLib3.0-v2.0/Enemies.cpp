@@ -137,7 +137,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 			}
 		}
 }
-// enemy fight state - not implemented yet
+// enemy fight state
 void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 {
 

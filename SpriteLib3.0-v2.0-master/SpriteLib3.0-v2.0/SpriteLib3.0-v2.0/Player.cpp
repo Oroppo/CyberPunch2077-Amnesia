@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Utilities.h"
 #include "Combat.h"
-#include "Enemies.h"
+//#include "Enemies.h"
 Player::Player()
 {
 }
@@ -99,7 +99,6 @@ void Player::Update()
 	{
 		MovementUpdate();
 	}
-
 	//AnimationUpdate();
 }
 
@@ -109,7 +108,7 @@ void Player::MovementUpdate()
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"\n";
-	std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
+	//std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
 		if (Input::GetKey(Key::A))
 		{
 			if (player.GetBody()->GetLinearVelocity().x > -100.f) {
@@ -167,22 +166,17 @@ void Player::MovementUpdate()
 
 	}
 }
-float Player::PlayerAttack(COORD Position) {
 
+float Player::PlayerAttack(COORD Position)
+{
 	if (Input::GetKey(Key::O))
 	{
 		//Animation Controller for Player
 		auto& animController = ECS::GetComponent<AnimationController>(3);
-
-
-
 		//Could wrap this into a function because god is this a pain in the ass to write but nah
+		//std::cout << "player pressed attack key" << std::endl;
 		do {
 			animController.SetActiveAnim(3);
-
-			//std::cout << "player pressed attack key" << std::endl;
-
-
 			if ((Position.X < 50.0) && (Position.X > 0.0)) {
 				return 10;
 			}
@@ -195,13 +189,9 @@ float Player::PlayerAttack(COORD Position) {
 			else if (Position.X < -50.0) {
 				return 0;
 			}
-
-			animController.SetActiveAnim(0);
+				animController.SetActiveAnim(0);
 		} while (m_animController->GetAnimation(m_animController->GetActiveAnim()).GetAnimationDone());
-
 	}
-
-	
 }
 void Player::AnimationUpdate()
 {

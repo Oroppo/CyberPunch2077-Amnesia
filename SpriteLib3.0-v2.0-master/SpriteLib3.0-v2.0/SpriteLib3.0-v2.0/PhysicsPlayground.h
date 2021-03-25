@@ -36,6 +36,8 @@ protected:
 	unsigned enemyEntity;
 	std::vector <unsigned int> EnemyEnts = {};
 	void spawnBasicRobot();
+	unsigned BossEntity;
+	std::vector <unsigned int> BossEnts = {};
 
 	int enemy;
 	int enemy2;

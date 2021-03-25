@@ -86,6 +86,7 @@ public:
 	void AnimationUpdate();
 	void AttachBody(PhysicsBody* body);
 	float PlayerAttack(COORD);
+	float AttackTimer = 1.f;
 private:
 	float jumpGrav = 10;
 	float xdiff = 0;
@@ -93,7 +94,6 @@ private:
 	int HP = 5, attackPower =1; 
 	COORD PlayerPosition; 
 	void SetActiveAnimation(int anim);
-	float AttackTimer=1.f;
 
 	//Basically, any animation OTHER than moving will not have a cancel, and we'll be checking whether or not that animation is done
 	bool m_moving = false;
