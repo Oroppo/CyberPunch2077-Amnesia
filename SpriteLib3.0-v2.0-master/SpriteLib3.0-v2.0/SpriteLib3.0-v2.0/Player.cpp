@@ -152,11 +152,15 @@ void Player::MovementUpdate()
 		jumpGrav-=0.15f;
 		if (Input::GetKey(Key::A))
 		{
-			xdiff -= 2;
+			if (xdiff > -101) {
+				xdiff -= 20;
+			}
 		}
 		if (Input::GetKey(Key::D))
 		{
-			xdiff += 2;
+			if (xdiff <101) {
+				xdiff += 20;
+			}
 		}
 		player.SetPosition(b2Vec2(player.GetPosition().x+(xdiff/50), player.GetPosition().y+jumpGrav), true);
 		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
