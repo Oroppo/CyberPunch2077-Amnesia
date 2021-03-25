@@ -92,7 +92,6 @@ void Player::Update()
 	//AnimationUpdate();
 }
 
- float speed = 0.f;
 void Player::MovementUpdate()
 {
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
@@ -102,19 +101,18 @@ void Player::MovementUpdate()
 	std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
 		if (Input::GetKey(Key::A))
 		{
-			if (speed > -4.0) { speed -= 0.5; }
-			vel = b2Vec2(-500000.f , 1.f);
-			//std::cout << vel.x<<std::endl;
-	
+			if (player.GetBody()->GetLinearVelocity().x > -100.f) {
+			vel = b2Vec2(-1250000.f , 1.f);
+			}
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
-			xdiff=player.GetBody()->GetLinearVelocity().x;
 		}
 		if (Input::GetKey(Key::D))
 		{
-			if (speed < 4.0) { speed += 0.5; }
-			vel = b2Vec2(500000.f, 1.f);
+			if (player.GetBody()->GetLinearVelocity().x < 100.f) {
+				vel = b2Vec2(1250000.f, 1.f);
+			}
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
-			xdiff = player.GetBody()->GetLinearVelocity().x;
+		
 		}
 
 
@@ -134,12 +132,21 @@ void Player::MovementUpdate()
 	{
 		if (Input::GetKeyDown(Key::Space))
 		{
-			jumpGrav = 6;
+			xdiff = player.GetBody()->GetLinearVelocity().x;
+			jumpGrav = 5;
 			canJump.m_canJump = false;
 		}
 	}
 	else if (canJump.m_canJump == false) {
-		jumpGrav-=0.25f;
+		jumpGrav-=0.15f;
+		if (Input::GetKey(Key::A))
+		{
+			xdiff -= 2;
+		}
+		if (Input::GetKey(Key::D))
+		{
+			xdiff += 2;
+		}
 		player.SetPosition(b2Vec2(player.GetPosition().x+(xdiff/50), player.GetPosition().y+jumpGrav), true);
 		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
 

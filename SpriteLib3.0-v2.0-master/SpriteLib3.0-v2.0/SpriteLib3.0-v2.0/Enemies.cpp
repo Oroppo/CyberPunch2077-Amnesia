@@ -48,7 +48,7 @@ void Enemy::internalTime(PhysicsBody* EnemyPhysicsBody)
 {
 	// vector 3 for knockback on enemies
 	vec3 knockbackRight(800000000, 5000000000, 0);
-	vec3 knockbackLeft(-800000000, -500000000, 0);
+	vec3 knockbackLeft(-800000000, 5000000000, 0);
 	//When attacked set internalTime to 1
 	//change constant to however much damage the player deals to enemies
 	//std::cout << "Ehealth is " << Ehealth << std::endl;
