@@ -149,7 +149,7 @@ void PhysicsSystem::Run(b2World & world)
 	//we need to give it iterations for the velocity and position, along with
 	//our timestep
 	int32 velocityIterations = 8;
-	int32 positionIterations = 3;
+	int32 positionIterations = 8;
 
 	//steps through the world
 	world.Step(timeStep, velocityIterations, positionIterations);

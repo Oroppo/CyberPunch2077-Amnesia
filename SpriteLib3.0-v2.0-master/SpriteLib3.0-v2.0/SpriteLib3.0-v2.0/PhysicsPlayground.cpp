@@ -140,13 +140,14 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		animController.InitUVs(fileName);
 
 		//Adding currently implemented animations and assigning Registrars as unsigned ints
-		animController.AddAnimation(animRight["Idle"]); //0
-		animController.AddAnimation(animRight["RunRight"]);//1
-		animController.AddAnimation(animRight["SliceRight"]);//2
-		animController.AddAnimation(animRight["KickRight"]);//3
-		animController.AddAnimation(animRight["JumpRight"]);//4
-		animController.AddAnimation(animRight["LandRight"]);//5
-		animController.AddAnimation(animRight["TurnRight"]);//6
+
+		animController.AddAnimation(animRight["Idle"]);			//0
+		animController.AddAnimation(animRight["RunRight"]);		//1
+		animController.AddAnimation(animRight["SliceRight"]);	//2
+		animController.AddAnimation(animRight["KickRight"]);	//3
+		animController.AddAnimation(animRight["JumpRight"]);	//4
+		animController.AddAnimation(animRight["LandRight"]);	//5
+		animController.AddAnimation(animRight["TurnRight"]);	//6
 
 		animController.SetActiveAnim(0);
 

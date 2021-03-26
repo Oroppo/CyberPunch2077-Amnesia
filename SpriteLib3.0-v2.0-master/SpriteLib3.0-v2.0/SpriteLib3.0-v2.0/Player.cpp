@@ -104,79 +104,108 @@ void Player::Update()
 
 void Player::MovementUpdate()
 {
+	auto& animController = ECS::GetComponent<AnimationController>(3);
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
+
+	
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"\n";
 	//std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
+
+
+	if (animController.GetAnimation(2).GetAnimationDone()) {
+		animController.GetAnimation(2).Reset();
+		m_attacking = false;
+	}
+	if (m_attacking) {
+		animController.SetActiveAnim(2);
+		m_attacking = true;
+	}
+	else if (!m_attacking) {
+		if (canJump.m_canJump == true)
+		{
+			if (Input::GetKeyDown(Key::Space))
+			{
+				xdiff = player.GetBody()->GetLinearVelocity().x;
+				jumpGrav = 5;
+				canJump.m_canJump = false;
+			}
+		}
+		else if (canJump.m_canJump == false) {
+			jumpGrav -= 0.15f;
+			if (Input::GetKey(Key::A))
+			{
+				if (xdiff > -101) {
+					xdiff -= 20;
+				}
+			}
+			if (Input::GetKey(Key::D))
+			{
+				if (xdiff < 101) {
+					xdiff += 20;
+				}
+			}
+			player.SetPosition(b2Vec2(player.GetPosition().x + (xdiff / 50), player.GetPosition().y + jumpGrav), true);
+			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
+
+		}
+
+		//Animation Code
+
+		if (Input::GetKeyDown(Key::Space)) {
+			animController.SetActiveAnim(4);
+		}
+		else if (player.GetBody()->GetLinearVelocity().y <= -100.f ) {
+			animController.SetActiveAnim(5);
+		}
+		else if (Input::GetKey(Key::A) || Input::GetKey(Key::D)) {
+			animController.SetActiveAnim(1);
+		}
+		else {
+			animController.SetActiveAnim(0);
+		}
+
+
 		if (Input::GetKey(Key::A))
 		{
+
 			if (player.GetBody()->GetLinearVelocity().x > -100.f) {
-			vel = b2Vec2(-1250000.f , 1.f);
+				vel = b2Vec2(-1250000.f, 1.f);
 			}
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 		}
 		if (Input::GetKey(Key::D))
 		{
+			m_moving = true;
 			if (player.GetBody()->GetLinearVelocity().x < 100.f) {
 				vel = b2Vec2(1250000.f, 1.f);
 			}
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
-		
+
 		}
-
-
 		if (Input::GetKey(Key::I))
 		{
-		
+
 		}
 
-	if (Input::GetKeyDown(Key::T))
-	{
-		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
-	}
-
-	
-
-	if (canJump.m_canJump==true)
-	{
-		if (Input::GetKeyDown(Key::Space))
+		if (Input::GetKeyDown(Key::T))
 		{
-			xdiff = player.GetBody()->GetLinearVelocity().x;
-			jumpGrav = 5;
-			canJump.m_canJump = false;
+			PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 		}
-	}
-	else if (canJump.m_canJump == false) {
-		jumpGrav-=0.15f;
-		if (Input::GetKey(Key::A))
-		{
-			if (xdiff > -101) {
-				xdiff -= 20;
-			}
-		}
-		if (Input::GetKey(Key::D))
-		{
-			if (xdiff <101) {
-				xdiff += 20;
-			}
-		}
-		player.SetPosition(b2Vec2(player.GetPosition().x+(xdiff/50), player.GetPosition().y+jumpGrav), true);
-		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
-
 	}
 }
 
 float Player::PlayerAttack(COORD Position)
 {
-	if (Input::GetKey(Key::O))
-	{
-		//Animation Controller for Player
-		auto& animController = ECS::GetComponent<AnimationController>(3);
-		//Could wrap this into a function because god is this a pain in the ass to write but nah
+	if (Input::GetKeyDown(Key::O))
+	{ 
+
+
+		m_attacking = true;
 		//std::cout << "player pressed attack key" << std::endl;
-		do {
-			animController.SetActiveAnim(3);
+
+			
 			if ((Position.X < 50.0) && (Position.X > 0.0)) {
 				return 10;
 			}
@@ -189,13 +218,13 @@ float Player::PlayerAttack(COORD Position)
 			else if (Position.X < -50.0) {
 				return 0;
 			}
-				animController.SetActiveAnim(0);
-		} while (m_animController->GetAnimation(m_animController->GetActiveAnim()).GetAnimationDone());
 	}
 }
+
+
 void Player::AnimationUpdate()
 {
-	int activeAnimation = 0;
+	/*int activeAnimation = 0;
 
 	if (m_moving)
 	{
@@ -223,7 +252,7 @@ void Player::AnimationUpdate()
 		activeAnimation = IDLE;
 	}
 
-	SetActiveAnimation(activeAnimation + (int)m_facing);
+	SetActiveAnimation(activeAnimation + (int)m_facing);*/
 }
 
 void Player::SetActiveAnimation(int anim)
