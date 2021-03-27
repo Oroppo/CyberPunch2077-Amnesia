@@ -148,6 +148,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		animController.AddAnimation(animRight["JumpRight"]);	//4
 		animController.AddAnimation(animRight["LandRight"]);	//5
 		animController.AddAnimation(animRight["TurnRight"]);	//6
+		animController.AddAnimation(animRight["FallRight"]);	//7
 
 		animController.SetActiveAnim(0);
 
@@ -173,6 +174,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
+		//std::cout << "Width is: " << tempSpr.GetWidth() << "\nHeight is:" << tempSpr.GetHeight();
+
 		float shrinkX = 0.f;
 		float shrinkY = 0.f;
 
@@ -182,9 +185,9 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempDef.position.Set(float32(4280.f), float32(250.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
+		
 		// square phys body
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 0.5f, 3.f);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(30 - shrinkX), float(50 - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 2.f, 3.f);
 		// Circle phys body
 		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY)/2.f), vec2(0.f, 0.f), false, PLAYER, ENVIRONMENT | ENEMY | OBJECTS | PICKUP | TRIGGER | HEXAGON, 0.5f, 3.f);
 		//std::vector<b2Vec2> points = {b2Vec2(-tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(0.f, tempSpr.GetHeight()/2.f)};

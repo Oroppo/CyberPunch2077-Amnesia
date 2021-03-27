@@ -95,10 +95,34 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 
 void Player::Update()
 {
+	auto& animController = ECS::GetComponent<AnimationController>(3);
+
+	//Jump Logic
+	if (m_isJumping && animController.GetAnimation(4).GetAnimationDone()) {
+		animController.GetAnimation(4).Reset();
+		animController.SetActiveAnim(7);
+	}
+	else if (m_isJumping && animController.GetAnimation(7).GetAnimationDone()) {
+		animController.GetAnimation(7).Reset();
+		m_isJumping = false;
+	}
+
 	if (!m_locked)
 	{
 		MovementUpdate();
 	}
+	//Attack Logic
+	else if (animController.GetAnimation(2).GetAnimationDone()) {
+		animController.GetAnimation(2).Reset();
+		m_locked = false;
+	}
+	else if (animController.GetAnimation(2).GetAnimationDone()) {
+		animController.GetAnimation(2).Reset();
+		m_locked = false;
+	}
+
+
+
 	//AnimationUpdate();
 }
 
@@ -114,15 +138,10 @@ void Player::MovementUpdate()
 	//std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
 
 
-	if (animController.GetAnimation(2).GetAnimationDone()) {
-		animController.GetAnimation(2).Reset();
-		m_attacking = false;
-	}
-	if (m_attacking) {
-		animController.SetActiveAnim(2);
-		m_attacking = true;
-	}
-	else if (!m_attacking) {
+
+
+
+
 		if (canJump.m_canJump == true)
 		{
 			if (Input::GetKeyDown(Key::Space))
@@ -139,7 +158,7 @@ void Player::MovementUpdate()
 				if (xdiff > -101) {
 					xdiff -= 20;
 				}
-			}
+			}	
 			if (Input::GetKey(Key::D))
 			{
 				if (xdiff < 101) {
@@ -151,21 +170,29 @@ void Player::MovementUpdate()
 
 		}
 
-		//Animation Code
+		//Animation Code\\
 
-		if (Input::GetKeyDown(Key::Space)) {
-			animController.SetActiveAnim(4);
+		if (!m_isJumping) {
+			if (Input::GetKey(Key::Space)) {
+				animController.SetActiveAnim(4);
+				m_isJumping = true;
+			}
+			/*else if (contact with ground) {
+				animController.SetActiveAnim(5);
+				m_locked = true;
+			}*/
+			else if (Input::GetKey(Key::O)) {
+				animController.SetActiveAnim(2);
+				m_locked = true;
+			}
+			else if (Input::GetKey(Key::A) || Input::GetKey(Key::D)) {
+				animController.SetActiveAnim(1);
+			}
+			else {
+				animController.SetActiveAnim(0);
+			}
 		}
-		else if (player.GetBody()->GetLinearVelocity().y <= -100.f ) {
-			animController.SetActiveAnim(5);
-		}
-		else if (Input::GetKey(Key::A) || Input::GetKey(Key::D)) {
-			animController.SetActiveAnim(1);
-		}
-		else {
-			animController.SetActiveAnim(0);
-		}
-
+		//
 
 		if (Input::GetKey(Key::A))
 		{
@@ -193,16 +220,13 @@ void Player::MovementUpdate()
 		{
 			PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 		}
-	}
+	
 }
 
 float Player::PlayerAttack(COORD Position)
 {
 	if (Input::GetKeyDown(Key::O))
 	{ 
-
-
-		m_attacking = true;
 		//std::cout << "player pressed attack key" << std::endl;
 
 			
