@@ -152,7 +152,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		animController.SetActiveAnim(0);
 
-		//Use this to change Animations
+		//Use this to change the features of an individual Animation
 		//auto& anim = animController.GetAnimation(0);
 
 		//use this to make an animation repeat again if it doesn't already

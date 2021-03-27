@@ -111,13 +111,16 @@ void Player::Update()
 	{
 		MovementUpdate();
 	}
-	//Attack Logic
+	//Attack Logic\\
+
+	//Slice Animation
 	else if (animController.GetAnimation(2).GetAnimationDone()) {
 		animController.GetAnimation(2).Reset();
 		m_locked = false;
 	}
-	else if (animController.GetAnimation(2).GetAnimationDone()) {
-		animController.GetAnimation(2).Reset();
+	//Kick Animation
+	else if (animController.GetAnimation(3).GetAnimationDone()) {
+		animController.GetAnimation(3).Reset();
 		m_locked = false;
 	}
 
@@ -134,6 +137,7 @@ void Player::MovementUpdate()
 
 	
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
+
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"\n";
 	//std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
 
@@ -183,6 +187,10 @@ void Player::MovementUpdate()
 			}*/
 			else if (Input::GetKey(Key::O)) {
 				animController.SetActiveAnim(2);
+				m_locked = true;
+			}
+			else if (Input::GetKey(Key::I)) {
+				animController.SetActiveAnim(3);
 				m_locked = true;
 			}
 			else if (Input::GetKey(Key::A) || Input::GetKey(Key::D)) {
@@ -242,6 +250,21 @@ float Player::PlayerAttack(COORD Position)
 			else if (Position.X < -50.0) {
 				return 0;
 			}
+	}
+	if (Input::GetKey(Key::I))
+	{
+		if ((Position.X < 30.0) && (Position.X > 0.0)) {
+			return 10;
+		}
+		else if (Position.X > 30.0) {
+			return 0;
+		}
+		if ((Position.X > -30.0) && (Position.X < 0.0)) {
+			return 10;
+		}
+		else if (Position.X < -30.0) {
+			return 0;
+		}
 	}
 }
 
