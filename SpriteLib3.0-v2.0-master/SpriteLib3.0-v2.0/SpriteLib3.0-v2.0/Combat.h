@@ -18,10 +18,10 @@ protected:
 public:
 	void setEhealth();
 	void setPhealth();
-	float getEhealth()
+	float getEhealth();
+	float getPhealth()
 	{
 		return Phealth;
 	}
-	void getPhealth();
 	
 };
