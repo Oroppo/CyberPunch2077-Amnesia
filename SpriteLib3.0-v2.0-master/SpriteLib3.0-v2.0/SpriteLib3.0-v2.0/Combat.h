@@ -3,7 +3,7 @@ class Shared {
 protected:
 	// enemy health and damage values
 	float initialEHealth = 200;
-	float Ehealth = 200;
+	float Ehealth = 25;
 	float Edamage = 10;
 	float Bhealth = 500;
 	float Bdamage = 20;
