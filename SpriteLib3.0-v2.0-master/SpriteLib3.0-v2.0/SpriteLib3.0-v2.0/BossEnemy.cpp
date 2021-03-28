@@ -20,86 +20,99 @@ void BossEnemy::InitBoss(std::string& fileName, int width, int height, Sprite* s
 // Boss idle state
 void BossEnemy::idle(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody)
 {
+	bool sheildOn = false;
+	// is the player left of boss
 	if (distanceBX < 0)
 	{
 		// if player is past than a certain point then chase
 		if (distanceBX > (detection * -1))
 		{
+				//sheildOn = true;
 				LorR = 1;
-				chase(distanceBX, distanceBY, BossPhysicsBody);
+				chase(distanceBX, distanceBY, BossPhysicsBody, sheildOn);
 		}
 	}
 	// if player is right of enemy then
 	else
 	{
+		//sheildOn == true;
 		// if player is greater than a certain point then chase
 		if (distanceBX < detection)
 		{
 				LorR = 2;
-				chase(distanceBX, distanceBY, BossPhysicsBody);
+				chase(distanceBX, distanceBY, BossPhysicsBody, sheildOn);
 		}
 	}
 }
 
 // enemy chase state
-void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody)
+void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody, bool sheildOn)
 {
-	moveB = vec3(distanceBX / 3, 0, 0);
-	BossPhysicsBody->SetVelocity(moveB);
-	if (distanceBY >= 300)
+	// move down
+	//if (sheildOn == false)
+	//{
+	//	moveB = vec3(0, -10, 0);
+	//	BossPhysicsBody->SetVelocity(moveB);
+	//}
+	// move/stay up
+	if (sheildOn == true && distanceBY <= -124)
 	{
-		moveB = vec3(0, 50, 0);
+		moveB = vec3(0, 10, 0);
 		BossPhysicsBody->SetVelocity(moveB);
 	}
-	if (LorR == 1)
+	// move/stay up
+	if (sheildOn == true && distanceBY < -130)
 	{
-		if (distanceBX >= -50)
-		{
-			//fight(BossPhysicsBody);
-		}
-		else
-		{
-			//resetTimer();
-		}
+		moveB = vec3(0, -10, 0);
+		BossPhysicsBody->SetVelocity(moveB);
 	}
 
-	if (LorR == 2)
-	{
-		if (distanceBX <= 50)
-		{
-			//fight(BossPhysicsBody);
-		}
-		else
-		{
-			//resetTimer();
-		}
-	}
+	fight(BossPhysicsBody, distanceBX, distanceBY);
 }
 
-/*void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
+void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float distanceBY)
 {
-
-	//std::cout << "Timer is " << timer << std::endl;
-	//std::cout << "internal Timer is " << internalTimer << std::endl;
-	// will control enemys attacking when not currently being attacked
-	if (internalTimer <= 0)
+	// determinte wether to shoot lazer high or low (1= high 0 = low)
+	if (highOrLow == 3)
 	{
+		srand(time(NULL));
+		highOrLow = rand() % 2;
+	}
+	//std::cout << "Timer is " << timer2 << std::endl;
 		// controls when enemy will attack when within proximity to player
-		if (timer > 0)
+		if (timer2 > 0)
 		{
 			// decreases timer until it reaches 0
-			timer -= Timer::deltaTime;
+			timer2 -= Timer::deltaTime;
 			// when timer reaches 0 enemy will attack player dealing damage to player's health and reseting timer back to 5
-			if (timer <= 0)
+			if (timer2 <= 0)
 			{
-				// decrease player's health here and play enemy attack animation and player taking damage animation
-				std::cout << "Timer hit 0 attack here" << std::endl;
-				Phealth = Phealth - Edamage;
-				timer = 5;
+				if (highOrLow == 0)
+				{
+
+					// see if player is in range to get hit by laser in trenches
+					if (distanceBX > -833 && distanceBX < -65 && distanceBY < -70)
+					{
+						//Phealth = Phealth - Bdamage;
+						std::cout << "Player is in lazer beam in trenches" << std::endl;
+						highOrLow = 3;
+					}
+				}
+				if (highOrLow == 1)
+				{
+					// see if player is in range to get hit by lazer beam on the ground (Can jump over)
+					if (distanceBX > -1040 && distanceBX < -2 && distanceBY > -75 && distanceBY < 3)
+					{
+						std::cout << "Player is in lazer beam on ground" << std::endl;
+						//Phealth = Phealth - Bdamage;
+						highOrLow = 3;
+					}
+				}
+				timer2 = 5;
+
 			}
 		}
-	}
-}*/
+}
 
 void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* bEnts, int bentity)
 {
@@ -109,7 +122,8 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	// finding distance between player and enemy physics body
 	movementB = vec2(ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().x - BossPhysicsBody->GetPosition().x,
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y - BossPhysicsBody->GetPosition().y);
-
+	//std::cout << "X Distance is " << movementB.x << std::endl;
+	//std::cout << "Y Distance is " << movementB.y << std::endl;
 	float distanceBX = movementB.x;
 	float distanceBY = movementB.y;
 
@@ -125,6 +139,7 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	//{
 	//	destroyEnemy(eEnts, Eentity);
 	//}
+	//std::cout << "(BossUpdate) random number is " << highOrLow << std::endl;
 }
 
 void BossEnemy::AttachBossBody(PhysicsBody* body)
