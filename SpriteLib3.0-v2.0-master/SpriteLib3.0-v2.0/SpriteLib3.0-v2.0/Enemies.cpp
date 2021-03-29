@@ -183,7 +183,6 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	 pos.X = movement.x;
 	 pos.Y = movement.y;
 	 Player temp;
-
 	 Ehealth -= temp.PlayerAttack(pos) ;
 	internalTime(EnemyPhysicsBody);
 	idle(distanceX, distanceY, EnemyPhysicsBody);
