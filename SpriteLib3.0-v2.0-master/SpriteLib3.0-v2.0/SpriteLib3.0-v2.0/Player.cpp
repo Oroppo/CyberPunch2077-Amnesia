@@ -249,7 +249,7 @@ float Player::PlayerAttack(COORD Position)
 			}
 	}
 
-	if (Input::GetKey(Key::I))
+	if (Input::GetKeyDown(Key::I))
 	{	
 		if ((Position.X < 50.0) && (Position.X > 0.0)) {
 			return 10;
