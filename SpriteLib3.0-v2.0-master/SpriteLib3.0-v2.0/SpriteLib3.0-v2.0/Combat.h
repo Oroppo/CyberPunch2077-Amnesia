@@ -2,8 +2,8 @@
 class Shared {
 protected:
 	// enemy health and damage values
-	float initialEHealth = 200;
-	float Ehealth = 25;
+	float Ehealth = 50;
+	float initialEHealth = 50;
 	float Edamage = 10;
 	float Bhealth = 500;
 	float Bdamage = 20;
@@ -13,12 +13,15 @@ protected:
 
 	// player health and damage values
 	float Phealth = 80;
-	float Pdamage = 5;
+	float Pdamage = 10;
 
 public:
 	void setEhealth();
 	void setPhealth();
-	void getEhealth();
-	void getPhealth();
+	float getEhealth();
+	float getPhealth()
+	{
+		return Phealth;
+	}
 	
 };
