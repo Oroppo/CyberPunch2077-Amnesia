@@ -36,10 +36,12 @@ void PhysicsPlaygroundListener::BeginContact(b2Contact* contact)
 	{
 		if (filterA.categoryBits == PLAYER)
 		{
+			std::cout << "touching\n";
 			ECS::GetComponent<CanJump>((int)fixtureA->GetBody()->GetUserData()).m_canJump = true;
 		}
 		else if (filterB.categoryBits == PLAYER)
 		{
+			std::cout << "touching\n";
 			ECS::GetComponent<CanJump>((int)fixtureB->GetBody()->GetUserData()).m_canJump = true;
 		}
 	}

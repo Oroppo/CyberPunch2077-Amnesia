@@ -235,34 +235,32 @@ float Player::PlayerAttack(COORD Position)
 {
 	if (Input::GetKeyDown(Key::O))
 	{ 
-		//std::cout << "player pressed attack key" << std::endl;
-
-			
-			if ((Position.X < 50.0) && (Position.X > 0.0)) {
+			if ((Position.X < 70.0) && (Position.X > 0.0)) {
 				return 10;
 			}
-			else if (Position.X > 50.0) {
+			else if (Position.X > 70.0) {
 				return 0;
 			}
-			if ((Position.X > -50.0) && (Position.X < 0.0)) {
+			if ((Position.X > -70.0) && (Position.X < 0.0)) {
 				return 10;
 			}
-			else if (Position.X < -50.0) {
+			else if (Position.X < -70.0) {
 				return 0;
 			}
 	}
+
 	if (Input::GetKey(Key::I))
-	{
-		if ((Position.X < 30.0) && (Position.X > 0.0)) {
+	{	
+		if ((Position.X < 50.0) && (Position.X > 0.0)) {
 			return 10;
 		}
-		else if (Position.X > 30.0) {
+		else if (Position.X > 50.0) {
 			return 0;
 		}
-		if ((Position.X > -30.0) && (Position.X < 0.0)) {
+		if ((Position.X > -50.0) && (Position.X < 0.0)) {
 			return 10;
 		}
-		else if (Position.X < -30.0) {
+		else if (Position.X < -50.0) {
 			return 0;
 		}
 	}
