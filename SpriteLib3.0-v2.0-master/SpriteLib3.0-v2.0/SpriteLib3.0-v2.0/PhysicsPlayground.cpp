@@ -182,10 +182,13 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		b2Body* tempBody;
 		b2BodyDef tempDef;
 		tempDef.type = b2_dynamicBody;
+
 		// uncomment to have player start at begining position
 		//tempDef.position.Set(float32(0.f), float32(30.f));
+
 		// this will have player start at boss position
-		tempDef.position.Set(float32(0.f), float32(30.f));
+		// Don't Change this position plz just uncomment the begining postion and comment this one out
+		tempDef.position.Set(float32(7450.f), float32(700.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		
@@ -3276,7 +3279,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		this->EnemyEnts.push_back(entity);
 	}
 
-	// Prototype Boss Enemy
+	// PLZ DO NOT MOVE the location of the boss entity and his laser beams in physicsplayground they use entity register numbers
+	// Boss Enemy
 	{
 		auto entity = ECS::CreateEntity();
 		//Add components
@@ -3286,19 +3290,19 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<BossEnemy>(entity);
 
 		//Sets up the components
-		std::string fileName = "boxSprite.jpg";
+		std::string fileName = "BossEnemy.png";
 		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
 		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<BossEnemy>(entity).InitBoss(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
+		ECS::GetComponent<BossEnemy>(entity).InitBoss(fileName, 80, 100, &ECS::GetComponent<Sprite>(entity),
 			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
 
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
 
 		b2Body* tempBody;
 		b2BodyDef tempDef;
@@ -3321,15 +3325,17 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		this->BossEnts.push_back(entity);
 	}
 
-	//Setup Laser Pointer for boss in trenches
+	//Setup Laser POINTER for boss in trenches
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-
+		//std::cout << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<BossEnemy>(entity);
+
 
 		//Sets up components
 		std::string fileName = "LaserPointer.png";
@@ -3354,7 +3360,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 	}
 
-	//Setup Laser Pointer for boss on ground
+	//Setup Laser POINTER for boss on ground
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
@@ -3366,6 +3372,74 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		//Sets up components
 		std::string fileName = "LaserPointer.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 1100, 50);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(400.f, -90.f, 2.f));
+		ECS::GetComponent<Sprite>(entity).SetTransparency(0.f);
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(8150.f), float32(580.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
+		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+	}
+
+	//Setup Laser BEAM for boss in trenches
+	{
+		//Creates entity
+		auto entity = ECS::CreateEntity();
+		//std::cout << entity << std::endl;
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<BossEnemy>(entity);
+
+
+		//Sets up components
+		std::string fileName = "LaserBeam.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 1000, 50);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(400.f, -90.f, 2.f));
+		ECS::GetComponent<Sprite>(entity).SetTransparency(0.f);
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(8100.f), float32(530.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
+		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+	}
+
+	//Setup Laser BEAM for boss on ground
+	{
+		//Creates entity
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//Sets up components
+		std::string fileName = "LaserBeam.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 1100, 50);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(400.f, -90.f, 2.f));
 		ECS::GetComponent<Sprite>(entity).SetTransparency(0.f);
@@ -3502,11 +3576,10 @@ void PhysicsPlayground::Update()
 {
 
 
-	// Part of Enemy Code
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();
 	ECS::GetComponent<Player>(MainEntities::MainPlayer()).AttachBody(&ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()));
-
+	// Part of Enemy Code
 	// basic enemies
 	for (int x = 0; x < this->EnemyEnts.size(); x++) {
 		ECS::GetComponent<Enemy>(this->EnemyEnts.at(x)).enemyUpdate(&ECS::GetComponent<PhysicsBody>(this->EnemyEnts.at(x)), &this->EnemyEnts, this->EnemyEnts.at(x));

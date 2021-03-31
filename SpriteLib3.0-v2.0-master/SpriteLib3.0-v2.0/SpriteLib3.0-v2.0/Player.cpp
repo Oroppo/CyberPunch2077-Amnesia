@@ -144,12 +144,12 @@ void Player::MovementUpdate()
 
 
 
-
+	// @Ryan i commented out ur true/false cout just uncomment to get them back
 	if (p.IsTouchingGround() == true) {
-		std::cout << "ture" << "\n";
+		//std::cout << "ture" << "\n";
 	}
 	if (p.IsTouchingGround() == false) {
-		std::cout << "false" << "\n";
+		//std::cout << "false" << "\n";
 	}
 		if (canJump.m_canJump == true)
 		{

@@ -157,7 +157,7 @@ void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 				// decrease player's health here and play enemy attack animation and player taking damage animation
 				std::cout << "Timer hit 0 attack here" << std::endl;
 				Phealth = Phealth - Edamage;
-				timer = 5;
+				timer = 3;
 			}
 		}
 	}

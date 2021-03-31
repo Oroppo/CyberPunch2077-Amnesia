@@ -3,6 +3,7 @@
 #include "PhysicsBody.h"
 #include"Player.h"
 #include <Vector>
+#include "ECS.h"
 
 BossEnemy::BossEnemy()
 {
@@ -70,6 +71,46 @@ void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysi
 	fight(BossPhysicsBody, distanceBX, distanceBY);
 }
 
+void BossEnemy::laserBeam()
+{
+
+	/*if (beamOn == 0 || beamOn == 1)
+	{
+		if (highOrLow == 0)
+		{
+			ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
+		}
+
+		if (highOrLow == 1)
+		{
+			ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
+		}
+		if (laserBeamTimer > 0)
+		{
+			laserBeamTimer -= Timer::deltaTime;
+			if (laserBeamTimer <= 0)
+			{
+				ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
+				ECS::GetComponent<Sprite>(93).SetTransparency(0.f);
+				laserBeamTimer = 0;
+				beamOn = 3;
+			}
+		}
+	}*/
+
+	if (laserBeamTimer > 0)
+	{
+		laserBeamTimer -= Timer::deltaTime;
+		if (laserBeamTimer <= 0)
+		{
+			ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
+			ECS::GetComponent<Sprite>(93).SetTransparency(0.f);
+			laserBeamTimer = 0;
+			beamOn = 3;
+		}
+	}
+}
+
 void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float distanceBY)
 {
 	// determinte wether to shoot lazer high or low (1= high 0 = low)
@@ -77,9 +118,19 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 	{
 		srand(time(NULL));
 		highOrLow = rand() % 2;
+		std::cout << "High or low is " << highOrLow << std::endl;
+	}
+	// if it decides to shoot low make trench laser pointer appear
+	if (highOrLow == 0)
+	{
+		ECS::GetComponent<Sprite>(90).SetTransparency(1.f);
+	}
+	// if it decides to shoot high make ground laser pointer appear
+	if (highOrLow == 1)
+	{
+		ECS::GetComponent<Sprite>(91).SetTransparency(1.f);
 	}
 	//std::cout << "Timer is " << timer2 << std::endl;
-		// controls when enemy will attack when within proximity to player
 		if (timer2 > 0)
 		{
 			// decreases timer until it reaches 0
@@ -87,27 +138,42 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 			// when timer reaches 0 enemy will attack player dealing damage to player's health and reseting timer back to 5
 			if (timer2 <= 0)
 			{
-				if (highOrLow == 0)
-				{
-
 					// see if player is in range to get hit by laser in trenches
-					if (distanceBX > -833 && distanceBX < -65 && distanceBY < -70)
-					{
-						//Phealth = Phealth - Bdamage;
-						std::cout << "Player is in lazer beam in trenches" << std::endl;
-						highOrLow = 3;
-					}
-				}
-				if (highOrLow == 1)
+				if (distanceBX > -833 && distanceBX < -65 && distanceBY < -70)
 				{
-					// see if player is in range to get hit by lazer beam on the ground (Can jump over)
-					if (distanceBX > -1040 && distanceBX < -2 && distanceBY > -75 && distanceBY < 3)
+					//Phealth = Phealth - Bdamage;
+					std::cout << "Player is in lazer beam in trenches" << std::endl;
+					ECS::GetComponent<Sprite>(90).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
+					beamOn = 0;
+					//laserBeamTimer = 1;
+				}
+
+				// see if player is in range to get hit by lazer beam on the ground (Can jump over)
+				if (distanceBX > -1040 && distanceBX < -2 && distanceBY > -75 && distanceBY < 3)
+				{
+					//Phealth = Phealth - Bdamage;
+					std::cout << "Player is in lazer beam on ground" << std::endl;
+					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(90).SetTransparency(0.f);
+					beamOn = 1;
+					//laserBeamTimer = 1;
+				}
+
+				if (beamOn == 0 || beamOn == 1)
+				{
+					if (highOrLow == 0)
 					{
-						std::cout << "Player is in lazer beam on ground" << std::endl;
-						//Phealth = Phealth - Bdamage;
-						highOrLow = 3;
+						ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
+					}
+
+					if (highOrLow == 1)
+					{
+						ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
 					}
 				}
+				laserBeamTimer = 1;
+				highOrLow = 3;
 				timer2 = 5;
 
 			}
@@ -133,8 +199,8 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	//Player temp;
 
 	//Ehealth -= temp.PlayerAttack(pos);
-	//internalTime(EnemyPhysicsBody);
 	idle(distanceBX, distanceBY, BossPhysicsBody);
+	laserBeam();
 	//if (Ehealth <= 0)
 	//{
 	//	destroyEnemy(eEnts, Eentity);
