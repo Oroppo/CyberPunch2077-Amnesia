@@ -1683,6 +1683,40 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
+		//Setup Boss Platform 6
+		{
+
+			//Creates entity
+			auto entity = ECS::CreateEntity();
+
+			//Add components
+			ECS::AttachComponent<Sprite>(entity);
+			ECS::AttachComponent<Transform>(entity);
+			ECS::AttachComponent<PhysicsBody>(entity);
+
+			//Sets up components
+			std::string fileName = "FinalGround4.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 100, 300);
+			ECS::GetComponent<Transform>(entity).SetPosition(vec3(1000.f, -90.f, 2.f));
+
+			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+			auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+			float shrinkX = 0.f;
+			float shrinkY = 0.f;
+			b2Body* tempBody;
+			b2BodyDef tempDef;
+			tempDef.type = b2_staticBody;
+			tempDef.position.Set(float32(8750.f), float32(400.f));
+
+			tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+			tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+				float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, GROUND, PLAYER | ENEMY | OBJECTS | HEXAGON);
+			tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+		}
+
 		//Setup Boss Wall 1
 		{
 			//Creates entity
@@ -1739,7 +1773,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(8725.f), float32(450.f));
+			tempDef.position.Set(float32(8825.f), float32(450.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -1772,7 +1806,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(8725.f), float32(650.f));
+			tempDef.position.Set(float32(8825.f), float32(650.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -1805,7 +1839,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(8725.f), float32(850.f));
+			tempDef.position.Set(float32(8825.f), float32(850.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
