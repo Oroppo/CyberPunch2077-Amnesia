@@ -114,8 +114,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		/*Scene::CreatePhysicsSprite(m_sceneReg, "LinkStandby", 80, 60, 1.f, vec3(0.f, 30.f, 2.f), b2_dynamicBody, 0.f, 0.f, true, true)*/
 
 		//loading File...
-		auto animRight = File::LoadJSON("MC_Right.json");
-		std::string animations = "MC_Right.json";
+		auto animRight = File::LoadJSON("MC_Final.json");
+		std::string animations = "MC_Final.json";
 
 		auto entity = ECS::CreateEntity();
 		ECS::SetIsMainPlayer(entity, true);
@@ -130,7 +130,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 
 		//Sets up the components
-		std::string fileName = "spritesheets/MC_Right.png";
+		std::string fileName = "spritesheets/MC_Final.png";
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 
 		//Initializes Player
@@ -141,14 +141,23 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		//Adding currently implemented animations and assigning Registrars as unsigned ints
 
-		animController.AddAnimation(animRight["Idle"]);			//0
+		//Right Anims
+		animController.AddAnimation(animRight["IdleRight"]);	//0
 		animController.AddAnimation(animRight["RunRight"]);		//1
 		animController.AddAnimation(animRight["SliceRight"]);	//2
 		animController.AddAnimation(animRight["KickRight"]);	//3
 		animController.AddAnimation(animRight["JumpRight"]);	//4
 		animController.AddAnimation(animRight["LandRight"]);	//5
-		animController.AddAnimation(animRight["TurnRight"]);	//6
-		animController.AddAnimation(animRight["FallRight"]);	//7
+
+		//Left Anims
+		animController.AddAnimation(animRight["IdleLeft"]);		//6
+		animController.AddAnimation(animRight["RunLeft"]);		//7
+		animController.AddAnimation(animRight["SliceLeft"]);	//8
+		animController.AddAnimation(animRight["KickLeft"]);		//9
+		animController.AddAnimation(animRight["JumpLeft"]);		//10
+		animController.AddAnimation(animRight["LandLeft"]);		//11
+
+		
 
 		animController.SetActiveAnim(0);
 
@@ -161,7 +170,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		//Use this to set the speed of the animation
 		//anim.SetSecPerFrame(0.1667f);
 
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 50,true, &animController);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 70, 70,true, &animController);
 		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 30.f, 5.f));
 

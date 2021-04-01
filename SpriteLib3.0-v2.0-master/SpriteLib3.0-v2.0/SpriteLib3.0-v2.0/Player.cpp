@@ -45,8 +45,8 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 	m_animController->AddAnimation(animations["JumpRight"].get<Animation>());
 	m_animController->AddAnimation(animations["SliceRight"].get<Animation>());
 	m_animController->AddAnimation(animations["KickRight"].get<Animation>());
-	m_animController->AddAnimation(animations["LandRight"].get<Animation>());
-	m_animController->AddAnimation(animations["TurnRight"].get<Animation>());
+	//m_animController->AddAnimation(animations["LandRight"].get<Animation>());
+	//m_animController->AddAnimation(animations["TurnRight"].get<Animation>());
 
 
 	//IDLE ANIMATIONS\\
@@ -101,12 +101,15 @@ void Player::Update()
 	//Jump Logic
 	if (m_isJumping && animController.GetAnimation(4).GetAnimationDone()) {
 		animController.GetAnimation(4).Reset();
-		animController.SetActiveAnim(7);
-	}
-	else if (m_isJumping && animController.GetAnimation(7).GetAnimationDone()) {
-		animController.GetAnimation(7).Reset();
 		m_isJumping = false;
 	}
+
+	if (m_isJumping && animController.GetAnimation(10).GetAnimationDone()) {
+		animController.GetAnimation(10).Reset();
+		m_isJumping = false;
+	}
+	
+
 
 	if (!m_locked)
 	{
@@ -115,20 +118,38 @@ void Player::Update()
 	//Attack Logic\\
 
 	//Slice Animation
+
+
 	else if (animController.GetAnimation(2).GetAnimationDone()) {
 		animController.GetAnimation(2).Reset();
 		m_locked = false;
-	}
-	//Kick Animation
+			}
+
+	else if (animController.GetAnimation(8).GetAnimationDone()) {
+		animController.GetAnimation(8).Reset();
+		m_locked = false;
+			}
+
+
+	//Kick Logic
 	else if (animController.GetAnimation(3).GetAnimationDone()) {
 		animController.GetAnimation(3).Reset();
 		m_locked = false;
 	}
-
-
+	else if (animController.GetAnimation(9).GetAnimationDone()) {
+		animController.GetAnimation(9).Reset();
+		m_locked = false;
+			}
 
 	//AnimationUpdate();
 }
+	
+
+
+
+
+
+
 
 void Player::MovementUpdate()
 {
@@ -153,23 +174,27 @@ void Player::MovementUpdate()
 	}
 		if (canJump.m_canJump == true)
 		{
-			if (Input::GetKeyDown(Key::Space))
-			{
-				xdiff = player.GetBody()->GetLinearVelocity().x;
-				jumpGrav = 5;
-				canJump.m_canJump = false;
-			}
+		
+				if (Input::GetKeyDown(Key::Space))
+				{
+					xdiff = player.GetBody()->GetLinearVelocity().x;
+					jumpGrav = 5;
+					canJump.m_canJump = false;
+				}
 		}
 		else if (canJump.m_canJump == false) {
+			
 			jumpGrav -= 0.15f;
 			if (Input::GetKey(Key::A))
 			{
+				m_facingRight = false;
 				if (xdiff > -101) {
 					xdiff -= 20;
 				}
 			}	
 			if (Input::GetKey(Key::D))
 			{
+				m_facingRight = false;
 				if (xdiff < 101) {
 					xdiff += 20;
 				}
@@ -184,7 +209,13 @@ void Player::MovementUpdate()
 
 		if (!m_isJumping) {
 			if (Input::GetKey(Key::Space)) {
-				animController.SetActiveAnim(4);
+
+				if (m_facingRight) {
+					animController.SetActiveAnim(4);
+				}
+				else {
+					animController.SetActiveAnim(10);
+				}
 				m_isJumping = true;
 			}
 			/*else if (contact with ground) {
@@ -192,18 +223,39 @@ void Player::MovementUpdate()
 				m_locked = true;
 			}*/
 			else if (Input::GetKey(Key::O)) {
-				animController.SetActiveAnim(2);
+
+				if (m_facingRight) {
+					animController.SetActiveAnim(2);
+				}
+				else {
+					animController.SetActiveAnim(8);
+				}
 				m_locked = true;
 			}
 			else if (Input::GetKey(Key::I)) {
-				animController.SetActiveAnim(3);
+				if (m_facingRight) {
+					animController.SetActiveAnim(3);
+				}
+				else {
+					animController.SetActiveAnim(9);
+				}
 				m_locked = true;
 			}
-			else if (Input::GetKey(Key::A) || Input::GetKey(Key::D)) {
+			else if (Input::GetKey(Key::A)) {
+				animController.SetActiveAnim(7);
+				m_facingRight = false;
+			}
+			else if (Input::GetKey(Key::D)) {
 				animController.SetActiveAnim(1);
+				m_facingRight = true;
 			}
 			else {
-				animController.SetActiveAnim(0);
+				if (m_facingRight) {
+					animController.SetActiveAnim(0);
+				}
+				else {
+					animController.SetActiveAnim(6);
+				}
 			}
 		}
 		//

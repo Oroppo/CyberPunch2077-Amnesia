@@ -88,10 +88,13 @@ public:
 	void AttachBody(PhysicsBody* body);
 	float PlayerAttack(COORD);
 	float AttackTimer = 1.f;
+
+private:
+	int m_jumpTimer = 0;
+	bool m_facingRight = true;
 	bool m_attacking = false;
 	bool m_locked = false;
 	bool m_isJumping = false;
-private:
 	float jumpGrav = 10;
 	float xdiff = 0;
 	float AtkDistance;
