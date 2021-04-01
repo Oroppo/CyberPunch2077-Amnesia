@@ -156,6 +156,7 @@ void Player::MovementUpdate()
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
+
 	PhysicsPlaygroundListener p;
 	
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
