@@ -36,7 +36,7 @@ void Game::InitGame()
 	//Creates a new scene.
 	//Replace this with your own scene.
 	m_scenes.push_back(new FirstCreation("FIRST SCENE!!!!"));
-	m_scenes.push_back(new PhysicsPlayground("PHYSICS PLAYGROUND TIEM!!!"));
+	m_scenes.push_back(new PhysicsPlayground("BIONIC AFTERMATH"));
 	m_scenes.push_back(new AnimationSpritePlayground("Animation TIEM!!!!"));
 	 
 	//Sets active scene reference to our scene
