@@ -18,7 +18,7 @@ private:
 	vec3 move = vec3(0, 0, 0); // Movement vectors
 	vec2 movement = vec2(0, 0);
 	int LorR = 0; // checks if player is left or right of enemy
-	float timer = 5;// used for fight state
+	float timer = 3;// used for fight state
 	float internalTimer = 0; // used for fight state
 
 	Sprite* m_sprite = nullptr;

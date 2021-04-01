@@ -14,6 +14,9 @@ private:
 	float timer2 = 5;
 	int LorR = 0; // checks if player is left or right of Boss
 	int highOrLow = 3;
+	float laserBeamTimer = 0;
+	int beamOn = 3;
+
 
 	Sprite* m_sprite = nullptr;
 	Transform* m_transform = nullptr;
@@ -25,6 +28,7 @@ public:
 	void idle(float distanceX, float distanceY, PhysicsBody* BossPhysicsBody);
 	void chase(float distanceX, float distanceY, PhysicsBody* BossPhysicsBody, bool sheildOn);
 	void fight(PhysicsBody* BossPhysicsBody, float distanceBX, float distanceBY);
+	void laserBeam();
 	void destroyBoss(std::vector <unsigned int>* BEnts, int Bentity)
 	{
 		for (int i = 0; i < BEnts->size(); i++) {
