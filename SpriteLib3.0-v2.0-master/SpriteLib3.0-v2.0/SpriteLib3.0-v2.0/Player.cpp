@@ -156,55 +156,58 @@ void Player::MovementUpdate()
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
-
-	PhysicsPlaygroundListener p;
-	
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
+	//std::cout << std::boolalpha << canJump.m_canJump << "\n";
+	//std::cout << player.GetBody()->GetLinearVelocity().y<<"   ";
+	//std::cout << player.GetBody()->GetLinearVelocity().x<<"   " ;
 
-	//std::cout << player.GetBody()->GetLinearVelocity().y<<"\n";
-	//std::cout << player.GetBody()->GetLinearVelocity().x << "\n";
-
-
+	std::cout <<"same direction: "<<std::boolalpha<<sameDir<< " available: " << std::boolalpha << impactAvailable<< " Y: " << impactY << " X: " << impactX << "\n";
 
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
-	if (p.IsTouchingGround() == true) {
-		//std::cout << "ture" << "\n";
+	if (player.GetBody()->GetLinearVelocity().x * impactX > 0) {
+		sameDir = true;
 	}
-	if (p.IsTouchingGround() == false) {
-		//std::cout << "false" << "\n";
+	else if (player.GetBody()->GetLinearVelocity().x * impactX < 0) {
+		sameDir = false;
 	}
-		if (canJump.m_canJump == true)
-		{
+	if (canJump.m_canJump == true)
+	{
+		if (impactAvailable == true) {
+			impactX = xdiff;
+			impactY = jumpGrav;
+			impactAvailable = false;
+		}
 		
-				if (Input::GetKeyDown(Key::Space))
-				{
-					xdiff = player.GetBody()->GetLinearVelocity().x;
-					jumpGrav = 5;
-					canJump.m_canJump = false;
-				}
+		if (Input::GetKeyDown(Key::Space))
+		{
+			xdiff = player.GetBody()->GetLinearVelocity().x;
+			jumpGrav = 5;
+			canJump.m_canJump = false;
+			impactAvailable = true;
 		}
-		else if (canJump.m_canJump == false) {
-			
-			jumpGrav -= 0.15f;
-			if (Input::GetKey(Key::A))
-			{
-				m_facingRight = false;
-				if (xdiff > -101) {
-					xdiff -= 20;
-				}
-			}	
-			if (Input::GetKey(Key::D))
-			{
-				m_facingRight = false;
-				if (xdiff < 101) {
-					xdiff += 20;
-				}
-			}
-	
-			player.SetPosition(b2Vec2(player.GetPosition().x + (xdiff / 50), player.GetPosition().y + jumpGrav), true);
-			player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
+	}
+	else if (canJump.m_canJump == false) {
 
+		jumpGrav -= 0.15f;
+		if (Input::GetKey(Key::A))
+		{
+			m_facingRight = false;
+			if (xdiff > -101) {
+				xdiff -= 20;
+			}
 		}
+		if (Input::GetKey(Key::D))
+		{
+			m_facingRight = true;
+			if (xdiff < 101) {
+				xdiff += 20;
+			}
+		}
+	
+		player.SetPosition(b2Vec2(player.GetPosition().x + (xdiff / 50), player.GetPosition().y + jumpGrav), true);
+		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
+
+	}
 
 		//Animation Code\\
 

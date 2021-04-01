@@ -3640,6 +3640,10 @@ void PhysicsPlayground::Update()
 	//Background
 	ECS::GetComponent<Transform>(2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX(), ECS::GetComponent<Camera>(0).GetPositionY() , -1.f));
 
+
+
+
+
 }
 
 void PhysicsPlayground::GUI()

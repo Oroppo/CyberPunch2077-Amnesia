@@ -10,6 +10,7 @@ PhysicsPlaygroundListener::PhysicsPlaygroundListener()
 
 void PhysicsPlaygroundListener::BeginContact(b2Contact* contact)
 {
+	Touch = true;
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 
@@ -31,27 +32,26 @@ void PhysicsPlaygroundListener::BeginContact(b2Contact* contact)
 
 	b2Filter filterA = fixtureA->GetFilterData();
 	b2Filter filterB = fixtureB->GetFilterData();
-
 	if ((filterA.categoryBits == PLAYER && filterB.categoryBits == GROUND) || (filterB.categoryBits == PLAYER && filterA.categoryBits == GROUND))
 	{
 		if (filterA.categoryBits == PLAYER)
 		{
-			Touch == true;
+		
 			ECS::GetComponent<CanJump>((int)fixtureA->GetBody()->GetUserData()).m_canJump = true;
 		}
 		else if (filterB.categoryBits == PLAYER)
 		{
-			Touch == true;
 			ECS::GetComponent<CanJump>((int)fixtureB->GetBody()->GetUserData()).m_canJump = true;
 		}
+		else { 
+		}
+		
 	}
+}
 
-}
-bool PhysicsPlaygroundListener::IsTouchingGround() {
-	return Touch;
-}
 void PhysicsPlaygroundListener::EndContact(b2Contact* contact)
 {
+	Touch = false;
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 
@@ -62,7 +62,7 @@ void PhysicsPlaygroundListener::EndContact(b2Contact* contact)
 	if ((sensorA ^ sensorB))
 	{
 		if (sensorA)
-		{
+		{		
 			TriggerExit(fixtureA);
 		}
 		else if (sensorB)
@@ -71,7 +71,9 @@ void PhysicsPlaygroundListener::EndContact(b2Contact* contact)
 		}
 	}
 }
-
+bool PhysicsPlaygroundListener::IsTouchingGround() {
+	return Touch;
+}
 void PhysicsPlaygroundListener::TriggerEnter(b2Fixture* sensor)
 {
 	int entity = (int)sensor->GetBody()->GetUserData();
