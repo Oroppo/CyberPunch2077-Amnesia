@@ -161,15 +161,11 @@ void Player::MovementUpdate()
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"   ";
 	//std::cout << player.GetBody()->GetLinearVelocity().x<<"   " ;
 
-	std::cout <<"same direction: "<<std::boolalpha<<sameDir<< " available: " << std::boolalpha << impactAvailable<< " Y: " << impactY << " X: " << impactX << "\n";
+	
 
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
-	if (player.GetBody()->GetLinearVelocity().x * impactX > 0) {
-		sameDir = true;
-	}
-	else if (player.GetBody()->GetLinearVelocity().x * impactX < 0) {
-		sameDir = false;
-	}
+
+	std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
 	if (canJump.m_canJump == true)
 	{
 		if (impactAvailable == true) {
@@ -203,8 +199,12 @@ void Player::MovementUpdate()
 				xdiff += 20;
 			}
 		}
-	
-		player.SetPosition(b2Vec2(player.GetPosition().x + (xdiff / 50), player.GetPosition().y + jumpGrav), true);
+		if (player.GetBody()->GetLinearVelocity().x!=0) {
+			player.SetPosition(b2Vec2(player.GetPosition().x + (xdiff / 50), player.GetPosition().y + jumpGrav), true);
+		}
+		else if (player.GetBody()->GetLinearVelocity().x == 0) {
+			player.SetPosition(b2Vec2(player.GetPosition().x  , player.GetPosition().y + jumpGrav), true);
+		}
 		player.GetBody()->ApplyLinearImpulseToCenter(b2Vec2(0.f, 1.f), true);
 
 	}

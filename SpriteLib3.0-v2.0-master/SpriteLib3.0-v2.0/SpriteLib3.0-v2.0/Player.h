@@ -100,7 +100,7 @@ private:
 	float AtkDistance;
 	//impactx and y and impact are variables that are used to fix the jump mechanic
 	float impactX=0.0, impactY=0.0;
-	bool impactAvailable = true,sameDir=false;
+	bool impactAvailable = true,walljumpCorrection=false;
 	int HP = 5, attackPower =1; 
 	COORD PlayerPosition; 
 	void SetActiveAnimation(int anim);
