@@ -64,7 +64,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 
 		//Sets up the components
-		std::string fileName = "Overlay.png";
+		std::string fileName = "NewHud.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
 		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
