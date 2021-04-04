@@ -92,6 +92,7 @@ public:
 private:
 	int m_jumpTimer = 0;
 	bool dash = false;
+	bool dashCorrection = false;
 	bool m_facingRight = true;
 	bool m_attacking = false;
 	bool m_locked = false;
@@ -100,7 +101,7 @@ private:
 	float xdiff = 0;
 	float AtkDistance;
 	//impactx and y and impact are variables that are used to fix the jump mechanic
-	float impactX=0.0, impactY=0.0;
+	float impactX=0.0, impactY=0.0,spotJumped=0;
 	bool impactAvailable = true,walljumpCorrection=false;
 	int HP = 5, attackPower = 1, dashCooldown = 0,XvelDash=0,XvelDir=0;
 	COORD PlayerPosition; 
