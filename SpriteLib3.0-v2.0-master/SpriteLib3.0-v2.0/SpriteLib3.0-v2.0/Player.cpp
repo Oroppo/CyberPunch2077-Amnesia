@@ -162,6 +162,8 @@ void Player::MovementUpdate()
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
 
 	//std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
+
+	//jump function
 	if (canJump.m_canJump == true)
 	{
 		if (impactAvailable == true) {
@@ -207,7 +209,7 @@ void Player::MovementUpdate()
 	}
 
 
-
+	//dash function 
 	if (dash == true) {
 		if (canJump.m_canJump == true) {
 
