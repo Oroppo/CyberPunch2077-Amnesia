@@ -3611,6 +3611,58 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	}
 	*/
 
+//Hud Elements
+{
+
+auto entity = ECS::CreateEntity();
+
+//Add components
+ECS::AttachComponent<Sprite>(entity);
+ECS::AttachComponent<Transform>(entity);
+
+std::cout << "This is Barrel " << entity << std::endl;
+
+//Sets up the components
+std::string fileName = "Barrel.png";
+ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " <<entity<<std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
 	ECS::GetComponent<HorizontalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
@@ -3635,7 +3687,12 @@ void PhysicsPlayground::Update()
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
 	//HUD
-	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY()-10, 100.f ));
+	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY() -10, 100.f ));
+
+	//HUD Elements
+	ECS::GetComponent<Transform>(95).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -173, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
+	ECS::GetComponent<Transform>(96).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -173, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
+	ECS::GetComponent<Transform>(97).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -173, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
 
 	//Background
 	ECS::GetComponent<Transform>(2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX(), ECS::GetComponent<Camera>(0).GetPositionY() , -1.f));
