@@ -211,7 +211,7 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	//std::cout << Phealth << std::endl;
 	//std::cout << sheildOn << std::endl;
 	//std::cout << "dodge counter is " << dodgeCounter << std::endl;
-	std::cout << BossPhysicsBody->GetPosition().y << std::endl;
+	//std::cout << BossPhysicsBody->GetPosition().y << std::endl;
 	// movement vector
 	vec3 moveB = vec3(0, 0, 0);
 	vec2 movementB = vec2(0, 0);
