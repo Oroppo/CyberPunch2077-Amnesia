@@ -96,6 +96,7 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 
 void Player::Update()
 {
+	//std::cout << Phealth << std::endl;
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 
 	//Jump Logic
@@ -109,7 +110,8 @@ void Player::Update()
 		m_isJumping = false;
 	}
 	
-
+	/*BossEnemy dmgTemp;
+	Phealth = Phealth - dmgTemp.BossAttack();*/
 
 	if (!m_locked)
 	{
@@ -145,12 +147,6 @@ void Player::Update()
 }
 	
 
-
-
-
-
-
-
 void Player::MovementUpdate()
 {
 	auto& animController = ECS::GetComponent<AnimationController>(3);
@@ -159,13 +155,13 @@ void Player::MovementUpdate()
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
 	//std::cout << std::boolalpha << canJump.m_canJump << "\n";
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"   ";
-	//std::cout << player.GetBody()->GetLinearVelocity().x<<"   " ;
+	std::cout << spotJumped <<" " << std::boolalpha << dashCorrection<<"\n" ;
 
 	
 
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
 
-	std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
+	//std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
 	if (canJump.m_canJump == true)
 	{
 		if (impactAvailable == true) {
@@ -176,6 +172,7 @@ void Player::MovementUpdate()
 		
 		if (Input::GetKeyDown(Key::Space))
 		{
+			spotJumped = player.GetPosition().x;
 			xdiff = player.GetBody()->GetLinearVelocity().x;
 			jumpGrav = 5;
 			canJump.m_canJump = false;
@@ -209,6 +206,61 @@ void Player::MovementUpdate()
 
 	}
 
+
+
+	if (dash == true) {
+		if (canJump.m_canJump == true) {
+
+			player.GetBody()->SetLinearVelocity(b2Vec2(XvelDir * XvelDash * 150, 0.f));
+		}
+		else if (canJump.m_canJump == false) {
+			player.SetPosition(b2Vec2(player.GetPosition().x + XvelDir * XvelDash, player.GetPosition().y), true);
+			if (dashCorrection == true) {
+				std::cout << "detected correction";
+				player.SetPosition(b2Vec2(player.GetPosition().x -  XvelDir * XvelDash, player.GetPosition().y), true);
+				dashCorrection = false;
+			}
+		}
+		XvelDash--;
+		if (XvelDash <= 0) {
+			if (canJump.m_canJump == true) {
+				player.SetPosition(b2Vec2(player.GetPosition().x + player.GetBody()->GetLinearVelocity().x / 50, player.GetPosition().y + 3), true);
+			}
+			dash = false;
+			canJump.m_canJump = false;
+			jumpGrav = 0;
+			dashCooldown = 50;
+		}
+	}
+	else if (dash == false) {
+		if (dashCooldown > 0) {
+			dashCooldown--;
+		}
+		else if (dashCooldown == 0) {
+			if (Input::GetKey(Key::Shift)) {
+				dash = true;
+				XvelDash = 15;
+				if ((spotJumped - (player.GetPosition().x) > -0.1) && (spotJumped - (player.GetPosition().x) <0.1)) {
+					dashCorrection = true;
+				}
+				if (player.GetBody()->GetLinearVelocity().x < 0) {
+					XvelDir = -1;
+				}
+				else if (player.GetBody()->GetLinearVelocity().x > 0) {
+					XvelDir = 1;
+				}
+				else if (player.GetBody()->GetLinearVelocity().x == 0) {
+					if (m_facingRight == true)
+					{
+						XvelDir = 1;
+					}
+					else if (m_facingRight == false) {
+						XvelDir = -1;
+					}
+				}
+			}
+		}
+	}
 		//Animation Code\\
 
 		if (!m_isJumping) {
@@ -281,15 +333,12 @@ void Player::MovementUpdate()
 			player.GetBody()->ApplyForceToCenter(b2Vec2(vel), true);
 
 		}
-		if (Input::GetKey(Key::I))
-		{
-
-		}
 
 		if (Input::GetKeyDown(Key::T))
 		{
 			PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 		}
+		
 	
 }
 
@@ -298,13 +347,13 @@ float Player::PlayerAttack(COORD Position)
 	if (Input::GetKeyDown(Key::O))
 	{ 
 			if ((Position.X < 70.0) && (Position.X > 0.0)) {
-				return 10;
+				return Pdamage;
 			}
 			else if (Position.X > 70.0) {
 				return 0;
 			}
 			if ((Position.X > -70.0) && (Position.X < 0.0)) {
-				return 10;
+				return Pdamage;
 			}
 			else if (Position.X < -70.0) {
 				return 0;
@@ -314,13 +363,13 @@ float Player::PlayerAttack(COORD Position)
 	if (Input::GetKeyDown(Key::I))
 	{	
 		if ((Position.X < 50.0) && (Position.X > 0.0)) {
-			return 10;
+			return Pdamage;
 		}
 		else if (Position.X > 50.0) {
 			return 0;
 		}
 		if ((Position.X > -50.0) && (Position.X < 0.0)) {
-			return 10;
+			return Pdamage;
 		}
 		else if (Position.X < -50.0) {
 			return 0;

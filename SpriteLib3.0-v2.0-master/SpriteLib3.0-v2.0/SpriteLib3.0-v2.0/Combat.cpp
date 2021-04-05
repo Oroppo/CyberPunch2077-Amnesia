@@ -1,3 +1,18 @@
 #include "Combat.h"
-#include"Player.h"
-#include "Enemies.h"
+
+void Shared::combatUpdate()
+{
+}
+
+void Shared::setPhealthFromB()
+{
+}
+void Shared::setPhealthFromE()
+{
+	Phealth = Phealth - Edamage;
+}
+
+void Shared::setEhealth()
+{
+	Ehealth = Ehealth - Pdamage;
+}

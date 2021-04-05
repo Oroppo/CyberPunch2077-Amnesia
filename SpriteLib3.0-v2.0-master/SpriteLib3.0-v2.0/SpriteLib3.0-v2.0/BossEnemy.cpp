@@ -4,6 +4,7 @@
 #include"Player.h"
 #include <Vector>
 #include "ECS.h"
+#include "Combat.h"
 
 BossEnemy::BossEnemy()
 {
@@ -21,51 +22,54 @@ void BossEnemy::InitBoss(std::string& fileName, int width, int height, Sprite* s
 // Boss idle state
 void BossEnemy::idle(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody)
 {
-	bool sheildOn = false;
 	// is the player left of boss
 	if (distanceBX < 0)
 	{
 		// if player is past than a certain point then chase
 		if (distanceBX > (detection * -1))
 		{
-				//sheildOn = true;
 				LorR = 1;
-				chase(distanceBX, distanceBY, BossPhysicsBody, sheildOn);
+				chase(distanceBX, distanceBY, BossPhysicsBody);
 		}
 	}
 	// if player is right of enemy then
 	else
 	{
-		//sheildOn == true;
 		// if player is greater than a certain point then chase
 		if (distanceBX < detection)
 		{
 				LorR = 2;
-				chase(distanceBX, distanceBY, BossPhysicsBody, sheildOn);
+				chase(distanceBX, distanceBY, BossPhysicsBody);
 		}
 	}
 }
 
 // enemy chase state
-void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody, bool sheildOn)
+void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysicsBody)
 {
 	// move down
-	//if (sheildOn == false)
-	//{
-	//	moveB = vec3(0, -10, 0);
-	//	BossPhysicsBody->SetVelocity(moveB);
-	//}
-	// move/stay up
-	if (sheildOn == true && distanceBY <= -124)
+	if (sheildOn == 0)
+	{
+		moveB = vec3(0, -10, 0);
+		BossPhysicsBody->SetVelocity(moveB);
+		if (BossPhysicsBody->GetPosition().y <= 601)
+		{
+			dodgeCounter = 0;
+		}
+	}
+	// move up
+	if (sheildOn == 1)
 	{
 		moveB = vec3(0, 10, 0);
 		BossPhysicsBody->SetVelocity(moveB);
 	}
-	// move/stay up
-	if (sheildOn == true && distanceBY < -130)
+	// reset position and sheild
+	if (sheildOn == 1 && BossPhysicsBody->GetPosition().y > 650)
 	{
-		moveB = vec3(0, -10, 0);
+		moveB = vec3(0, 0, 0);
 		BossPhysicsBody->SetVelocity(moveB);
+		BossPhysicsBody->SetPosition(b2Vec2(8750.f, 650.f));
+		sheildOn = 3;
 	}
 
 	fight(BossPhysicsBody, distanceBX, distanceBY);
@@ -73,43 +77,49 @@ void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysi
 
 void BossEnemy::laserBeam()
 {
-
-	/*if (beamOn == 0 || beamOn == 1)
-	{
-		if (highOrLow == 0)
-		{
-			ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
-		}
-
-		if (highOrLow == 1)
-		{
-			ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
-		}
-		if (laserBeamTimer > 0)
-		{
-			laserBeamTimer -= Timer::deltaTime;
-			if (laserBeamTimer <= 0)
-			{
-				ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
-				ECS::GetComponent<Sprite>(93).SetTransparency(0.f);
-				laserBeamTimer = 0;
-				beamOn = 3;
-			}
-		}
-	}*/
-
 	if (laserBeamTimer > 0)
 	{
 		laserBeamTimer -= Timer::deltaTime;
 		if (laserBeamTimer <= 0)
 		{
-			ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
 			ECS::GetComponent<Sprite>(93).SetTransparency(0.f);
+			ECS::GetComponent<Sprite>(94).SetTransparency(0.f);
 			laserBeamTimer = 0;
 			beamOn = 3;
 		}
 	}
 }
+
+void BossEnemy::sheild()
+{
+	if (sheildOn == 0)
+	{
+		//std::cout << "Timer3 is " << timer3 << std::endl;
+		if (timer3 > 0)
+		{
+			// decreases timer until it reaches 0
+			timer3 -= Timer::deltaTime;
+			// when the timer reaches 0 the boss's sheild will be turned back on
+			if (timer3 <= 0)
+			{
+				sheildOn = 1;
+				timer3 = 5;
+			}
+		}
+	}
+}
+
+
+/*float BossEnemy::BossAttack()
+{
+	std::cout << "Can Attack is  " << CanAttack << std::endl;
+	if (CanAttack == 1)
+	{
+		return Bdamage;
+		std::cout << "Can Attack =  " << CanAttack << std::endl;
+	}
+	//CanAttack = 0;
+}*/
 
 void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float distanceBY)
 {
@@ -123,12 +133,12 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 	// if it decides to shoot low make trench laser pointer appear
 	if (highOrLow == 0)
 	{
-		ECS::GetComponent<Sprite>(90).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(91).SetTransparency(1.f);
 	}
 	// if it decides to shoot high make ground laser pointer appear
 	if (highOrLow == 1)
 	{
-		ECS::GetComponent<Sprite>(91).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
 	}
 	//std::cout << "Timer is " << timer2 << std::endl;
 		if (timer2 > 0)
@@ -139,37 +149,53 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 			if (timer2 <= 0)
 			{
 					// see if player is in range to get hit by laser in trenches
-				if (distanceBX > -833 && distanceBX < -65 && distanceBY < -70)
+				if (distanceBX > -933 && distanceBX < -165 && distanceBY < -75)
 				{
-					//Phealth = Phealth - Bdamage;
-					std::cout << "Player is in lazer beam in trenches" << std::endl;
-					ECS::GetComponent<Sprite>(90).SetTransparency(0.f);
 					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
 					beamOn = 0;
-					//laserBeamTimer = 1;
+					if (highOrLow == 0)
+					{
+						Phealth = Phealth - Bdamage;
+						std::cout << "Player got hit by the lazer beam in trenches" << std::endl;
+						dodgeCounter = 0;
+					}
+					else
+					{
+						dodgeCounter++;
+					}
 				}
 
 				// see if player is in range to get hit by lazer beam on the ground (Can jump over)
 				if (distanceBX > -1040 && distanceBX < -2 && distanceBY > -75 && distanceBY < 3)
 				{
-					//Phealth = Phealth - Bdamage;
-					std::cout << "Player is in lazer beam on ground" << std::endl;
+					ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
 					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
-					ECS::GetComponent<Sprite>(90).SetTransparency(0.f);
 					beamOn = 1;
-					//laserBeamTimer = 1;
+					if (highOrLow == 1)
+					{
+						Phealth = Phealth - Bdamage;
+						std::cout << "Player got hit by the lazer beam on ground" << std::endl;
+						dodgeCounter = 0;
+					}
+					else
+					{
+						dodgeCounter++;
+					}
 				}
 
 				if (beamOn == 0 || beamOn == 1)
 				{
 					if (highOrLow == 0)
 					{
-						ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
+						// trenches beam
+						ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
 					}
 
 					if (highOrLow == 1)
 					{
-						ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
+						// ground beam
+						ECS::GetComponent<Sprite>(94).SetTransparency(1.f);
 					}
 				}
 				laserBeamTimer = 1;
@@ -182,6 +208,10 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 
 void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* bEnts, int bentity)
 {
+	//std::cout << Phealth << std::endl;
+	//std::cout << sheildOn << std::endl;
+	//std::cout << "dodge counter is " << dodgeCounter << std::endl;
+	std::cout << BossPhysicsBody->GetPosition().y << std::endl;
 	// movement vector
 	vec3 moveB = vec3(0, 0, 0);
 	vec2 movementB = vec2(0, 0);
@@ -193,22 +223,43 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	float distanceBX = movementB.x;
 	float distanceBY = movementB.y;
 
-	//COORD pos;
-	//pos.X = movement.x;
-	//pos.Y = movement.y;
-	//Player temp;
+	if (sheildOn == 0)
+	{
+		// player attack code
+		COORD posB;
+		posB.X = movementB.x;
+		posB.Y = movementB.y;
+		Player tempB;
+		Bhealth -= tempB.PlayerAttack(posB);
+	}
 
-	//Ehealth -= temp.PlayerAttack(pos);
+	// call to boss functions
+	if (dodgeCounter >= 3)
+	{
+		sheildOn = 0;
+	}
 	idle(distanceBX, distanceBY, BossPhysicsBody);
 	laserBeam();
-	//if (Ehealth <= 0)
-	//{
-	//	destroyEnemy(eEnts, Eentity);
-	//}
-	//std::cout << "(BossUpdate) random number is " << highOrLow << std::endl;
+	sheild();
+
+	// decide if player dies or if boss dies
+	if (Bhealth <= 0)
+	{
+		destroyBoss(bEnts, bentity);
+	}
+	if (Phealth <= 0)
+	{
+		TeleportPlayer();
+	}
 }
 
 void BossEnemy::AttachBossBody(PhysicsBody* body)
 {
 	m_physBody = body;
+}
+
+void BossEnemy::TeleportPlayer()
+{
+	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
+	Phealth = 100;
 }

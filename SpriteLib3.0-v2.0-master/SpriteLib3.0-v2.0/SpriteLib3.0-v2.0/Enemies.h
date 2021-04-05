@@ -4,12 +4,13 @@
 #include "Timer.h"
 #include "Combat.h"
 
+
 /*enum class ZombAnimEnums
 {
 	Standing = 0,
 	Moving = 1,
 };*/
-class Enemy : public Shared
+class Enemy: public Shared
 {
 private:
 	//float health = 10.f; // Enemy Health
@@ -53,6 +54,6 @@ public:
 		PhysicsBody::m_bodiesToDelete.push_back(Eentity);
 	}
 
-
 	void enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity);
+	void TeleportPlayer();
 };
