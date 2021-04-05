@@ -120,6 +120,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		auto entity = ECS::CreateEntity();
 		ECS::SetIsMainPlayer(entity, true);
 
+		MainPlayer = entity;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -3538,7 +3539,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	}*/
 	
 
-	/*
+	
 	//Setup trigger
 	{
 		//Creates entity
@@ -3551,14 +3552,15 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		
 		//Sets up components
 		std::string fileName = "boxSprite.jpg";
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(30.f, -20.f, 80.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(4000.f, -600.f, 80.f));
 		ECS::GetComponent<Trigger*>(entity) = new TranslateTrigger();
 		ECS::GetComponent<Trigger*>(entity)->SetTriggerEntity(entity);
-		ECS::GetComponent<Trigger*>(entity)->AddTargetEntity(puzzleWall1);
+		ECS::GetComponent<Trigger*>(entity)->AddTargetEntity(MainPlayer);
+
 		TranslateTrigger* temp = (TranslateTrigger*)ECS::GetComponent<Trigger*>(entity);
-		temp->movement = b2Vec2(0.f, 15.f);
+		temp->movement = b2Vec2(0.f, 35.f);
 		
-		//ECS::GetComponent<Trigger*>(entity)->AddTargetEntity(puzzleWall2);
+		
 
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
@@ -3567,15 +3569,15 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		b2Body* tempBody;
 		b2BodyDef tempDef;
 		tempDef.type = b2_staticBody;
-		tempDef.position.Set(float32(295.f), float32(-30.f));
+		tempDef.position.Set(float32(4000.f), float32(-500.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
-		tempPhsBody = PhysicsBody(entity, tempBody, float(40.f - shrinkX), float(40.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER | OBJECTS);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(8000.f - shrinkX), float(50.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 0.f, 0.3f));
 	}
 
-	{
+	/*{
 		auto entity = ECS::CreateEntity();
 
 		//Add components
@@ -3608,8 +3610,60 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, BodyType::HEXAGON, tempBody, points, vec2(0.f, 0.f), false, HEXAGON, GROUND | OBJECTS | ENVIRONMENT | PLAYER | TRIGGER, 0.5f, 3.5);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-	}
-	*/
+	}*/
+	
+
+//Hud Elements
+{
+
+auto entity = ECS::CreateEntity();
+
+//Add components
+ECS::AttachComponent<Sprite>(entity);
+ECS::AttachComponent<Transform>(entity);
+
+std::cout << "This is Barrel " << entity << std::endl;
+
+//Sets up the components
+std::string fileName = "Barrel.png";
+ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " <<entity<<std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
 
 	ECS::GetComponent<HorizontalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
@@ -3632,12 +3686,17 @@ void PhysicsPlayground::Update()
 	for (int i = 0; i < this->BossEnts.size(); i++) {
 		ECS::GetComponent<BossEnemy>(this->BossEnts.at(i)).BossUpdate(&ECS::GetComponent<PhysicsBody>(this->BossEnts.at(i)), &this->BossEnts, this->BossEnts.at(i));
 	}
-	call.combatUpdate();
+	//call.combatUpdate();
 
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
 	//HUD
-	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY()-10, 100.f ));
+	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY() -10, 100.f ));
+
+	//HUD Elements
+	ECS::GetComponent<Transform>(96).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -173, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
+	ECS::GetComponent<Transform>(97).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -153, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
+	ECS::GetComponent<Transform>(98).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -193, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
 
 	//Background
 	ECS::GetComponent<Transform>(2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX(), ECS::GetComponent<Camera>(0).GetPositionY() , -1.f));

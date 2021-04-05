@@ -37,6 +37,7 @@ void Game::InitGame()
 	//Replace this with your own scene.
 	m_scenes.push_back(new FirstCreation("FIRST SCENE!!!!"));
 	m_scenes.push_back(new PhysicsPlayground("BIONIC AFTERMATH"));
+	//m_scenes.push_back(new StartMenu("Start Menu"));
 	m_scenes.push_back(new AnimationSpritePlayground(""));
 	 
 	//Sets active scene reference to our scene
