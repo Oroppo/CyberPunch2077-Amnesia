@@ -16,6 +16,7 @@
 #include "CanJump.h"
 #include "Enemies.h"
 #include "BossEnemy.h"
+#include "Combat.h"
 
 
 class ECS abstract

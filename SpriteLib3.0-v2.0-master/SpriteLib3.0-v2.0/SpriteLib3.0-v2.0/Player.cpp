@@ -96,6 +96,7 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 
 void Player::Update()
 {
+	//std::cout << Phealth << std::endl;
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 
 	//Jump Logic
@@ -109,7 +110,8 @@ void Player::Update()
 		m_isJumping = false;
 	}
 	
-
+	/*BossEnemy dmgTemp;
+	Phealth = Phealth - dmgTemp.BossAttack();*/
 
 	if (!m_locked)
 	{
@@ -144,12 +146,6 @@ void Player::Update()
 	//AnimationUpdate();
 }
 	
-
-
-
-
-
-
 
 void Player::MovementUpdate()
 {
@@ -351,13 +347,13 @@ float Player::PlayerAttack(COORD Position)
 	if (Input::GetKeyDown(Key::O))
 	{ 
 			if ((Position.X < 70.0) && (Position.X > 0.0)) {
-				return 10;
+				return Pdamage;
 			}
 			else if (Position.X > 70.0) {
 				return 0;
 			}
 			if ((Position.X > -70.0) && (Position.X < 0.0)) {
-				return 10;
+				return Pdamage;
 			}
 			else if (Position.X < -70.0) {
 				return 0;
@@ -367,13 +363,13 @@ float Player::PlayerAttack(COORD Position)
 	if (Input::GetKeyDown(Key::I))
 	{	
 		if ((Position.X < 50.0) && (Position.X > 0.0)) {
-			return 10;
+			return Pdamage;
 		}
 		else if (Position.X > 50.0) {
 			return 0;
 		}
 		if ((Position.X > -50.0) && (Position.X < 0.0)) {
-			return 10;
+			return Pdamage;
 		}
 		else if (Position.X < -50.0) {
 			return 0;

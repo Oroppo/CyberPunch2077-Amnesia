@@ -3350,7 +3350,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		b2Body* tempBody;
 		b2BodyDef tempDef;
 		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(8650.f), float32(650.f));
+		tempDef.position.Set(float32(8750.f), float32(650.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -3372,7 +3372,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-		//std::cout << entity << std::endl;
+		//std::cout << "Trenches Pointer is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -3407,7 +3407,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-
+		//std::cout << "Ground Pointer is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -3440,7 +3440,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-		//std::cout << entity << std::endl;
+		//std::cout << "Trenches Beam is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -3475,7 +3475,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-
+		//std::cout << "Ground Beam is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -3623,6 +3623,7 @@ void PhysicsPlayground::Update()
 	player.Update();
 	ECS::GetComponent<Player>(MainEntities::MainPlayer()).AttachBody(&ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()));
 	// Part of Enemy Code
+	Shared call;
 	// basic enemies
 	for (int x = 0; x < this->EnemyEnts.size(); x++) {
 		ECS::GetComponent<Enemy>(this->EnemyEnts.at(x)).enemyUpdate(&ECS::GetComponent<PhysicsBody>(this->EnemyEnts.at(x)), &this->EnemyEnts, this->EnemyEnts.at(x));
@@ -3631,6 +3632,7 @@ void PhysicsPlayground::Update()
 	for (int i = 0; i < this->BossEnts.size(); i++) {
 		ECS::GetComponent<BossEnemy>(this->BossEnts.at(i)).BossUpdate(&ECS::GetComponent<PhysicsBody>(this->BossEnts.at(i)), &this->BossEnts, this->BossEnts.at(i));
 	}
+	call.combatUpdate();
 
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
