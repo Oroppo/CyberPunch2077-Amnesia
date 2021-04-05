@@ -43,4 +43,5 @@ protected:
 	int enemy2;
 	int puzzleWall1;
 	int puzzleWall2;
+	int MainPlayer;
 };
