@@ -245,13 +245,13 @@ void Player::MovementUpdate()
 				if ((spotJumped - (player.GetPosition().x) > -0.1) && (spotJumped - (player.GetPosition().x) <0.1)) {
 					dashCorrection = true;
 				}
-				if (player.GetBody()->GetLinearVelocity().x < 0) {
+				if (player.GetBody()->GetLinearVelocity().x < -0.2) {
 					XvelDir = -1;
 				}
-				else if (player.GetBody()->GetLinearVelocity().x > 0) {
+				else if (player.GetBody()->GetLinearVelocity().x > 0.2) {
 					XvelDir = 1;
 				}
-				else if (player.GetBody()->GetLinearVelocity().x == 0) {
+				else if ((player.GetBody()->GetLinearVelocity().x <0.199)&& (player.GetBody()->GetLinearVelocity().x > -0.199)) {
 					if (m_facingRight == true)
 					{
 						XvelDir = 1;
