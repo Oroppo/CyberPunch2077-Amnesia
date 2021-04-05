@@ -198,7 +198,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		// this will have player start at boss position
 		// Don't Change this position plz just uncomment the begining postion and comment this one out
-		tempDef.position.Set(float32(7450.f), float32(700.f));
+		tempDef.position.Set(float32(0.f), float32(30.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		
@@ -1884,7 +1884,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(925.f), float32(30.f));
+			tempDef.position.Set(float32(925.f), float32(20.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -2154,7 +2154,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 1 (At Start)
+		//Setup C&B Box 1 (At Start)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2165,8 +2165,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2177,7 +2177,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(1425.f), float32(-20.f));
+			tempDef.position.Set(float32(1425.f), float32(-45.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -2187,7 +2187,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 2 (At Start)
+		//Setup C&B Box 2 (At Start)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2198,8 +2198,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2210,7 +2210,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(1470.f), float32(-20.f));
+			tempDef.position.Set(float32(1470.f), float32(-45.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -2220,7 +2220,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 3 (Middle)
+		//Setup C&B Box 3 (Middle)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2231,8 +2231,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2243,7 +2243,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(2320.f), float32(-30.f));
+			tempDef.position.Set(float32(2320.f), float32(-50.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -2253,7 +2253,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 4 (Middle)
+		//Setup C&B Box 4 (Middle)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2264,8 +2264,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2276,7 +2276,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			b2Body* tempBody;
 			b2BodyDef tempDef;
 			tempDef.type = b2_staticBody;
-			tempDef.position.Set(float32(2500.f), float32(-30.f));
+			tempDef.position.Set(float32(2500.f), float32(-50.f));
 
 			tempBody = m_physicsWorld->CreateBody(&tempDef);
 
@@ -2286,7 +2286,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 5 (End)
+		//Setup C&B Box 5 (End)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2297,8 +2297,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2319,7 +2319,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 6 (End)
+		//Setup C&B Box 6(End)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2330,8 +2330,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2352,7 +2352,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 7 (End)
+		//Setup C&B Box 7 (End)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2363,8 +2363,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2385,7 +2385,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 8 (Top of Wall Jump Section)
+		//Setup C&B Box 8 (Top of Wall Jump Section)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2396,8 +2396,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2418,7 +2418,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 9 (Top of Wall Jump Section)
+		//Setup C&B Box 9 (Top of Wall Jump Section)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2429,8 +2429,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2451,7 +2451,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 10 (Platform before boss section)
+		//Setup C&B Box 10 (Platform before boss section)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2462,8 +2462,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2484,7 +2484,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		}
 
-		//Setup Barrel 11 (Platform before boss section)
+		//Setup C&B Box 11 (Platform before boss section)
 		{
 			//Creates entity
 			auto entity = ECS::CreateEntity();
@@ -2495,8 +2495,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			ECS::AttachComponent<PhysicsBody>(entity);
 
 			//Sets up components
-			std::string fileName = "Barrel.png";
-			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+			std::string fileName = "C&B_Box.png";
+			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
 			ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -2516,6 +2516,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
 
 		}
+
 	}
 	
 	// TUTORIAL ENEMIES
@@ -3540,7 +3541,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	
 
 	
-	//Setup trigger
+	//Setup Trigger to respawn the player 
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
@@ -3569,11 +3570,11 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		b2Body* tempBody;
 		b2BodyDef tempDef;
 		tempDef.type = b2_staticBody;
-		tempDef.position.Set(float32(4000.f), float32(-500.f));
+		tempDef.position.Set(float32(4000.f), float32(-150.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
-		tempPhsBody = PhysicsBody(entity, tempBody, float(8000.f - shrinkX), float(50.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(10000.f - shrinkX), float(100.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 0.f, 0.3f));
 	}
 
@@ -3665,6 +3666,137 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 }
 
+//Setup Powercell 1 
+{
+	//Creates entity
+	auto entity = ECS::CreateEntity();
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+
+	//Sets up components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+	float shrinkX = 0.f;
+	float shrinkY = 0.f;
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_staticBody;
+	tempDef.position.Set(float32(1700.f), float32(60.f));
+
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
+	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+}
+
+//Setup Powercell 2
+{
+	//Creates entity
+	auto entity = ECS::CreateEntity();
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+
+	//Sets up components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+	float shrinkX = 0.f;
+	float shrinkY = 0.f;
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_staticBody;
+	tempDef.position.Set(float32(4590.f), float32(230.f));
+
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
+	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+}
+
+//Setup Powercell 3
+{
+	//Creates entity
+	auto entity = ECS::CreateEntity();
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+
+	//Sets up components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+	float shrinkX = 0.f;
+	float shrinkY = 0.f;
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_staticBody;
+	tempDef.position.Set(float32(5600.f), float32(850.f));
+
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
+	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+}
+
+//Setup Powercell 4
+{
+	//Creates entity
+	auto entity = ECS::CreateEntity();
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+
+	//Sets up components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+	float shrinkX = 0.f;
+	float shrinkY = 0.f;
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_staticBody;
+	tempDef.position.Set(float32(7380.f), float32(620.f));
+
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
+	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+}
 	ECS::GetComponent<HorizontalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
