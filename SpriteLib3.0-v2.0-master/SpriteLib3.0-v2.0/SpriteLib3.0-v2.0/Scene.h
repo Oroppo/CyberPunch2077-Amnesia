@@ -16,6 +16,8 @@ public:
 	Scene(std::string name);
 	~Scene() { }
 
+
+
 	void Unload();
 
 	//Each scene will need to have a different
@@ -25,6 +27,9 @@ public:
 	virtual void Update();
 
 	virtual void GUI();
+	
+	virtual int GetSceneChange();
+	virtual void SetSceneChange(int);
 
 	void AdjustScrollOffset();
 	void CreateCameraEntity(bool mainCamera, float windowWidth, float windowHeight, float left, float right, float bottom, float top, 
@@ -78,11 +83,14 @@ protected:
 
 	vec4 m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 
+	int m_SceneIndex = -1;
+
 	entt::registry* m_sceneReg = nullptr;	
 	std::string m_name = "Default Name";
 private:
 	//Hello world entity number
 	int m_helloWorldSign = 0;
+
 };
 
 #endif // !__SCENE_H__

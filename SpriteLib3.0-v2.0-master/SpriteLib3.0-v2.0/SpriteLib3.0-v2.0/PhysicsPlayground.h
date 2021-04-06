@@ -13,6 +13,8 @@ public:
 
 	void Update() override;
 
+
+
 	void GUI() override;
 
 	void GUIWindowUI();
@@ -20,11 +22,16 @@ public:
 	void GUIWindowTwo();
 
 
+	int GetSceneChange() override;
+	void SetSceneChange(int) override;
+
+
 	//Input overrides
 	void KeyboardHold() override;
 	void KeyboardDown() override;
 	void KeyboardUp() override;
 	void MouseClick(SDL_MouseButtonEvent evnt) override;
+	
 protected:
 	bool m_firstWindow = false;
 	bool m_secondWindow = false;

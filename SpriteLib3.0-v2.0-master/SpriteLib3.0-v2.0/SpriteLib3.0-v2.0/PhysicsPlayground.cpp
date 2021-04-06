@@ -16,6 +16,14 @@ PhysicsPlayground::PhysicsPlayground(std::string name)
 
 }
 
+int PhysicsPlayground::GetSceneChange() {
+	return m_SceneIndex;
+}
+
+void PhysicsPlayground::SetSceneChange(int a) {
+	m_SceneIndex = a;
+}
+
 
 void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 {
@@ -3669,6 +3677,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
 
+
 void PhysicsPlayground::Update()
 {
 
@@ -3703,7 +3712,11 @@ void PhysicsPlayground::Update()
 
 
 
+	if (Input::GetKeyDown(Key::Escape)) {
 
+		SetSceneChange(0);
+
+	}
 
 }
 

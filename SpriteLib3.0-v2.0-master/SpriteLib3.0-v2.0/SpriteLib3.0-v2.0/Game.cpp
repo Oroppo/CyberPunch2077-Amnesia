@@ -1,5 +1,5 @@
 #include "Game.h"
-
+#include "StartMenu.h"
 #include <random>
 
 
@@ -25,6 +25,30 @@ Game::~Game()
 	}
 }
 
+void Game::CheckScene() {
+
+	//Will Check if the active scene has modified it's Scene Selection Member Variable and change the scene to that scene.
+
+	if (m_activeScene->GetSceneChange() != -1) {
+
+		int temp = m_activeScene->GetSceneChange();
+
+		//Resets Scene Change to be used again
+		m_activeScene->SetSceneChange(-1);
+
+
+		//Backend Stuff to unload entities, and change the active scene
+		m_activeScene->Unload();
+		m_activeScene = m_scenes[temp];
+		m_activeScene->InitScene(BackEnd::GetWindowWidth(), BackEnd::GetWindowHeight());
+		m_register = m_activeScene->GetScene();
+		m_window->SetWindowName(m_activeScene->GetName());
+
+
+	}
+
+}
+
 void Game::InitGame()
 {
 	//Initializes the backend with window width and height values
@@ -35,13 +59,15 @@ void Game::InitGame()
 
 	//Creates a new scene.
 	//Replace this with your own scene.
-	m_scenes.push_back(new FirstCreation("FIRST SCENE!!!!"));
+
+	m_scenes.push_back(new StartMenu("BIONIC AFTERMATH"));
 	m_scenes.push_back(new PhysicsPlayground("BIONIC AFTERMATH"));
-	//m_scenes.push_back(new StartMenu("Start Menu"));
-	m_scenes.push_back(new AnimationSpritePlayground(""));
+
+	
+
 	 
 	//Sets active scene reference to our scene
-	m_activeScene = m_scenes[1];
+	m_activeScene = m_scenes[0];
 
 	m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 
@@ -55,13 +81,17 @@ void Game::InitGame()
 
 bool Game::Run()
 {
+
+	
 	//While window is still open
 	while (m_window->isOpen())
 	{
 		//Clear window with activescene clearColor
 		m_window->Clear(m_activeScene->GetClearColor());
+
 		//Updates the game
 		Update();
+
 		//Draws the game
 		BackEnd::Draw(m_register);
 
@@ -82,6 +112,7 @@ bool Game::Run()
 			//Accept all input
 			AcceptInput();
 		}
+		CheckScene();
 	}
 
 	return true;
@@ -99,6 +130,7 @@ void Game::Update()
 
 	//Updates the active scene
 	m_activeScene->Update();
+
 }
 
 void Game::GUI()
