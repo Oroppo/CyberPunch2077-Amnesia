@@ -2597,808 +2597,61 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	// TUTORIAL ENEMIES
 
 
-	// Basic Enemy
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(350.f), float32(-8.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	// Basic Enemy #1
+	SpawnBasicRobot(float32(350.f), float32(-8.f), 3.f);
 
 	// Basic Enemy #2
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
+	SpawnBasicRobot(float32(450.f), float32(-8.f), 3.f);
 
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(350.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(450.f), float32(-8.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
-	
 	// Basic Enemy #3
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(350.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(550.f), float32(-8.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
-
+	SpawnBasicRobot(float32(550.f), float32(-8.f), 3.f);
+	
 	// LEVEL 2 ENEMIES 
 
 
 	// Basic Enemy #1
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(1250.f), float32(-120.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND |  OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(1250.f), float32(-120.f), 3.f);
 
 	// Basic Enemy #2
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(1350.f), float32(-120.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(1350.f), float32(-120.f), 3.f);
 
 	// Basic Enemy #3
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(1950.f), float32(90.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(1950.f), float32(90.f), 3.f);
 
 	// Basic Enemy #4
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(2400.f), float32(90.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(2400.f), float32(90.f), 7.f);
 
 	// Basic Enemy #5
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
+	SpawnBasicRobot(float32(2700.f), float32(40.f), 7.f);
 
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 5.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(2700.f), float32(40.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
-
-	// Basic Enemy #6
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(3000.f), float32(40.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	// Basic Enemy 6
+	SpawnBasicRobot(float32(3000.f), float32(40.f), 7.f);
 
 	// Basic Enemy #7
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(3100.f), float32(40.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(3100.f), float32(40.f), 7.f);
 
 	// Basic Enemy #8
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
+	SpawnBasicRobot(float32(4250.f), float32(200.f), 3.f);
 
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(4250.f), float32(200.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
-
-	// Basic Enemy #9
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(4550.f), float32(200.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	// Basic Enemy #9 
+	SpawnBasicRobot(float32(4550.f), float32(200.f), 3.f);
 
 	// Basic Enemy #10
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(4750.f), float32(1000.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(4750.f), float32(1000.f), 3.f);
 
 	// Basic Enemy #11
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(4950.f), float32(1000.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(4950.f), float32(1000.f), 3.f);
 
 	// Basic Enemy #12
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(6200.f), float32(630.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(6200.f), float32(630.f), 3.f);
 
 	// Basic Enemy #13
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
-
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(6750.f), float32(250.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
+	SpawnBasicRobot(float32(6750.f), float32(250.f), 3.f);
 
 	// Basic Enemy #14
-	{
-		auto entity = ECS::CreateEntity();
-		//enemy = entity;
-		//Add components
-		ECS::AttachComponent<Sprite>(entity);
-		ECS::AttachComponent<Transform>(entity);
-		ECS::AttachComponent<PhysicsBody>(entity);
-		ECS::AttachComponent<Enemy>(entity);
+	SpawnBasicRobot(float32(7420.f), float32(580.f), 3.f);
 
-		//Sets up the components
-		std::string fileName = "EnemySprite.png";
-		//ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
-		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
-			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
-		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
-
-
-		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-		float shrinkX = 8.f;
-		float shrinkY = 8.f;
-
-		b2Body* tempBody;
-		b2BodyDef tempDef;
-		tempDef.type = b2_dynamicBody;
-		tempDef.position.Set(float32(7420.f), float32(580.f));
-
-		tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
-		//Circle PhysBody
-		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
-		//Square PhysBody
-		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
-
-		tempPhsBody.SetRotationAngleDeg(0.f);
-		tempPhsBody.SetFixedRotation(true);
-		tempPhsBody.SetGravityScale(8.f);
-		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
-
-		this->EnemyEnts.push_back(entity);
-	}
-
+	
 	// PLZ DO NOT MOVE the location of the boss entity and his laser beams in physicsplayground they use entity register numbers
 	// Boss Enemy
 	{
@@ -3786,7 +3039,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 
 	//Sets up components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -3819,7 +3072,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 
 	//Sets up components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -3852,7 +3105,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 
 	//Sets up components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -3885,7 +3138,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 
 	//Sets up components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 25, 50);
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
 
 	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
@@ -3905,6 +3158,40 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
 
 }
+
+//Setup Health Pack
+{
+	//Creates entity
+	auto entity = ECS::CreateEntity();
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<PhysicsBody>(entity);
+
+	//Sets up components
+	std::string fileName = "HealthPack.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 20, 20);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+
+	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+	float shrinkX = 0.f;
+	float shrinkY = 0.f;
+	b2Body* tempBody;
+	b2BodyDef tempDef;
+	tempDef.type = b2_staticBody;
+	tempDef.position.Set(float32(7380.f), float32(580.f));
+
+	tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
+	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+}
+
 	ECS::GetComponent<HorizontalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
