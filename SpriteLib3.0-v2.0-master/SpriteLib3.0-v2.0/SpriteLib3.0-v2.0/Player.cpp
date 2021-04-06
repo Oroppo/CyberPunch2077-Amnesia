@@ -162,6 +162,8 @@ void Player::MovementUpdate()
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
 
 	//std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
+
+	//jump function
 	if (canJump.m_canJump == true)
 	{
 		if (impactAvailable == true) {
@@ -207,7 +209,7 @@ void Player::MovementUpdate()
 	}
 
 
-
+	//dash function 
 	if (dash == true) {
 		if (canJump.m_canJump == true) {
 
@@ -243,13 +245,13 @@ void Player::MovementUpdate()
 				if ((spotJumped - (player.GetPosition().x) > -0.1) && (spotJumped - (player.GetPosition().x) <0.1)) {
 					dashCorrection = true;
 				}
-				if (player.GetBody()->GetLinearVelocity().x < 0) {
+				if (player.GetBody()->GetLinearVelocity().x < -0.2) {
 					XvelDir = -1;
 				}
-				else if (player.GetBody()->GetLinearVelocity().x > 0) {
+				else if (player.GetBody()->GetLinearVelocity().x > 0.2) {
 					XvelDir = 1;
 				}
-				else if (player.GetBody()->GetLinearVelocity().x == 0) {
+				else if ((player.GetBody()->GetLinearVelocity().x <0.199)&& (player.GetBody()->GetLinearVelocity().x > -0.199)) {
 					if (m_facingRight == true)
 					{
 						XvelDir = 1;

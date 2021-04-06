@@ -69,10 +69,13 @@ void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysi
 		moveB = vec3(0, 0, 0);
 		BossPhysicsBody->SetVelocity(moveB);
 		BossPhysicsBody->SetPosition(b2Vec2(8750.f, 650.f));
+		ECS::GetComponent<Sprite>(95).SetTransparency(1.f);
 		sheildOn = 3;
 	}
-
-	fight(BossPhysicsBody, distanceBX, distanceBY);
+	if (sheildOn != 0)
+	{
+		fight(BossPhysicsBody, distanceBX, distanceBY);
+	}
 }
 
 void BossEnemy::laserBeam()
@@ -209,9 +212,9 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* bEnts, int bentity)
 {
 	//std::cout << Phealth << std::endl;
-	//std::cout << sheildOn << std::endl;
-	//std::cout << "dodge counter is " << dodgeCounter << std::endl;
-	std::cout << BossPhysicsBody->GetPosition().y << std::endl;
+	//std::cout << Bhealth << std::endl;
+	//std::cout << BossPhysicsBody->GetPosition().y << std::endl;
+
 	// movement vector
 	vec3 moveB = vec3(0, 0, 0);
 	vec2 movementB = vec2(0, 0);
@@ -236,7 +239,9 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	// call to boss functions
 	if (dodgeCounter >= 3)
 	{
+		// turn shield off
 		sheildOn = 0;
+		ECS::GetComponent<Sprite>(95).SetTransparency(0.f);
 	}
 	idle(distanceBX, distanceBY, BossPhysicsBody);
 	laserBeam();
