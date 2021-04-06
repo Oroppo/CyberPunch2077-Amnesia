@@ -24,6 +24,68 @@ void PhysicsPlayground::SetSceneChange(int a) {
 	m_SceneIndex = a;
 }
 
+void PhysicsPlayground::SpawnBasicRobot(float32 newx, float32 newy, float newz) {
+	{
+		//loading File...
+		auto animations = File::LoadJSON("BasicEnemy.json");
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<Enemy>(entity);
+
+
+		//Sets up the components
+		std::string fileName = "spritesheets/EnemyMove.png";
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+
+		animController.InitUVs(fileName);
+		animController.AddAnimation(animations["Basic"]);	//0
+		animController.SetActiveAnim(0);
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 40, 60, true, &animController);
+
+		
+
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, newz));
+		ECS::GetComponent<Enemy>(entity).InitEnemy(fileName, 40, 60, &ECS::GetComponent<Sprite>(entity),
+			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
+		ECS::GetComponent<Enemy>(entity).setMovementSpeed(40.f);
+
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 8.f;
+		float shrinkY = 8.f;
+
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_dynamicBody;
+		tempDef.position.Set(float32(newx), float32(newy));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		//tempPhsBody = PhysicsBody(tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false);
+		//Circle PhysBody
+		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY) / 2.f), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | ENVIRONMENT | OBJECTS | TRIGGER);
+		//Square PhysBody
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
+
+		tempPhsBody.SetRotationAngleDeg(0.f);
+		tempPhsBody.SetFixedRotation(true);
+		tempPhsBody.SetGravityScale(8.f);
+		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+
+		this->EnemyEnts.push_back(entity);
+	}
+}
+
 
 void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 {
