@@ -11,7 +11,7 @@ private:
 	int detection = 900;
 	vec3 moveB = vec3(0, 0, 0);
 	vec2 movementB = vec2(0, 0);
-	float timer2 = 5;
+	float timer2 = 3;
 	// relateed to boss sheild recharge
 	float timer3 = 5;
 	int LorR = 0; // checks if player is left or right of Boss

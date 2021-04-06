@@ -203,7 +203,7 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 				}
 				laserBeamTimer = 1;
 				highOrLow = 3;
-				timer2 = 5;
+				timer2 = 3;
 
 			}
 		}
@@ -212,7 +212,7 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* bEnts, int bentity)
 {
 	//std::cout << Phealth << std::endl;
-	//std::cout << Bhealth << std::endl;
+	std::cout << Bhealth << std::endl;
 	//std::cout << BossPhysicsBody->GetPosition().y << std::endl;
 
 	// movement vector
