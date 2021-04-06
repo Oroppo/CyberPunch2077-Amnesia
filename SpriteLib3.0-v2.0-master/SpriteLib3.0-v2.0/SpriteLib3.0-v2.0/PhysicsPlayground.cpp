@@ -85,7 +85,53 @@ void PhysicsPlayground::SpawnBasicRobot(float32 newx, float32 newy, float newz) 
 		this->EnemyEnts.push_back(entity);
 	}
 }
+void PhysicsPlayground::SpawnVent() {
+	auto entity = ECS::CreateEntity();
 
+	auto animations = File::LoadJSON("Vent.json");
+	
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up the components
+	std::string fileName = "spritesheets/Vent.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(fileName);
+	animController.AddAnimation(animations["Basic"]);
+	
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 70, 70, true, &animController);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+
+	animController.SetActiveAnim(0);
+}
+
+void PhysicsPlayground::EXPUROSION() {
+	auto entity = ECS::CreateEntity();
+
+	auto animations = File::LoadJSON("Explosion.json");
+
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+	ECS::AttachComponent<AnimationController>(entity);
+
+	//Sets up the components
+	std::string fileName = "spritesheets/Explosion.png";
+	auto& animController = ECS::GetComponent<AnimationController>(entity);
+	animController.InitUVs(fileName);
+	animController.AddAnimation(animations["Basic"]);
+
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 70, 70, true, &animController);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+
+	animController.SetActiveAnim(0);
+}
 
 void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 {

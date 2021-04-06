@@ -6,11 +6,8 @@
 StartMenu::StartMenu(std::string name)
 	: Scene(name)
 {
-
 	m_gravity = b2Vec2(0.f, 0.f);
 	m_physicsWorld->SetGravity(m_gravity);
-
-
 }
 
 int StartMenu::GetSceneChange() {
