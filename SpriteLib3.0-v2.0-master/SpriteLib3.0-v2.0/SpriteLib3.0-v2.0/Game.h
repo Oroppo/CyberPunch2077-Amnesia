@@ -46,6 +46,8 @@ public:
 	//*Checks the results of the events that have been polled
 	void CheckEvents();
 
+	void CheckScene();
+
 	/*Input Functions*/
 	void AcceptInput();
 	void GamepadInput();
@@ -73,6 +75,8 @@ private:
 	//Scenes
 	Scene* m_activeScene = nullptr;
 	std::vector<Scene*> m_scenes;
+
+	
 	
 	//Imgui stuff
 	bool m_guiActive = false;

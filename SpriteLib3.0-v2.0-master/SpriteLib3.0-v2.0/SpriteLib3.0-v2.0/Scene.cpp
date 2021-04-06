@@ -7,6 +7,14 @@ Scene::Scene(std::string name)
 	m_name = name;
 }
 
+int Scene::GetSceneChange() {
+	return m_SceneIndex;
+}
+
+void Scene::SetSceneChange(int a) {
+	m_SceneIndex = a;
+}
+
 void Scene::Unload()
 {
 	if (m_sceneReg != nullptr)

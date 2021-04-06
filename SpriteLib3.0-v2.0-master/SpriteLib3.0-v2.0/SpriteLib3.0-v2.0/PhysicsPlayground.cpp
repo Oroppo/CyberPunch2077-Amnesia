@@ -16,6 +16,14 @@ PhysicsPlayground::PhysicsPlayground(std::string name)
 
 }
 
+int PhysicsPlayground::GetSceneChange() {
+	return m_SceneIndex;
+}
+
+void PhysicsPlayground::SetSceneChange(int a) {
+	m_SceneIndex = a;
+}
+
 
 void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 {
@@ -3506,6 +3514,39 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 	}
 
+	//Setup Sheild for boss
+	{
+		//Creates entity
+		auto entity = ECS::CreateEntity();
+		std::cout << "Sheild is" << entity << std::endl;
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//Sets up components
+		std::string fileName = "ShieldBubble2.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 110, 110);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(400.f, -90.f, 2.f));
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(8750.f), float32(650.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, OBJECTS);
+		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+
+	}
+
 	/*//Ball
 	{
 		auto entity = ECS::CreateEntity();
@@ -3801,6 +3842,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
 
+
 void PhysicsPlayground::Update()
 {
 
@@ -3835,7 +3877,11 @@ void PhysicsPlayground::Update()
 
 
 
+	if (Input::GetKeyDown(Key::Escape)) {
 
+		SetSceneChange(0);
+
+	}
 
 }
 
