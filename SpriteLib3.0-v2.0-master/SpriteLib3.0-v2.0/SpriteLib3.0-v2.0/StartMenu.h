@@ -13,6 +13,8 @@ public:
 
 	void Update() override;
 
+	void MenuUpdate();
+
 	int GetSceneChange() override;
 
 	void SetSceneChange(int) override;
@@ -27,6 +29,9 @@ private:
 
 	int m_arrow;
 	int m_selection = 0;
+	int m_infographic;
+	int m_enterID;
+	bool m_locked=false;
 
 	std::string m_fileInput;
 };

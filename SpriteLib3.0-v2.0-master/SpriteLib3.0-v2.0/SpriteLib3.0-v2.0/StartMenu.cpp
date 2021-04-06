@@ -25,6 +25,7 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 {
 	//Dynamically allocates the register
 	m_sceneReg = new entt::registry;
+	m_physicsWorld = new b2World(m_gravity);
 
 	//Attach the register
 	ECS::AttachRegister(m_sceneReg);
@@ -59,7 +60,6 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 	//Main Player entity
 	
 	{
-		//Ignore this whole thing, it's just an entity for the camera to center itself onto
 		auto entity = ECS::CreateEntity();
 		ECS::SetIsMainPlayer(entity, true);
 
@@ -89,6 +89,73 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 			float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, GROUND, PLAYER | ENEMY | OBJECTS | HEXAGON);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
 		tempSpr.SetTransparency(1.f);
+	}
+
+	//InfoGraphic
+	{
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		m_infographic = entity;
+
+		//Sets up components
+		std::string fileName = "Infographic.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 400, 245);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 50.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(0.f), float32(0.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+			float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, GROUND, PLAYER | ENEMY | OBJECTS | HEXAGON);
+		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+		tempSpr.SetTransparency(0.f);
+	}
+
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		m_enterID = entity;
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		//Sets up components
+		std::string fileName = "EnterID.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 70, 50);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 51.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_staticBody;
+		tempDef.position.Set(float32(160.f), float32(-30.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
+			float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, GROUND, PLAYER | ENEMY | OBJECTS | HEXAGON);
+		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+		tempSpr.SetTransparency(0.f);
 	}
 
 	{
@@ -232,7 +299,9 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
 			float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, GROUND, PLAYER | ENEMY | OBJECTS | HEXAGON);
+
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+		
 	}
 
 	{
@@ -273,8 +342,30 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 
 void StartMenu::Update()
 {
+	auto& instructions = ECS::GetComponent<Sprite>(m_infographic);
+	auto& Enter = ECS::GetComponent<Sprite>(m_enterID);
+
+
+	if (!m_locked)
+	{
+		MenuUpdate();
+	}
+
+	else if (Input::GetKeyDown(Key::Enter)) {
+		m_locked = false;
+		instructions.SetTransparency(0.f);
+		Enter.SetTransparency(0.f);
+	}
+
+
+
+}
+
+void StartMenu::MenuUpdate() {
 	//Menu Key inputs
-	if (Input::GetKeyDown(Key::D) || Input::GetKeyDown(Key::S) || Input::GetKeyDown(Key::RightArrow)||Input::GetKeyDown(Key::DownArrow)) {
+	auto& instructions = ECS::GetComponent<Sprite>(m_infographic);
+	auto& Enter = ECS::GetComponent<Sprite>(m_enterID);
+	if (Input::GetKeyDown(Key::D) || Input::GetKeyDown(Key::S) || Input::GetKeyDown(Key::RightArrow) || Input::GetKeyDown(Key::DownArrow)) {
 		m_selection += 1;
 	}
 
@@ -291,7 +382,9 @@ void StartMenu::Update()
 			break;
 
 		case 1:
-			SetSceneChange(2);
+			instructions.SetTransparency(1.f);
+			Enter.SetTransparency(1.f);
+			m_locked = true;
 			break;
 
 		case 2:
@@ -301,20 +394,19 @@ void StartMenu::Update()
 
 	}
 	//Change Arrow's Location Based on m_selection
-	switch ((m_selection%3)) {
+	switch ((m_selection % 3)) {
 
 	case 0:
-		ECS::GetComponent<Transform>(m_arrow).SetPosition(vec3(-120.f,40.f,5.f));		
+		ECS::GetComponent<Transform>(m_arrow).SetPosition(vec3(-120.f, 40.f, 5.f));
 		break;
 
 	case 1:
-		ECS::GetComponent<Transform>(m_arrow).SetPosition(vec3(-120.f, -10.f, 5.f));	
+		ECS::GetComponent<Transform>(m_arrow).SetPosition(vec3(-120.f, -10.f, 5.f));
 		break;
 
 	case 2:
 		ECS::GetComponent<Transform>(m_arrow).SetPosition(vec3(-120.f, -60.f, 5.f));
 		break;
 	}
-
 
 }

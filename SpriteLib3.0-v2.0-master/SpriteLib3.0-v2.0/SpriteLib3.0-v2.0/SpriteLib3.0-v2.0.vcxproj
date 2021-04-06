@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>.\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;glew32.lib;SDL2main.lib;SDL2test.lib;SDL2.lib;SOIL_ext.lib;opengl32.lib;Box2D.lib</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;glew32s.lib;glew32.lib;SDL2main.lib;SDL2test.lib;SDL2.lib;SOIL_ext.lib;opengl32.lib;Box2D.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -182,6 +182,7 @@
     <ClInclude Include="SelectiveColorEffect.h" />
     <ClInclude Include="SepiaEffect.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SoundFunctions.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="Texture.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="SelectiveColorEffect.cpp" />
     <ClCompile Include="SepiaEffect.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SoundFunctions.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="Texture.cpp" />
