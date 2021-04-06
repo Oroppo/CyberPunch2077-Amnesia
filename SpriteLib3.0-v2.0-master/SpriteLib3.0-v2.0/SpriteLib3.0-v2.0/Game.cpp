@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "StartMenu.h"
 #include <random>
+#include "SoundFunctions.h"
 
 
 Game::~Game()
@@ -81,8 +82,12 @@ void Game::InitGame()
 
 bool Game::Run()
 {
+	std::string GameMusic = "Odyssey.mp3";
+	SoundFunctions::LoadSound(GameMusic);
+	SoundFunctions::Play(GameMusic);
+	SoundFunctions::LoopSound(GameMusic);
 
-	
+
 	//While window is still open
 	while (m_window->isOpen())
 	{

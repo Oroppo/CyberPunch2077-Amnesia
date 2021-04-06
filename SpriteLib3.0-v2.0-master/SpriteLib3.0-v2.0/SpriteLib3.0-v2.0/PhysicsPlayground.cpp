@@ -30,6 +30,11 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	//Dynamically allocates the register
 	m_sceneReg = new entt::registry;
 
+
+	//Ok so hear me out, this line of Code prevents the scen from dying the next time you reload it, HOWEVER it fucks up all of our physics. 
+	//So basically this is an issue of the red pill or the blue pill pick your poison!
+//	m_physicsWorld = new b2World(m_gravity);
+
 	//Attach the register
 	ECS::AttachRegister(m_sceneReg);
 
