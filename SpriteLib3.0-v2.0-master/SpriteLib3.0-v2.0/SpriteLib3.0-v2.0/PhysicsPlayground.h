@@ -42,7 +42,7 @@ protected:
 	// Part of enemy code
 	unsigned enemyEntity;
 	std::vector <unsigned int> EnemyEnts = {};
-	void spawnBasicRobot();
+	void SpawnBasicRobot(float32, float32, float);
 	unsigned BossEntity;
 	std::vector <unsigned int> BossEnts = {};
 
