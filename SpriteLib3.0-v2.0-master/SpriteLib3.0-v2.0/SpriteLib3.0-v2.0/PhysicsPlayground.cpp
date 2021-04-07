@@ -85,7 +85,7 @@ void PhysicsPlayground::SpawnBasicRobot(float32 newx, float32 newy, float newz) 
 		this->EnemyEnts.push_back(entity);
 	}
 }
-void PhysicsPlayground::SpawnVent() {
+void PhysicsPlayground::SpawnVent(){
 	auto entity = ECS::CreateEntity();
 
 	auto animations = File::LoadJSON("Vent.json");
@@ -141,7 +141,12 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 	//Ok so hear me out, this line of Code prevents the scen from dying the next time you reload it, HOWEVER it fucks up all of our physics. 
 	//So basically this is an issue of the red pill or the blue pill pick your poison!
-//	m_physicsWorld = new b2World(m_gravity);
+
+	m_physicsWorld = new b2World(m_gravity);
+
+	m_physicsWorld->SetGravity(m_gravity);
+
+	m_physicsWorld->SetContactListener(&listener);
 
 	//Attach the register
 	ECS::AttachRegister(m_sceneReg);
