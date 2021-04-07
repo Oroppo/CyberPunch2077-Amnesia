@@ -88,6 +88,7 @@ public:
 	void AttachBody(PhysicsBody* body);
 	float PlayerAttack(COORD);
 	float AttackTimer = 1.f;
+	static float Phealth;
 
 private:
 	int m_jumpTimer = 0;

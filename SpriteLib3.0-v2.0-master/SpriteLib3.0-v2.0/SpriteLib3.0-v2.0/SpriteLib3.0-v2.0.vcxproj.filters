@@ -207,6 +207,9 @@
     <ClInclude Include="SoundFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EndGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationController.cpp">
@@ -390,6 +393,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

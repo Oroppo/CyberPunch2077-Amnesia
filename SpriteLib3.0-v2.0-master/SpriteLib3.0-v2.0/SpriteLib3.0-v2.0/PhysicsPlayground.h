@@ -53,4 +53,11 @@ protected:
 	int puzzleWall1;
 	int puzzleWall2;
 	int MainPlayer;
+
+	int hud5;
+	int hud4;
+	int hud3;
+	int hud2;
+	int hud1;
+	int hud0;
 };

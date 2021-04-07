@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "StartMenu.h"
+#include "EndGame.h"
 #include <random>
 #include "SoundFunctions.h"
 
@@ -63,6 +64,7 @@ void Game::InitGame()
 
 	m_scenes.push_back(new StartMenu("BIONIC AFTERMATH"));
 	m_scenes.push_back(new PhysicsPlayground("BIONIC AFTERMATH"));
+	m_scenes.push_back(new EndGame("BIONIC AFTERMATH"));
 
 	
 

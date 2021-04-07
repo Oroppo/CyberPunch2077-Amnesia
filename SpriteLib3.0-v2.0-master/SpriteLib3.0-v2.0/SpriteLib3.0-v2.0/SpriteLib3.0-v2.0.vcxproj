@@ -155,6 +155,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GrainEffect.h" />
     <ClInclude Include="GreyscaleEffect.h" />
+    <ClInclude Include="EndGame.h" />
     <ClInclude Include="HorizontalScroll.h" />
     <ClInclude Include="include\imgui\imconfig.h" />
     <ClInclude Include="include\imgui\imgui.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="SepiaEffect.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SoundFunctions.cpp" />
+    <ClCompile Include="EndGame.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartMenu.cpp" />
     <ClCompile Include="Texture.cpp" />

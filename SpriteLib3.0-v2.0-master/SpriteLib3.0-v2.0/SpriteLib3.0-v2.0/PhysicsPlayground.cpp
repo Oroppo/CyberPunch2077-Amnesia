@@ -187,7 +187,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		//Sets up the components
 		std::string fileName = "NewHud.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
-		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(0.f);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	}
 	{
@@ -334,6 +334,105 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetFixedRotation(true);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 		tempPhsBody.SetGravityScale(1.f);
+	}
+
+	//HUD
+
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay5.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 99.f));
+
+		hud5 = entity;
+	}
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay4.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 98.f));
+
+		hud4 = entity;
+	}
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay3.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 97.f));
+
+		hud3 = entity;
+	}
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay2.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 96.f));
+
+		hud2 = entity;
+	}
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay1.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 95.f));
+
+		hud1 = entity;
+	}
+	{
+
+		auto entity = ECS::CreateEntity();
+
+		//Add components
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		//Sets up the components
+		std::string fileName = "Overlay0.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, windowWidth / 1.64908, windowHeight / 1.64908);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(0.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 94.f));
+
+		hud0 = entity;
 	}
 
 	// LEVEL 1
@@ -3242,6 +3341,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
 
+float Player::Phealth = 100;
 
 void PhysicsPlayground::Update()
 {
@@ -3264,13 +3364,60 @@ void PhysicsPlayground::Update()
 
 	//Hey ok listen, so basically I'm grabbing the specific id of the sprites, so if we add more sprites, this stuff may break. 0 is the camera, 7 is the HUD. Sorry in advance if this breaks it but there's no real good modular way to do this shit Sadge. Make sure all new sprites are made AFTER the HUD
 
-	//HUD
-	ECS::GetComponent<Transform>(1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX()+17, ECS::GetComponent<Camera>(0).GetPositionY() -10, 100.f ));
+	//HUD 
+	ECS::GetComponent<Transform>(hud5).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 99.f));
+	ECS::GetComponent<Transform>(hud4).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 98.f));
+	ECS::GetComponent<Transform>(hud3).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 97.f));
+	ECS::GetComponent<Transform>(hud2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 96.f));
+	ECS::GetComponent<Transform>(hud1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 95.f));
+	ECS::GetComponent<Transform>(hud0).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 94.f));
 
-	//HUD Elements
-	ECS::GetComponent<Transform>(96).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -173, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
-	ECS::GetComponent<Transform>(97).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -153, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
-	ECS::GetComponent<Transform>(98).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() -193, ECS::GetComponent<Camera>(0).GetPositionY() + 70, 101.f));
+	if (Input::GetKeyDown(Key::H)) {
+		SetSceneChange(2);
+
+	}
+	if (Player::Phealth < 20) {
+
+		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud1).SetTransparency(1.f);
+
+		
+
+	}
+	else if (Player::Phealth < 40) {
+		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud2).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
+
+	}
+	else if (Player::Phealth < 60) {
+		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud3).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
+
+	}
+	else if (Player::Phealth < 80) {
+		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud4).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
+
+	}
+	else {
+		ECS::GetComponent<Sprite>(hud5).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
+	}
 
 	//Background
 	ECS::GetComponent<Transform>(2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX(), ECS::GetComponent<Camera>(0).GetPositionY() , -1.f));
