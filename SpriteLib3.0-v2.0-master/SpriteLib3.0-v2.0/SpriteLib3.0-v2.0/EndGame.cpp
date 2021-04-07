@@ -66,8 +66,8 @@ void EndGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<PhysicsBody>(entity);
 
 		//Sets up components
-		std::string fileName = "MenuBG.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 420, 300);
+		std::string fileName = "GameOver.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 450, 250);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 1.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
