@@ -156,7 +156,7 @@ void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 			{
 				// decrease player's health here and play enemy attack animation and player taking damage animation
 				std::cout << "Timer hit 0 attack here" << std::endl;
-				Phealth = Phealth - Edamage;
+				Player::Phealth = Player::Phealth - Edamage;
 				timer = 3;
 			}
 		}
@@ -191,7 +191,7 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	{
 		destroyEnemy(eEnts, Eentity);
 	}
-	if (Phealth <= 0)
+	if (Player::Phealth <= 0)
 	{
 		TeleportPlayer();
 	}
@@ -206,7 +206,7 @@ void Enemy::AttachBody(PhysicsBody* body)
 void Enemy::TeleportPlayer()
 {
 	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
-	Phealth = 100;
+	Player::Phealth = 100;
 }
 
 

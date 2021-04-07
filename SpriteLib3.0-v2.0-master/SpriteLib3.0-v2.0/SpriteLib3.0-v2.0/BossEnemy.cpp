@@ -5,6 +5,13 @@
 #include <Vector>
 #include "ECS.h"
 #include "Combat.h"
+#include "PhysicsPlayground.h"
+
+float PhysicsPlayground::Bsheild;
+float PhysicsPlayground::laserPointerG;
+float PhysicsPlayground::laserBeamG;
+float PhysicsPlayground::laserPointerT;
+float PhysicsPlayground::laserBeamT;
 
 BossEnemy::BossEnemy()
 {
@@ -69,7 +76,7 @@ void BossEnemy::chase(float distanceBX, float distanceBY, PhysicsBody* BossPhysi
 		moveB = vec3(0, 0, 0);
 		BossPhysicsBody->SetVelocity(moveB);
 		BossPhysicsBody->SetPosition(b2Vec2(8750.f, 650.f));
-		ECS::GetComponent<Sprite>(95).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(PhysicsPlayground::Bsheild).SetTransparency(1.f);
 		sheildOn = 3;
 	}
 	if (sheildOn != 0)
@@ -85,8 +92,8 @@ void BossEnemy::laserBeam()
 		laserBeamTimer -= Timer::deltaTime;
 		if (laserBeamTimer <= 0)
 		{
-			ECS::GetComponent<Sprite>(93).SetTransparency(0.f);
-			ECS::GetComponent<Sprite>(94).SetTransparency(0.f);
+			ECS::GetComponent<Sprite>(PhysicsPlayground::laserBeamG).SetTransparency(0.f);
+			ECS::GetComponent<Sprite>(PhysicsPlayground::laserBeamT).SetTransparency(0.f);
 			laserBeamTimer = 0;
 			beamOn = 3;
 		}
@@ -112,18 +119,6 @@ void BossEnemy::sheild()
 	}
 }
 
-
-/*float BossEnemy::BossAttack()
-{
-	std::cout << "Can Attack is  " << CanAttack << std::endl;
-	if (CanAttack == 1)
-	{
-		return Bdamage;
-		std::cout << "Can Attack =  " << CanAttack << std::endl;
-	}
-	//CanAttack = 0;
-}*/
-
 void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float distanceBY)
 {
 	// determinte wether to shoot lazer high or low (1= high 0 = low)
@@ -136,12 +131,12 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 	// if it decides to shoot low make trench laser pointer appear
 	if (highOrLow == 0)
 	{
-		ECS::GetComponent<Sprite>(91).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerT).SetTransparency(1.f);
 	}
 	// if it decides to shoot high make ground laser pointer appear
 	if (highOrLow == 1)
 	{
-		ECS::GetComponent<Sprite>(92).SetTransparency(1.f);
+		ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerG).SetTransparency(1.f);
 	}
 	//std::cout << "Timer is " << timer2 << std::endl;
 		if (timer2 > 0)
@@ -154,12 +149,12 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 					// see if player is in range to get hit by laser in trenches
 				if (distanceBX > -933 && distanceBX < -165 && distanceBY < -75)
 				{
-					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
-					ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerT).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerG).SetTransparency(0.f);
 					beamOn = 0;
 					if (highOrLow == 0)
 					{
-						Phealth = Phealth - Bdamage;
+						Player::Phealth = Player::Phealth - Bdamage;
 						std::cout << "Player got hit by the lazer beam in trenches" << std::endl;
 						dodgeCounter = 0;
 					}
@@ -172,12 +167,12 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 				// see if player is in range to get hit by lazer beam on the ground (Can jump over)
 				if (distanceBX > -1040 && distanceBX < -2 && distanceBY > -75 && distanceBY < 3)
 				{
-					ECS::GetComponent<Sprite>(92).SetTransparency(0.f);
-					ECS::GetComponent<Sprite>(91).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerT).SetTransparency(0.f);
+					ECS::GetComponent<Sprite>(PhysicsPlayground::laserPointerG).SetTransparency(0.f);
 					beamOn = 1;
 					if (highOrLow == 1)
 					{
-						Phealth = Phealth - Bdamage;
+						Player::Phealth = Player::Phealth - Bdamage;
 						std::cout << "Player got hit by the lazer beam on ground" << std::endl;
 						dodgeCounter = 0;
 					}
@@ -192,13 +187,13 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 					if (highOrLow == 0)
 					{
 						// trenches beam
-						ECS::GetComponent<Sprite>(93).SetTransparency(1.f);
+						ECS::GetComponent<Sprite>(PhysicsPlayground::laserBeamT).SetTransparency(1.f);
 					}
 
 					if (highOrLow == 1)
 					{
 						// ground beam
-						ECS::GetComponent<Sprite>(94).SetTransparency(1.f);
+						ECS::GetComponent<Sprite>(PhysicsPlayground::laserBeamG).SetTransparency(1.f);
 					}
 				}
 				laserBeamTimer = 1;
@@ -212,7 +207,7 @@ void BossEnemy::fight(PhysicsBody* BossPhysicsBody, float distanceBX, float dist
 void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* bEnts, int bentity)
 {
 	//std::cout << Phealth << std::endl;
-	std::cout << Bhealth << std::endl;
+	//std::cout << Bhealth << std::endl;
 	//std::cout << BossPhysicsBody->GetPosition().y << std::endl;
 
 	// movement vector
@@ -233,7 +228,7 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 		posB.X = movementB.x;
 		posB.Y = movementB.y;
 		Player tempB;
-		Bhealth -= tempB.PlayerAttack(posB);
+		BossEnemy::Bhealth -= tempB.PlayerAttack(posB);
 	}
 
 	// call to boss functions
@@ -241,18 +236,18 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	{
 		// turn shield off
 		sheildOn = 0;
-		ECS::GetComponent<Sprite>(95).SetTransparency(0.f);
+		ECS::GetComponent<Sprite>(PhysicsPlayground::Bsheild).SetTransparency(0.f);
 	}
 	idle(distanceBX, distanceBY, BossPhysicsBody);
 	laserBeam();
 	sheild();
 
 	// decide if player dies or if boss dies
-	if (Bhealth <= 0)
+	if (BossEnemy::Bhealth <= 0)
 	{
 		destroyBoss(bEnts, bentity);
 	}
-	if (Phealth <= 0)
+	if (Player::Phealth <= 0)
 	{
 		TeleportPlayer();
 	}
@@ -266,5 +261,5 @@ void BossEnemy::AttachBossBody(PhysicsBody* body)
 void BossEnemy::TeleportPlayer()
 {
 	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
-	Phealth = 100;
+	Player::Phealth = 100;
 }

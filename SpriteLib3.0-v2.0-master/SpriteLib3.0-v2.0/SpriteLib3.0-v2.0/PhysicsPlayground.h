@@ -31,6 +31,12 @@ public:
 	void KeyboardDown() override;
 	void KeyboardUp() override;
 	void MouseClick(SDL_MouseButtonEvent evnt) override;
+
+	static float Bsheild;
+	static float laserPointerG;
+	static float laserBeamG;
+	static float laserPointerT;
+	static float laserBeamT;
 	
 protected:
 	bool m_firstWindow = false;
