@@ -4,12 +4,6 @@
 #include "Timer.h"
 #include "Combat.h"
 
-
-/*enum class ZombAnimEnums
-{
-	Standing = 0,
-	Moving = 1,
-};*/
 class Enemy: public Shared
 {
 private:
