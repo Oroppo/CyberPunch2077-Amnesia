@@ -96,6 +96,8 @@ void BossEnemy::laserBeam()
 			ECS::GetComponent<Sprite>(PhysicsPlayground::laserBeamT).SetTransparency(0.f);
 			laserBeamTimer = 0;
 			beamOn = 3;
+			auto& animController = ECS::GetComponent<AnimationController>(102);
+			animController.SetActiveAnim(0);
 		}
 	}
 }
@@ -114,6 +116,9 @@ void BossEnemy::sheild()
 			{
 				sheildOn = 1;
 				timer3 = 5;
+				auto& animController = ECS::GetComponent<AnimationController>(102);
+				animController.SetActiveAnim(1);
+
 			}
 		}
 	}
@@ -210,6 +215,18 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	//std::cout << Bhealth << std::endl;
 	//std::cout << BossPhysicsBody->GetPosition().y << std::endl;
 
+	auto& animController = ECS::GetComponent<AnimationController>(102);
+
+	if (animController.GetAnimation(0).GetAnimationDone()) {
+		animController.GetAnimation(0).Reset();
+	}
+	if (animController.GetAnimation(1).GetAnimationDone()) {
+		animController.GetAnimation(1).Reset();
+	}
+	if (animController.GetAnimation(2).GetAnimationDone()) {
+		animController.GetAnimation(2).Reset();
+	}
+
 	// movement vector
 	vec3 moveB = vec3(0, 0, 0);
 	vec2 movementB = vec2(0, 0);
@@ -258,7 +275,7 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	idle(distanceBX, distanceBY, BossPhysicsBody);
 	laserBeam();
 	sheild();
-
+	animController.SetActiveAnim(2);
 	// decide if player dies or if boss dies
 	if (BossEnemy::Bhealth <= 0)
 	{
@@ -266,8 +283,9 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	}
 	if (Player::Phealth <= 0)
 	{
-		TeleportPlayer();
+		//TeleportPlayer();
 	}
+
 }
 
 void BossEnemy::AttachBossBody(PhysicsBody* body)
@@ -277,6 +295,6 @@ void BossEnemy::AttachBossBody(PhysicsBody* body)
 
 void BossEnemy::TeleportPlayer()
 {
-	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
-	Player::Phealth = 100;
+	//ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
+	//Player::Phealth = 100;
 }

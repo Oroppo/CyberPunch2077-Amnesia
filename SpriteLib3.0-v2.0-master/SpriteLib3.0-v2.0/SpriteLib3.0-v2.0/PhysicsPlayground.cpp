@@ -103,7 +103,7 @@ void PhysicsPlayground::SpawnVent(float a, float b, float c) {
 	
 	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 15, true, &animController);
 	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(a, b, c));
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(a-20, b-20, c));
 
 	animController.SetActiveAnim(0);
 }
@@ -2178,7 +2178,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 			//Sets up components
 			std::string fileName = "DownArrow.png";
 			ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 30, 30);
-			ECS::GetComponent<Transform>(entity).SetPosition(vec3(1000.f, -90.f, 10.f));
+			ECS::GetComponent<Transform>(entity).SetPosition(vec3(1000.f, -90.f, 3.f));
 
 			auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 			auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -2913,7 +2913,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	// Basic Enemy #14
 	SpawnBasicRobot(float32(7420.f), float32(580.f), 3.f);
 
-	
+	/*
 	// PLZ DO NOT MOVE the location of the boss entity and his laser beams in physicsplayground they use entity register numbers
 	// Boss Enemy
 	{
@@ -2959,8 +2959,72 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 
 		this->BossEnts.push_back(entity);
-	}
+	}*/
 
+	{
+
+		//loading File... 
+		auto animRight = File::LoadJSON("Boss.json");
+		auto entity = ECS::CreateEntity();
+
+		//Add components 
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+		ECS::AttachComponent<BossEnemy>(entity);
+
+
+		std::string fileName = "spritesheets/Boss.png";
+
+		//Sets up the components 
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+
+
+
+		//Pulls UV's from the JSON 
+		animController.InitUVs(fileName);
+
+		//Adding currently implemented animations and assigning Registrars as unsigned ints 
+
+		//Right Anims 
+		animController.AddAnimation(animRight["Attack"]);	//0 
+		animController.AddAnimation(animRight["PowerUp"]);	//1 
+		animController.AddAnimation(animRight["PowerDown"]);//2 
+
+		animController.SetActiveAnim(0);
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 70, 70, true, &animController);
+		ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -8.f, 3.f));
+
+		//Initializes Boss 
+		ECS::GetComponent<BossEnemy>(entity).InitBoss(fileName, 80, 100, &ECS::GetComponent<Sprite>(entity),
+			&ECS::GetComponent<Transform>(entity), &ECS::GetComponent<PhysicsBody>(entity));
+
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = 0.f;
+		float shrinkY = 0.f;
+
+		b2Body* tempBody;
+		b2BodyDef tempDef;
+		tempDef.type = b2_dynamicBody;
+
+		tempDef.position.Set(float32(8750.f), float32(650.f));
+
+		tempBody = m_physicsWorld->CreateBody(&tempDef);
+
+		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, ENEMY, PLAYER | GROUND | OBJECTS | TRIGGER, 0.5f, 3.f);
+
+
+		tempPhsBody.SetRotationAngleDeg(0.f);
+		tempPhsBody.SetFixedRotation(true);
+		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
+		tempPhsBody.SetGravityScale(0.f);
+
+	}
 	//Setup Laser POINTER for boss in trenches
 	{
 		//Creates entity
