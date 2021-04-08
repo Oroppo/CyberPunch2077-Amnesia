@@ -121,12 +121,12 @@ void Player::Update()
 	//Slice Animation
 
 
-	else if (animController.GetAnimation(3).GetAnimationDone()) {
-		animController.GetAnimation(3).Reset();
+	else if (animController.GetAnimation(2).GetAnimationDone()) {
+		animController.GetAnimation(2).Reset();
 		m_locked = false;
 	}
-	else if (animController.GetAnimation(9).GetAnimationDone()) {
-		animController.GetAnimation(9).Reset();
+	else if (animController.GetAnimation(8).GetAnimationDone()) {
+		animController.GetAnimation(8).Reset();
 		m_locked = false;
 	}
 
