@@ -9,7 +9,7 @@ protected:
 	// enemy health and damage values
 	float Ehealth = 150;
 	float initialEHealth = 150;
-	float Edamage = 10;
+	float Edamage = 20;
 	float Bhealth = 350;
 	float Bdamage = 20;
 	// vector drawn between enemy to player

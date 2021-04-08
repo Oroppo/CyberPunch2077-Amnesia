@@ -198,18 +198,16 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 		TeleportPlayer();
 	}
 
-	if (Player::initialPhealth > Player::Phealth && LorR == 1)
+	if (tempPhealth > Player::Phealth && LorR == 1)
 	{
-
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).ApplyForce(PknockbackRight);
-		Player::initialPhealth = Player::Phealth;
+		tempPhealth = Player::Phealth;
 	}
 	// knockback right
-	else if (Player::initialPhealth > Player::Phealth && LorR == 2)
+	else if (tempPhealth > Player::Phealth && LorR == 2)
 	{
-
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).ApplyForce(PknockbackLeft);
-		Player::initialPhealth = Player::Phealth;
+		tempPhealth = Player::Phealth;
 	}
 
 }

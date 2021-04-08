@@ -98,6 +98,20 @@ void Player::Update()
 {
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 
+
+	//oof
+	if (animController.GetAnimation(12).GetAnimationDone()) {
+	animController.GetAnimation(12).Reset();
+	m_locked = false;
+	m_isJumping = false;
+	}
+
+	if (animController.GetAnimation(13).GetAnimationDone()) {
+	animController.GetAnimation(13).Reset();
+	m_locked = false;
+	m_isJumping = false;
+	}
+
 	//Jump Logic
 	if (m_isJumping && animController.GetAnimation(4).GetAnimationDone()) {
 		animController.GetAnimation(4).Reset();
@@ -130,16 +144,6 @@ void Player::Update()
 		m_locked = false;
 	}
 
-	//oof
-	else if (animController.GetAnimation(12).GetAnimationDone()) {
-		animController.GetAnimation(12).Reset();
-		m_locked = false;
-	}
-	else if (animController.GetAnimation(13).GetAnimationDone()) {
-		animController.GetAnimation(13).Reset();
-		m_locked = false;
-	}
-
 	//Kick Logic
 	else if (animController.GetAnimation(3).GetAnimationDone()) {
 		animController.GetAnimation(3).Reset();
@@ -149,6 +153,8 @@ void Player::Update()
 		animController.GetAnimation(9).Reset();
 		m_locked = false;
 	}
+
+
 
 	//AnimationUpdate();
 }

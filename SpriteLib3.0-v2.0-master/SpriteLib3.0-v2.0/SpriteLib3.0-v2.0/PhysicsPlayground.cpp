@@ -2857,6 +2857,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 		ECS::AttachComponent<BossEnemy>(entity);
+		//ECS::AttachComponent<AnimationController>(entity);
 
 		//Sets up the components
 		std::string fileName = "BossEnemy.png";
@@ -3210,20 +3211,15 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 }
 
 float Player::Phealth = 100;
-float Player::initialPhealth = 100;
 float BossEnemy::Bhealth = 350;
 
 void PhysicsPlayground::Update()
 {
-	if (Player::Phealth <= 0)
+	if (Player::Phealth <= 9)
 	{
 		SetSceneChange(2);
 	}
-	// for Victory screen
-	/*if (BossEnemy::Bhealth <= 0)
-	{
-		SetSceneChange(2);
-	}*/
+
 
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();

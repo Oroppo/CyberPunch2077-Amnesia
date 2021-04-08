@@ -22,6 +22,8 @@ private:
 	float timer = 3;// used for fight state
 	float internalTimer = 0; // used for fight state
 
+	float tempPhealth=0;
+
 	Sprite* m_sprite = nullptr;
 	Transform* m_transform = nullptr;
 	PhysicsBody* m_physBody = nullptr;
