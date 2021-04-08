@@ -168,6 +168,8 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	// movement vector
 	vec3 move = vec3(0, 0, 0);
 	vec2 movement = vec2(0, 0);
+	vec3 PknockbackRight(800000000, 2000000000, 0);
+	vec3 PknockbackLeft(-800000000, 2000000000, 0);
 	// finding distance between player and enemy physics body
 	movement = vec2(ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().x - EnemyPhysicsBody->GetPosition().x,
 		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y - EnemyPhysicsBody->GetPosition().y);
@@ -194,6 +196,20 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	if (Player::Phealth <= 0)
 	{
 		TeleportPlayer();
+	}
+
+	if (Player::initialPhealth > Player::Phealth && LorR == 1)
+	{
+
+		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).ApplyForce(PknockbackRight);
+		Player::initialPhealth = Player::Phealth;
+	}
+	// knockback right
+	else if (Player::initialPhealth > Player::Phealth && LorR == 2)
+	{
+
+		ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).ApplyForce(PknockbackLeft);
+		Player::initialPhealth = Player::Phealth;
 	}
 
 }

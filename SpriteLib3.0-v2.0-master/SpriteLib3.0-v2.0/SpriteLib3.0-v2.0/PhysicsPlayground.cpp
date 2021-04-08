@@ -3210,6 +3210,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 }
 
 float Player::Phealth = 100;
+float Player::initialPhealth = 100;
 float BossEnemy::Bhealth = 350;
 
 void PhysicsPlayground::Update()

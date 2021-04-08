@@ -90,7 +90,7 @@ public:
 	float AttackTimer = 1.f;
 	static float Phealth;
 
-	float initialPhealth = 100;
+	static float initialPhealth;
 
 private:
 	int m_jumpTimer = 0;
