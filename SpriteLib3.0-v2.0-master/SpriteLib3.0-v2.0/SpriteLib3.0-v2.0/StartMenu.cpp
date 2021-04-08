@@ -370,7 +370,7 @@ void StartMenu::MenuUpdate() {
 		m_selection -= 1;
 	}
 
-	if (Input::GetKeyDown(Key::Enter)) {
+	if (Input::GetKeyDown(Key::Enter)||Input::GetKeyDown(Key::Escape)) {
 
 		switch ((m_selection % 3)) {
 

@@ -63,6 +63,15 @@
 	"Frame6":[820.0,1770.0,960.0,1625.0],
 	"NumFrames":7,
 	"Repeating":true,
+	"SecsPerFrame":0.10000000149011612},
+
+"OofRight":
+{
+	"Frame0":[136.0,2185.0,245.0,2030.0],
+	"Frame1":[273.0,2185.0,430.0,2030.0],
+	"Frame2":[460.0,2185.0,570.0,2030.0],
+	"NumFrames":3,
+	"Repeating":false,
 	"SecsPerFrame":0.10000000149011612
 
 },
@@ -136,6 +145,16 @@
 	"Frame6":[820.0,4187.0,960.0,4042.0],
 	"NumFrames":7,
 	"Repeating":true,
+	"SecsPerFrame":0.10000000149011612},
+
+"OofLeft":
+{
+	"Frame0":[136.0,4602.0,245.0,4447.0],
+	"Frame1":[273.0,4602.0,430.0,4447.0],
+	"Frame2":[460.0,4602.0,570.0,4447.0],
+	"NumFrames":3,
+	"Repeating":false,
 	"SecsPerFrame":0.10000000149011612}
+
 
 }

@@ -96,7 +96,6 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 
 void Player::Update()
 {
-	std::cout << Phealth << std::endl;
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 
 	//Jump Logic
@@ -125,23 +124,23 @@ void Player::Update()
 	else if (animController.GetAnimation(2).GetAnimationDone()) {
 		animController.GetAnimation(2).Reset();
 		m_locked = false;
-			}
+	}
 
 	else if (animController.GetAnimation(8).GetAnimationDone()) {
 		animController.GetAnimation(8).Reset();
 		m_locked = false;
-			}
+	}
 
 
 	//Kick Logic
-	else if (animController.GetAnimation(3).GetAnimationDone()) {
-		animController.GetAnimation(3).Reset();
+	else if (animController.GetAnimation(12).GetAnimationDone()) {
+		animController.GetAnimation(12).Reset();
 		m_locked = false;
 	}
-	else if (animController.GetAnimation(9).GetAnimationDone()) {
-		animController.GetAnimation(9).Reset();
+	else if (animController.GetAnimation(13).GetAnimationDone()) {
+		animController.GetAnimation(13).Reset();
 		m_locked = false;
-			}
+	}
 
 	//AnimationUpdate();
 }
@@ -288,10 +287,10 @@ void Player::MovementUpdate()
 			}
 			else if (Input::GetKey(Key::I)) {
 				if (m_facingRight) {
-					animController.SetActiveAnim(3);
+					animController.SetActiveAnim(12);
 				}
 				else {
-					animController.SetActiveAnim(9);
+					animController.SetActiveAnim(13);
 				}
 				m_locked = true;
 			}

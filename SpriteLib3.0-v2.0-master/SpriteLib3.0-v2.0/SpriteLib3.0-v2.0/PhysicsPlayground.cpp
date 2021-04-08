@@ -284,6 +284,10 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		animController.AddAnimation(animRight["JumpLeft"]);		//10
 		animController.AddAnimation(animRight["LandLeft"]);		//11
 
+		//oof
+		animController.AddAnimation(animRight["OofRight"]);		//12
+		animController.AddAnimation(animRight["OofLeft"]);		//13
+
 		
 
 		animController.SetActiveAnim(0);
@@ -3140,9 +3144,9 @@ std::cout << "This is Barrel " << entity << std::endl;
 
 //Sets up the components
 std::string fileName = "Barrel.png";
-ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
 ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
-ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
 }
 
 {
@@ -3157,7 +3161,7 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 
 	//Sets up the components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
 	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 }
@@ -3176,139 +3180,143 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 	std::string fileName = "Barrel.png";
 	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
 	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 }
 
-//Setup Powercell 1 
 {
-	//Creates entity
+
 	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
 
 	//Add components
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
-	ECS::AttachComponent<PhysicsBody>(entity);
 
-	//Sets up components
+	//Sets up the components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
-
-	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-	float shrinkX = 0.f;
-	float shrinkY = 0.f;
-	b2Body* tempBody;
-	b2BodyDef tempDef;
-	tempDef.type = b2_staticBody;
-	tempDef.position.Set(float32(1700.f), float32(60.f));
-
-	tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
-		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
-	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
 }
 
-//Setup Powercell 2
 {
-	//Creates entity
+
 	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
 
 	//Add components
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
-	ECS::AttachComponent<PhysicsBody>(entity);
 
-	//Sets up components
+	//Sets up the components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
-
-	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-	float shrinkX = 0.f;
-	float shrinkY = 0.f;
-	b2Body* tempBody;
-	b2BodyDef tempDef;
-	tempDef.type = b2_staticBody;
-	tempDef.position.Set(float32(4590.f), float32(230.f));
-
-	tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
-		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
-	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 }
 
-//Setup Powercell 3
 {
-	//Creates entity
+
 	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
 
 	//Add components
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
-	ECS::AttachComponent<PhysicsBody>(entity);
 
-	//Sets up components
+	//Sets up the components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
-
-	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
-
-	float shrinkX = 0.f;
-	float shrinkY = 0.f;
-	b2Body* tempBody;
-	b2BodyDef tempDef;
-	tempDef.type = b2_staticBody;
-	tempDef.position.Set(float32(5600.f), float32(850.f));
-
-	tempBody = m_physicsWorld->CreateBody(&tempDef);
-
-	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
-		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
-	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
 }
 
-//Setup Powercell 4
 {
-	//Creates entity
+
 	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
 
 	//Add components
 	ECS::AttachComponent<Sprite>(entity);
 	ECS::AttachComponent<Transform>(entity);
-	ECS::AttachComponent<PhysicsBody>(entity);
 
-	//Sets up components
+	//Sets up the components
 	std::string fileName = "Barrel.png";
-	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 15, 30);
-	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 3.f));
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
 
-	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+{
 
-	float shrinkX = 0.f;
-	float shrinkY = 0.f;
-	b2Body* tempBody;
-	b2BodyDef tempDef;
-	tempDef.type = b2_staticBody;
-	tempDef.position.Set(float32(7380.f), float32(620.f));
+	auto entity = ECS::CreateEntity();
 
-	tempBody = m_physicsWorld->CreateBody(&tempDef);
+	std::cout << "This is Barrel " << entity << std::endl;
 
-	tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX),
-		float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, PICKUP, GROUND | OBJECTS | HEXAGON);
-	tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
 
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 0, 0);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
+}
+
+{
+
+	auto entity = ECS::CreateEntity();
+
+	std::cout << "This is Barrel " << entity << std::endl;
+
+	//Add components
+	ECS::AttachComponent<Sprite>(entity);
+	ECS::AttachComponent<Transform>(entity);
+
+	//Sets up the components
+	std::string fileName = "Barrel.png";
+	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 10, 20);
+	ECS::GetComponent<Sprite>(entity).SetTransparency(1.f);
+	ECS::GetComponent<Transform>(entity).SetPosition(vec3(-400, -400, 100.f));
 }
 
 //Setup Health Pack
@@ -3388,44 +3396,37 @@ void PhysicsPlayground::Update()
 	ECS::GetComponent<Transform>(hud1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 95.f));
 	ECS::GetComponent<Transform>(hud0).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 94.f));
 
-	if (Input::GetKeyDown(Key::H)) {
-		SetSceneChange(2);
-
+	if (Player::Phealth<=0) {
+		SetSceneChange(3);
 	}
-	if (Player::Phealth < 20) {
 
+	if (Player::Phealth <= 20) {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud1).SetTransparency(1.f);
-
-		
-
 	}
-	else if (Player::Phealth < 40) {
+	else if (Player::Phealth <= 40) {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud2).SetTransparency(1.f);
 		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
-
 	}
-	else if (Player::Phealth < 60) {
+	else if (Player::Phealth <= 60) {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud4).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud3).SetTransparency(1.f);
 		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
-
 	}
-	else if (Player::Phealth < 80) {
+	else if (Player::Phealth <= 80) {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud4).SetTransparency(1.f);
 		ECS::GetComponent<Sprite>(hud3).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud2).SetTransparency(0.f);
 		ECS::GetComponent<Sprite>(hud1).SetTransparency(0.f);
-
 	}
 	else {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(1.f);
