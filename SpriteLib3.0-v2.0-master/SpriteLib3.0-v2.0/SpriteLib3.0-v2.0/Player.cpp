@@ -133,6 +133,16 @@ void Player::Update()
 
 
 	//Kick Logic
+	else if (animController.GetAnimation(3).GetAnimationDone()) {
+		animController.GetAnimation(3).Reset();
+		m_locked = false;
+	}
+	else if (animController.GetAnimation(9).GetAnimationDone()) {
+		animController.GetAnimation(9).Reset();
+		m_locked = false;
+	}
+
+	//OOF
 	else if (animController.GetAnimation(12).GetAnimationDone()) {
 		animController.GetAnimation(12).Reset();
 		m_locked = false;
@@ -260,7 +270,19 @@ void Player::MovementUpdate()
 	}
 		//Animation Code\\
 
-		if (!m_isJumping) {
+		if (Phealth < initialPhealth) {
+			if (m_facingRight) {
+				animController.SetActiveAnim(12);
+			}
+			else {
+				animController.SetActiveAnim(13);
+			}
+			m_locked = true;
+		}
+
+		else if (!m_isJumping) {
+
+
 			if (Input::GetKey(Key::Space)) {
 
 				if (m_facingRight) {
@@ -287,10 +309,10 @@ void Player::MovementUpdate()
 			}
 			else if (Input::GetKey(Key::I)) {
 				if (m_facingRight) {
-					animController.SetActiveAnim(12);
+					animController.SetActiveAnim(3);
 				}
 				else {
-					animController.SetActiveAnim(13);
+					animController.SetActiveAnim(9);
 				}
 				m_locked = true;
 			}
@@ -302,6 +324,7 @@ void Player::MovementUpdate()
 				animController.SetActiveAnim(1);
 				m_facingRight = true;
 			}
+
 			else {
 				if (m_facingRight) {
 					animController.SetActiveAnim(0);
@@ -310,8 +333,10 @@ void Player::MovementUpdate()
 					animController.SetActiveAnim(6);
 				}
 			}
+
 		}
-		//
+		initialPhealth = Phealth;
+		
 
 		if (Input::GetKey(Key::A))
 		{
