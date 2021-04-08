@@ -221,6 +221,23 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	float distanceBX = movementB.x;
 	float distanceBY = movementB.y;
 
+	//Reset Boss's position if moved by player
+	if (sheildOn != 0)
+	{
+		if (BossPhysicsBody->GetPosition().x <= 8740 || BossPhysicsBody->GetPosition().x >= 8760)
+		{
+			BossPhysicsBody->SetPosition(b2Vec2(8750.f, 650.f));
+			moveB = vec3(0, 0, 0);
+			BossPhysicsBody->SetVelocity(moveB);
+		}
+		if (BossPhysicsBody->GetPosition().y <= 640 || BossPhysicsBody->GetPosition().y >= 660)
+		{
+			BossPhysicsBody->SetPosition(b2Vec2(8750.f, 650.f));
+			moveB = vec3(0, 0, 0);
+			BossPhysicsBody->SetVelocity(moveB);
+		}
+	}
+
 	if (sheildOn == 0)
 	{
 		// player attack code
