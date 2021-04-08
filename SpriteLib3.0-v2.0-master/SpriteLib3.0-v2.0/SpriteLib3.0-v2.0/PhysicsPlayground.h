@@ -49,7 +49,7 @@ protected:
 	unsigned enemyEntity;
 	std::vector <unsigned int> EnemyEnts = {};
 	void SpawnBasicRobot(float32, float32, float);
-	void SpawnVent(float, float , float);
+	//void SpawnVent(float, float , float);
 	void EXPUROSION();
 	unsigned BossEntity;
 	std::vector <unsigned int> BossEnts = {};

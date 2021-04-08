@@ -106,7 +106,7 @@ void PhysicsPlayground::SpawnVent(float a, float b, float c) {
 	ECS::GetComponent<Transform>(entity).SetPosition(vec3(a, b, c));
 
 	animController.SetActiveAnim(0);
-}
+}*/
 
 void PhysicsPlayground::EXPUROSION() {
 	auto entity = ECS::CreateEntity();
@@ -2090,13 +2090,13 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		// ASSETS PLACED AROUND LEVEL 2
 
 		//Setup Vent 1 
-		SpawnVent(1310, -55, 3);
+	//	SpawnVent(1310, -55, 3);
 
 		//Setup Vent 2 
-		SpawnVent(2000, 48, 3);
+		//SpawnVent(2000, 48, 3);
 
 		//Setup Vent 3
-		SpawnVent(5600, 795, 3);
+		//SpawnVent(5600, 795, 3);
 
 		//Setup Down Arrow
 		{

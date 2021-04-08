@@ -121,18 +121,24 @@ void Player::Update()
 	//Slice Animation
 
 
-	else if (animController.GetAnimation(2).GetAnimationDone()) {
-		animController.GetAnimation(2).Reset();
+	else if (animController.GetAnimation(3).GetAnimationDone()) {
+		animController.GetAnimation(3).Reset();
+		m_locked = false;
+	}
+	else if (animController.GetAnimation(9).GetAnimationDone()) {
+		animController.GetAnimation(9).Reset();
 		m_locked = false;
 	}
 
-	else if (animController.GetAnimation(8).GetAnimationDone()) {
-		animController.GetAnimation(8).Reset();
+	else if (animController.GetAnimation(12).GetAnimationDone()) {
+		animController.GetAnimation(12).Reset();
+		m_locked = false;
+	}
+	else if (animController.GetAnimation(13).GetAnimationDone()) {
+		animController.GetAnimation(13).Reset();
 		m_locked = false;
 	}
 
-
-	//Kick Logic
 	else if (animController.GetAnimation(12).GetAnimationDone()) {
 		animController.GetAnimation(12).Reset();
 		m_locked = false;
@@ -302,6 +308,19 @@ void Player::MovementUpdate()
 				animController.SetActiveAnim(1);
 				m_facingRight = true;
 			}
+			else if (Phealth < initialPhealth)
+			{
+				if (m_facingRight) {
+					animController.SetActiveAnim(12);
+				}
+				else {
+					animController.SetActiveAnim(13);
+				}
+				initialPhealth = Phealth;
+			}
+
+
+
 			else {
 				if (m_facingRight) {
 					animController.SetActiveAnim(0);
