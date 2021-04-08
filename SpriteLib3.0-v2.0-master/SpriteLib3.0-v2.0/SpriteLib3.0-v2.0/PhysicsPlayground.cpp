@@ -323,11 +323,11 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempDef.type = b2_dynamicBody;
 
 		// uncomment to have player start at begining position
-		//tempDef.position.Set(float32(0.f), float32(30.f));
+		tempDef.position.Set(float32(0.f), float32(30.f));
 
 		// this will have player start at boss position
 		// Don't Change this position plz just uncomment the begining postion and comment this one out
-		tempDef.position.Set(float32(0.f), float32(30.f));
+		//tempDef.position.Set(float32(8200.f), float32(650.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		

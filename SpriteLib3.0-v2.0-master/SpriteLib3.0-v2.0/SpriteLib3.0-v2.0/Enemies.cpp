@@ -41,7 +41,7 @@ void Enemy::setEnemyHealth(float newHealth)
 
 void Enemy::resetTimer()
 {
-		timer = 5;
+		timer = 1.5;
 }
 
 void Enemy::internalTime(PhysicsBody* EnemyPhysicsBody)
@@ -115,7 +115,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 	EnemyPhysicsBody->SetVelocity(move);
 		if (LorR == 1)
 		{
-			if (distanceX >= -50)
+			if (distanceX >= -50 && distanceY < 40)
 			{
 				fight(EnemyPhysicsBody);
 			}
@@ -127,7 +127,7 @@ void Enemy::chase(float distanceX, float distanceY, PhysicsBody* EnemyPhysicsBod
 
 		if (LorR == 2)
 		{
-			if (distanceX <= 50)
+			if (distanceX <=  50 && distanceY < 40)
 			{
 				fight(EnemyPhysicsBody);
 			}
@@ -157,7 +157,7 @@ void Enemy::fight(PhysicsBody* EnemyPhysicsBody)
 				// decrease player's health here and play enemy attack animation and player taking damage animation
 				std::cout << "Timer hit 0 attack here" << std::endl;
 				Player::Phealth = Player::Phealth - Edamage;
-				timer = 3;
+				timer = 1.5;
 			}
 		}
 	}

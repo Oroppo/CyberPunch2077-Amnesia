@@ -222,7 +222,7 @@ void BossEnemy::BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned i
 	float distanceBY = movementB.y;
 
 	//Reset Boss's position if moved by player
-	if (sheildOn != 0)
+	if (sheildOn != 1 && BossPhysicsBody->GetPosition().y < 400)
 	{
 		if (BossPhysicsBody->GetPosition().x <= 8740 || BossPhysicsBody->GetPosition().x >= 8760)
 		{
