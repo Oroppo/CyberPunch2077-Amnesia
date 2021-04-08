@@ -25,6 +25,7 @@ private:
 	Transform* m_transform = nullptr;
 	PhysicsBody* m_physBody = nullptr;
 public:
+	static float Bhealth;
 	BossEnemy();
 	void InitBoss(std::string& fileName, int width, int height, Sprite* sprite, Transform* transform, PhysicsBody* body = nullptr);
 	void AttachBossBody(PhysicsBody* body);

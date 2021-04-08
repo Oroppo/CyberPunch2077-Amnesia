@@ -96,7 +96,7 @@ void Player::InitPlayer(std::string& fileName, std::string& animationJSON, int w
 
 void Player::Update()
 {
-	//std::cout << Phealth << std::endl;
+	std::cout << Phealth << std::endl;
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 
 	//Jump Logic

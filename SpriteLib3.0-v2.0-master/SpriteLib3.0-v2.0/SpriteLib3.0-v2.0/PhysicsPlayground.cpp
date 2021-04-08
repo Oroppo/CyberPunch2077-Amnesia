@@ -2875,7 +2875,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+		laserPointerT = entity;
 	}
 
 	//Setup Laser POINTER for boss on ground
@@ -2908,6 +2908,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
+		laserPointerG = entity;
 
 	}
 
@@ -2915,7 +2916,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-		//std::cout << "Trenches Beam is" << entity << std::endl;
+	//	std::cout << "Trenches Beam is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -2943,14 +2944,14 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+		laserBeamT = entity;
 	}
 
 	//Setup Laser BEAM for boss on ground
 	{
 		//Creates entity
 		auto entity = ECS::CreateEntity();
-		//std::cout << "Ground Beam is" << entity << std::endl;
+		std::cout << "Ground Beam is" << entity << std::endl;
 		//Add components
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -2976,7 +2977,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, ENEMY | OBJECTS);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
-
+		laserBeamG = entity;
 	}
 
 	//Setup Sheild for boss
@@ -3010,6 +3011,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody = PhysicsBody(entity, tempBody, float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY), vec2(0.f, 0.f), false, HEXAGON, OBJECTS);
 		tempPhsBody.SetColor(vec4(0.f, 1.f, 0.f, 0.3f));
 
+		Bsheild = entity;
 	}
 
 	/*//Ball
@@ -3342,10 +3344,19 @@ ECS::GetComponent<Transform>(entity).SetPosition(vec3(0, 0, 100.f));
 }
 
 float Player::Phealth = 100;
+float BossEnemy::Bhealth = 350;
 
 void PhysicsPlayground::Update()
 {
-
+	if (Player::Phealth <= 0)
+	{
+		SetSceneChange(2);
+	}
+	// for Victory screen
+	/*if (BossEnemy::Bhealth <= 0)
+	{
+		SetSceneChange(2);
+	}*/
 
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();
