@@ -171,10 +171,13 @@ void Player::MovementUpdate()
 	//std::cout << spotJumped <<" " << std::boolalpha << dashCorrection<<"\n" ;
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
 	//std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
-
 	//jump function
+	if ((player.GetBody()->GetLinearVelocity().y > 3) || (player.GetBody()->GetLinearVelocity().y<-3)) {
+		canJump.m_canJump = false;
+	}
 	if (canJump.m_canJump == true)
 	{
+		jumpGrav = 0;
 		if (impactAvailable == true) {
 			impactX = xdiff;
 			impactY = jumpGrav;
