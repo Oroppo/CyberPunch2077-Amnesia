@@ -155,12 +155,8 @@ void Player::MovementUpdate()
 	b2Vec2 vel = b2Vec2(0.f, 0.f);
 	//std::cout << std::boolalpha << canJump.m_canJump << "\n";
 	//std::cout << player.GetBody()->GetLinearVelocity().y<<"   ";
-	std::cout << spotJumped <<" " << std::boolalpha << dashCorrection<<"\n" ;
-
-	
-
+	//std::cout << spotJumped <<" " << std::boolalpha << dashCorrection<<"\n" ;
 	// @Ryan i commented out ur true/false cout just uncomment to get them back
-
 	//std::cout << " available: " << std::boolalpha << impactAvailable << " Y: " << impactY << " X: " << impactX << "\n";
 
 	//jump function
@@ -347,7 +343,26 @@ void Player::MovementUpdate()
 float Player::PlayerAttack(COORD Position)
 {
 	if (Input::GetKeyDown(Key::O))
-	{ 
+	{
+		if ((Position.Y < 50.0) && (Position.Y > -50.0)) {
+			if ((Position.X < 50.0) && (Position.X > 0.0)) {
+				return Pdamage;
+			}
+			else if (Position.X > 50.0) {
+				return 0;
+			}
+			if ((Position.X > -50.0) && (Position.X < 0.0)) {
+				return Pdamage;
+			}
+			else if (Position.X < -50.0) {
+				return 0;
+			}
+		}
+	}
+
+	if (Input::GetKeyDown(Key::I))
+	{
+		if ((Position.Y < 50.0) && (Position.Y > -50.0)) {
 			if ((Position.X < 70.0) && (Position.X > 0.0)) {
 				return Pdamage;
 			}
@@ -360,21 +375,6 @@ float Player::PlayerAttack(COORD Position)
 			else if (Position.X < -70.0) {
 				return 0;
 			}
-	}
-
-	if (Input::GetKeyDown(Key::I))
-	{	
-		if ((Position.X < 70.0) && (Position.X > 0.0)) {
-			return Pdamage;
-		}
-		else if (Position.X > 70.0) {
-			return 0;
-		}
-		if ((Position.X > -70.0) && (Position.X < 0.0)) {
-			return Pdamage;
-		}
-		else if (Position.X < -70.0) {
-			return 0;
 		}
 	}
 }
