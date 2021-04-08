@@ -130,6 +130,7 @@ void Player::Update()
 		m_locked = false;
 	}
 
+	//oof
 	else if (animController.GetAnimation(12).GetAnimationDone()) {
 		animController.GetAnimation(12).Reset();
 		m_locked = false;
@@ -146,17 +147,6 @@ void Player::Update()
 	}
 	else if (animController.GetAnimation(9).GetAnimationDone()) {
 		animController.GetAnimation(9).Reset();
-	}
-		m_locked = false;
-	//OOF
-
-
-	else if (animController.GetAnimation(12).GetAnimationDone()) {
-		animController.GetAnimation(12).Reset();
-		m_locked = false;
-	}
-	else if (animController.GetAnimation(13).GetAnimationDone()) {
-		animController.GetAnimation(13).Reset();
 		m_locked = false;
 	}
 

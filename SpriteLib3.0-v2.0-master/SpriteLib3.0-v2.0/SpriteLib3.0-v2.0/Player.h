@@ -89,12 +89,9 @@ public:
 	float PlayerAttack(COORD);
 	float AttackTimer = 1.f;
 	static float Phealth;
-<<<<<<< HEAD
-	float initialPhealth = Phealth;
-=======
+
 	float initialPhealth = 100;
 
->>>>>>> main
 private:
 	int m_jumpTimer = 0;
 	bool dash = false;
