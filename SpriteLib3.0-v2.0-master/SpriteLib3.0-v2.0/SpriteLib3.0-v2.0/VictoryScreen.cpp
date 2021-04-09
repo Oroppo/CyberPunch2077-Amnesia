@@ -177,6 +177,18 @@ void VictoryScreen::InitScene(float windowWidth, float windowHeight)
 
 void VictoryScreen::Update()
 {
+	if (Input::GetKeyDown(Key::One)) {
+		SetSceneChange(1);
+	}
+	if (Input::GetKeyDown(Key::Two)) {
+		SetSceneChange(2);
+	}
+	if (Input::GetKeyDown(Key::Three)) {
+		SetSceneChange(3);
+	}
+	if (Input::GetKeyDown(Key::Four)) {
+		SetSceneChange(0);
+	}
 	if (Input::GetKeyDown(Key::Enter) || Input::GetKeyDown(Key::Escape)) {
 		exit(0);
 	}

@@ -339,6 +339,18 @@ void StartMenu::InitScene(float windowWidth, float windowHeight)
 
 void StartMenu::Update()
 {
+	if (Input::GetKeyDown(Key::One)) {
+		SetSceneChange(1);
+	}
+	if (Input::GetKeyDown(Key::Two)) {
+		SetSceneChange(2);
+	}
+	if (Input::GetKeyDown(Key::Three)) {
+		SetSceneChange(3);
+	}
+	if (Input::GetKeyDown(Key::Four)) {
+		SetSceneChange(0);
+	}
 	auto& instructions = ECS::GetComponent<Sprite>(m_infographic);
 	auto& Enter = ECS::GetComponent<Sprite>(m_enterID);
 

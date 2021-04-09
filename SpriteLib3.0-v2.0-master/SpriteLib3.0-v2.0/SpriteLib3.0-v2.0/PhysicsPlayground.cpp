@@ -332,7 +332,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		
 		// square phys body
-		tempPhsBody = PhysicsBody(entity, tempBody, float(30 - shrinkX), float(50 - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 5.f, 3.f);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(30 - shrinkX), float(50 - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 1.f, 3.f);
 		// Circle phys body
 		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY)/2.f), vec2(0.f, 0.f), false, PLAYER, ENVIRONMENT | ENEMY | OBJECTS | PICKUP | TRIGGER | HEXAGON, 0.5f, 3.f);
 		//std::vector<b2Vec2> points = {b2Vec2(-tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(0.f, tempSpr.GetHeight()/2.f)};
@@ -3313,6 +3313,18 @@ float BossEnemy::Bhealth = 350;
 
 void PhysicsPlayground::Update()
 {
+	if (Input::GetKeyDown(Key::One)) {
+		SetSceneChange(1);
+	}
+	if (Input::GetKeyDown(Key::Two)) {
+		SetSceneChange(2);
+	}
+	if (Input::GetKeyDown(Key::Three)) {
+		SetSceneChange(3);
+	}
+	if (Input::GetKeyDown(Key::Four)) {
+		SetSceneChange(0);
+	}
 	std::cout << ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y << std::endl;
 	// Change scene to end screen
 	if (Player::Phealth <= 0)
@@ -3333,6 +3345,7 @@ void PhysicsPlayground::Update()
 	
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();
+
 	ECS::GetComponent<Player>(MainEntities::MainPlayer()).AttachBody(&ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()));
 	// Part of Enemy Code
 	Shared call;
