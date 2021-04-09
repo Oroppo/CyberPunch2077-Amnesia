@@ -51,5 +51,5 @@ public:
 	}
 
 	void enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int>* eEnts, int Eentity);
-	void TeleportPlayer();
+	//void TeleportPlayer();
 };

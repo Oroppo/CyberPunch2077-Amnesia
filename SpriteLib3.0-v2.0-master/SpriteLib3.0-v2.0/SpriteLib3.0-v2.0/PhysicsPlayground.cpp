@@ -323,16 +323,16 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempDef.type = b2_dynamicBody;
 
 		// uncomment to have player start at begining position
-		tempDef.position.Set(float32(0.f), float32(30.f));
+		//tempDef.position.Set(float32(0.f), float32(30.f));
 
 		// this will have player start at boss position
 		// Don't Change this position plz just uncomment the begining postion and comment this one out
-		//tempDef.position.Set(float32(8200.f), float32(650.f));
+		tempDef.position.Set(float32(8200.f), float32(650.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 		
 		// square phys body
-		tempPhsBody = PhysicsBody(entity, tempBody, float(30 - shrinkX), float(50 - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 2.f, 3.f);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(30 - shrinkX), float(50 - shrinkY), vec2(0.f, 0.f), false, PLAYER, ENEMY | GROUND| OBJECTS | PICKUP | TRIGGER, 5.f, 3.f);
 		// Circle phys body
 		//tempPhsBody = PhysicsBody(entity, tempBody, float((tempSpr.GetHeight() - shrinkY)/2.f), vec2(0.f, 0.f), false, PLAYER, ENVIRONMENT | ENEMY | OBJECTS | PICKUP | TRIGGER | HEXAGON, 0.5f, 3.f);
 		//std::vector<b2Vec2> points = {b2Vec2(-tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(tempSpr.GetWidth()/2.f, -tempSpr.GetHeight()/2.f), b2Vec2(0.f, tempSpr.GetHeight()/2.f)};
@@ -2913,7 +2913,7 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 	// Basic Enemy #14
 	SpawnBasicRobot(float32(7420.f), float32(580.f), 3.f);
 
-	/*
+	
 	// PLZ DO NOT MOVE the location of the boss entity and his laser beams in physicsplayground they use entity register numbers
 	// Boss Enemy
 	{
@@ -2959,9 +2959,9 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 
 		this->BossEnts.push_back(entity);
-	}*/
+	}
 
-	{
+	/*{
 
 		//loading File... 
 		auto animRight = File::LoadJSON("Boss.json");
@@ -3024,7 +3024,8 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f));
 		tempPhsBody.SetGravityScale(0.f);
 
-	}
+	}*/
+
 	//Setup Laser POINTER for boss in trenches
 	{
 		//Creates entity
@@ -3260,11 +3261,11 @@ void PhysicsPlayground::InitScene(float windowWidth, float windowHeight)
 		b2Body* tempBody;
 		b2BodyDef tempDef;
 		tempDef.type = b2_staticBody;
-		tempDef.position.Set(float32(4000.f), float32(-190.f));
+		tempDef.position.Set(float32(4000.f), float32(-800.f));
 
 		tempBody = m_physicsWorld->CreateBody(&tempDef);
 
-		tempPhsBody = PhysicsBody(entity, tempBody, float(10000.f - shrinkX), float(100.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER);
+		tempPhsBody = PhysicsBody(entity, tempBody, float(10000.f - shrinkX), float(1000.f - shrinkY), vec2(0.f, 0.f), true, TRIGGER, PLAYER);
 		tempPhsBody.SetColor(vec4(1.f, 0.f, 0.f, 0.3f));
 	}
 
@@ -3312,12 +3313,24 @@ float BossEnemy::Bhealth = 350;
 
 void PhysicsPlayground::Update()
 {
-	if (Player::Phealth <= 9)
+	std::cout << ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y << std::endl;
+	// Change scene to end screen
+	if (Player::Phealth <= 0)
 	{
+		Player::Phealth = 100;
 		SetSceneChange(2);
 	}
 
+	if (BossEnemy::Bhealth <= 0)
+	{
+		SetSceneChange(3);
+	}
 
+	if (ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).GetPosition().y < -600)
+	{
+		SetSceneChange(2);
+	}
+	
 	auto& player = ECS::GetComponent<Player>(MainEntities::MainPlayer());
 	player.Update();
 	ECS::GetComponent<Player>(MainEntities::MainPlayer()).AttachBody(&ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()));
@@ -3342,10 +3355,6 @@ void PhysicsPlayground::Update()
 	ECS::GetComponent<Transform>(hud2).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 96.f));
 	ECS::GetComponent<Transform>(hud1).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 95.f));
 	ECS::GetComponent<Transform>(hud0).SetPosition(vec3(ECS::GetComponent<Camera>(0).GetPositionX() + 17, ECS::GetComponent<Camera>(0).GetPositionY() - 10, 94.f));
-
-	if (Player::Phealth<=0) {
-		SetSceneChange(3);
-	}
 
 	if (Player::Phealth <= 20) {
 		ECS::GetComponent<Sprite>(hud5).SetTransparency(0.f);

@@ -162,6 +162,7 @@ void Player::Update()
 
 void Player::MovementUpdate()
 {
+
 	auto& animController = ECS::GetComponent<AnimationController>(3);
 	auto& player = ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer());
 	auto& canJump = ECS::GetComponent<CanJump>(MainEntities::MainPlayer());
@@ -362,10 +363,10 @@ void Player::MovementUpdate()
 
 		}
 
-		if (Input::GetKeyDown(Key::T))
+		/*if (Input::GetKeyDown(Key::T))
 		{
 			PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
-		}
+		}*/
 		
 	
 }

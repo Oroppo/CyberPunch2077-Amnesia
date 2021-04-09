@@ -45,6 +45,6 @@ public:
 	}
 	float BossAttack();
 	void BossUpdate(PhysicsBody* BossPhysicsBody, std::vector <unsigned int>* BEnts, int Bentity);
-	void TeleportPlayer();
+	//void TeleportPlayer();
 };
 

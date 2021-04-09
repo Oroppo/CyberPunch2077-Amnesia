@@ -193,10 +193,10 @@ void Enemy::enemyUpdate(PhysicsBody* EnemyPhysicsBody, std::vector <unsigned int
 	{
 		destroyEnemy(eEnts, Eentity);
 	}
-	if (Player::Phealth <= 0)
+	/*if (Player::Phealth <= 0)
 	{
 		TeleportPlayer();
-	}
+	}*/
 
 	if (tempPhealth > Player::Phealth && LorR == 1)
 	{
@@ -217,11 +217,11 @@ void Enemy::AttachBody(PhysicsBody* body)
 	m_physBody = body;
 }
 
-void Enemy::TeleportPlayer()
+/*void Enemy::TeleportPlayer()
 {
 	ECS::GetComponent<PhysicsBody>(MainEntities::MainPlayer()).SetPosition(b2Vec2(0.f, 30.f));
 	Player::Phealth = 100;
-}
+}*/
 
 
 	

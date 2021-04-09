@@ -88,7 +88,7 @@ void EndGame::InitScene(float windowWidth, float windowHeight)
 		tempSpr.SetTransparency(1.f);
 	}
 
-	{
+	/*{
 		//loading File... 
 		auto animations = File::LoadJSON("Victory!.json");
 
@@ -134,20 +134,22 @@ void EndGame::InitScene(float windowWidth, float windowHeight)
 		tempPhsBody.SetFixedRotation(true);
 		//tempPhsBody.SetColor(vec4(1.f, 0.f, 1.f, 0.3f)); 
 		tempPhsBody.SetGravityScale(0.f);
-	}
+	}*/
 	ECS::GetComponent<HorizontalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 	ECS::GetComponent<VerticalScroll>(MainEntities::MainCamera()).SetFocus(&ECS::GetComponent<Transform>(MainEntities::MainPlayer()));
 }
 
 void EndGame::Update()
 {
-
-
-
 	MenuUpdate();
 
-	if (Input::GetKeyDown(Key::Enter)) {
-
+	if (Input::GetKeyDown(Key::Enter))
+	{
+		SetSceneChange(0);
+	}
+	if (Input::GetKeyDown(Key::Escape))
+	{
+		SetSceneChange(0);
 	}
 
 
